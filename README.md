@@ -4,7 +4,7 @@
 A free, community-driven game development platform powered by the Proton scripting language.
 
 🌐 Website: https://protonlanguage.github.io
-📥 Download: Coming soon
+📥 Download: https://github.com/ProtonLanguage/Proton
 
 
 If you are wondering what should you touch?
