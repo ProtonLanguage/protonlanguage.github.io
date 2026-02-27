@@ -1,1 +1,834 @@
 # protonlanguage.github.io
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Proton# — Create. Share. Play.</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #2a2a2a;
+      --bg-dark: #1a1a1a;
+      --bg-card: #333333;
+      --orange: #FF6B00;
+      --orange-light: #FF8C00;
+      --white: #ffffff;
+      --gray-text: #bbbbbb;
+      --border: #444444;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'Syne', sans-serif;
+      min-height: 100vh;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--bg-dark);
+      border-bottom: 2px solid var(--orange);
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--white);
+      cursor: pointer;
+    }
+
+    .logo span { color: var(--orange); }
+
+    nav { display: flex; gap: 8px; }
+
+    nav button {
+      background: none;
+      border: none;
+      color: var(--gray-text);
+      font-family: 'Syne', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    nav button:hover, nav button.active {
+      color: var(--white);
+      background: rgba(255,107,0,0.15);
+    }
+
+    nav button.active { color: var(--orange); }
+
+    /* ── PAGES ── */
+    .page { display: none; animation: fadeIn 0.3s ease; }
+    .page.active { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 88vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 60px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(255,107,0,0.08) 0%, transparent 70%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      background: rgba(255,107,0,0.15);
+      border: 1px solid rgba(255,107,0,0.4);
+      color: var(--orange);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      padding: 6px 16px;
+      border-radius: 20px;
+      margin-bottom: 28px;
+      letter-spacing: 0.05em;
+    }
+
+    .hero h1 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 .bracket { color: var(--orange); }
+
+    .hero .tagline {
+      font-size: 1.4rem;
+      color: var(--gray-text);
+      margin-bottom: 16px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+    }
+
+    .hero .tagline span { color: var(--orange); }
+
+    .hero p {
+      max-width: 560px;
+      color: var(--gray-text);
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-bottom: 40px;
+    }
+
+    .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+
+    .btn-primary {
+      background: var(--orange);
+      color: var(--white);
+      border: none;
+      padding: 14px 32px;
+      border-radius: 8px;
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-primary:hover { background: var(--orange-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,107,0,0.3); }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--white);
+      border: 2px solid var(--border);
+      padding: 14px 32px;
+      border-radius: 8px;
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-secondary:hover { border-color: var(--orange); color: var(--orange); transform: translateY(-2px); }
+
+    /* ── DIVIDER ── */
+    hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0 40px;
+    }
+
+    /* ── SECTION ── */
+    section {
+      padding: 80px 40px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    section h2 {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    section h2 span { color: var(--orange); }
+
+    .section-sub {
+      color: var(--gray-text);
+      margin-bottom: 48px;
+      font-size: 1rem;
+    }
+
+    /* ── FEATURE CARDS ── */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+      transition: all 0.2s;
+    }
+
+    .card:hover { border-color: var(--orange); transform: translateY(-4px); }
+
+    .card-icon { font-size: 2rem; margin-bottom: 16px; }
+
+    .card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--orange);
+    }
+
+    .card p { color: var(--gray-text); font-size: 0.9rem; line-height: 1.6; }
+
+    /* ── BETA BANNER ── */
+    .beta-banner {
+      background: rgba(255,107,0,0.08);
+      border: 1px solid rgba(255,107,0,0.3);
+      border-radius: 12px;
+      padding: 28px 32px;
+      margin: 0 40px 60px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .beta-banner .icon { font-size: 1.5rem; margin-top: 2px; }
+
+    .beta-banner h3 { color: var(--orange); margin-bottom: 6px; font-size: 1rem; }
+
+    .beta-banner p { color: var(--gray-text); font-size: 0.9rem; line-height: 1.6; }
+
+    /* ── DOWNLOAD PAGE ── */
+    .download-hero {
+      text-align: center;
+      padding: 80px 40px 40px;
+    }
+
+    .download-hero h1 { font-size: 3rem; font-weight: 800; margin-bottom: 12px; }
+    .download-hero h1 span { color: var(--orange); }
+    .download-hero p { color: var(--gray-text); font-size: 1.1rem; }
+
+    .download-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 40px;
+      max-width: 600px;
+      margin: 0 auto 40px;
+    }
+
+    .version-badge {
+      display: inline-block;
+      background: rgba(255,107,0,0.15);
+      border: 1px solid rgba(255,107,0,0.4);
+      color: var(--orange);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+    }
+
+    .download-card h2 { font-size: 1.5rem; margin-bottom: 8px; }
+    .download-card p { color: var(--gray-text); font-size: 0.9rem; margin-bottom: 24px; }
+
+    .checkbox-group { margin-bottom: 24px; display: flex; flex-direction: column; gap: 12px; }
+
+    .checkbox-group label {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      color: var(--gray-text);
+      font-size: 0.9rem;
+      cursor: pointer;
+      line-height: 1.5;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+      width: 18px; height: 18px;
+      accent-color: var(--orange);
+      margin-top: 2px;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+
+    .checkbox-group a { color: var(--orange); text-decoration: none; }
+    .checkbox-group a:hover { text-decoration: underline; }
+
+    .btn-download {
+      width: 100%;
+      background: var(--orange);
+      color: var(--white);
+      border: none;
+      padding: 16px;
+      border-radius: 8px;
+      font-family: 'Syne', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    .btn-download.enabled {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .btn-download.enabled:hover { background: var(--orange-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,107,0,0.3); }
+
+    .patch-notes {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 0 40px 80px;
+    }
+
+    .patch-notes h3 { font-size: 1.2rem; margin-bottom: 16px; color: var(--orange); }
+
+    .patch-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      color: var(--gray-text);
+      font-size: 0.9rem;
+    }
+
+    .patch-item::before { content: '→'; color: var(--orange); flex-shrink: 0; }
+
+    /* ── TEAM PAGE ── */
+    .team-hero {
+      text-align: center;
+      padding: 80px 40px 40px;
+    }
+
+    .team-hero h1 { font-size: 3rem; font-weight: 800; margin-bottom: 12px; }
+    .team-hero h1 span { color: var(--orange); }
+    .team-hero p { color: var(--gray-text); }
+
+    .team-section { max-width: 1100px; margin: 0 auto; padding: 40px 40px; }
+    .team-section h2 { font-size: 1.3rem; font-weight: 700; margin-bottom: 24px; color: var(--orange); letter-spacing: 0.05em; text-transform: uppercase; }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 48px;
+    }
+
+    .team-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      transition: all 0.2s;
+    }
+
+    .team-card:hover { border-color: var(--orange); }
+    .team-card.founder { border-color: rgba(255,107,0,0.5); }
+
+    .team-card .crown { font-size: 1.5rem; margin-bottom: 12px; }
+
+    .team-card h3 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+      color: var(--white);
+    }
+
+    .team-card .role { color: var(--orange); font-size: 0.8rem; font-weight: 600; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .team-card p { color: var(--gray-text); font-size: 0.85rem; line-height: 1.5; }
+
+    .join-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 48px;
+      text-align: center;
+      margin: 0 40px 80px;
+      max-width: 1020px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .join-box h2 { font-size: 1.8rem; margin-bottom: 12px; }
+    .join-box h2 span { color: var(--orange); }
+    .join-box p { color: var(--gray-text); margin-bottom: 28px; max-width: 500px; margin-left: auto; margin-right: auto; line-height: 1.7; }
+    .join-box .buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+    /* ── LEGAL PAGE ── */
+    .legal-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 60px 40px 80px;
+    }
+
+    .legal-content h1 { font-size: 2.5rem; margin-bottom: 8px; }
+    .legal-content h1 span { color: var(--orange); }
+    .legal-content .updated { color: var(--gray-text); font-size: 0.85rem; margin-bottom: 48px; font-family: 'JetBrains Mono', monospace; }
+
+    .legal-section { margin-bottom: 48px; }
+    .legal-section h2 { font-size: 1.4rem; color: var(--orange); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+    .legal-section h3 { font-size: 1.1rem; margin: 24px 0 10px; }
+    .legal-section p { color: var(--gray-text); line-height: 1.8; margin-bottom: 12px; font-size: 0.95rem; }
+
+    /* ── SOCIALS PAGE ── */
+    .socials-hero {
+      text-align: center;
+      padding: 80px 40px 40px;
+    }
+
+    .socials-hero h1 { font-size: 3rem; font-weight: 800; margin-bottom: 12px; }
+    .socials-hero h1 span { color: var(--orange); }
+    .socials-hero p { color: var(--gray-text); }
+
+    .socials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      max-width: 1100px;
+      margin: 40px auto 80px;
+      padding: 0 40px;
+    }
+
+    .social-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px;
+      text-align: center;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .social-card:hover { border-color: var(--orange); transform: translateY(-4px); }
+    .social-card .s-icon { font-size: 2.5rem; margin-bottom: 16px; }
+    .social-card h3 { font-size: 1.1rem; margin-bottom: 8px; }
+    .social-card p { color: var(--gray-text); font-size: 0.9rem; line-height: 1.6; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--bg-dark);
+      border-top: 1px solid var(--border);
+      padding: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    footer .logo { font-size: 1rem; }
+
+    footer p {
+      color: var(--gray-text);
+      font-size: 0.8rem;
+    }
+
+    footer .footer-links { display: flex; gap: 20px; }
+
+    footer .footer-links button {
+      background: none;
+      border: none;
+      color: var(--gray-text);
+      font-family: 'Syne', sans-serif;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    footer .footer-links button:hover { color: var(--orange); }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-dark); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--orange); }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo" onclick="showPage('home')"><span>&lt;/&gt;</span> Proton#</div>
+    <nav>
+      <button onclick="showPage('home')" id="nav-home" class="active">Home</button>
+      <button onclick="showPage('download')" id="nav-download">Download</button>
+      <button onclick="showPage('team')" id="nav-team">Team</button>
+      <button onclick="showPage('socials')" id="nav-socials">Socials</button>
+      <button onclick="showPage('legal')" id="nav-legal">Legal</button>
+    </nav>
+  </header>
+
+  <!-- ══════════════ HOME PAGE ══════════════ -->
+  <div class="page active" id="page-home">
+
+    <div class="hero">
+      <div class="hero-badge">⚡ Early Beta — v0.1.0</div>
+      <h1><span class="bracket">&lt;/&gt;</span> Proton<span class="bracket">#</span></h1>
+      <div class="tagline"><span>Create.</span> Share. <span>Play.</span></div>
+      <p>The game development platform built for everyone. Build 2D games, share them with the world, and play creations made by the community — all powered by the Proton scripting language.</p>
+      <div class="hero-buttons">
+        <button class="btn-primary" onclick="showPage('download')">⬇ Download Beta</button>
+        <button class="btn-secondary" onclick="showPage('socials')">Our GitHub</button>
+      </div>
+    </div>
+
+    <hr/>
+
+    <section>
+      <h2>What is <span>Proton#?</span></h2>
+      <p class="section-sub">A free, community-driven game development platform powered by the Proton scripting language.</p>
+      <div class="cards">
+        <div class="card">
+          <div class="card-icon">🎮</div>
+          <h3>Create</h3>
+          <p>Build 2D games using the Proton# Studio editor and the .pros scripting language. No experience needed.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🌍</div>
+          <h3>Share</h3>
+          <p>Publish your games for the whole community to discover. One click and your creation is live.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">▶️</div>
+          <h3>Play</h3>
+          <p>Explore and play games made by other creators in the growing Proton# community.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🤖</div>
+          <h3>AI Assisted</h3>
+          <p>Built-in AI assistant to help you write .pros scripts, debug errors, and answer your questions.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr/>
+
+    <section>
+      <h2>Why <span>Proton?</span></h2>
+      <p class="section-sub">One language, multiple backends. Proton handles the complexity so you don't have to.</p>
+      <div class="cards">
+        <div class="card">
+          <div class="card-icon">⚡</div>
+          <h3>Simple Syntax</h3>
+          <p>Use semicolons to chain commands on one line. Clean, readable, and easy to learn for beginners.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🔧</div>
+          <h3>Powerful Backstage</h3>
+          <p>Proton routes your code to Python, Lua, and C# under the hood — automatically.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">💾</div>
+          <h3>Built-in Datastores</h3>
+          <p>Save and load game data with ease using Proton's Lua-powered datastore system.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr/>
+
+    <div class="beta-banner">
+      <div class="icon">⚠️</div>
+      <div>
+        <h3>Beta Notice</h3>
+        <p>Proton# is currently in early beta. Features may be incomplete and bugs are expected. By downloading and using Proton# you agree to our <a href="#" onclick="showPage('legal')" style="color:var(--orange)">Beta Terms of Service</a>. Thank you for helping us test and improve the platform!</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══════════════ DOWNLOAD PAGE ══════════════ -->
+  <div class="page" id="page-download">
+
+    <div class="download-hero">
+      <h1>Download <span>Proton#</span></h1>
+      <p>Start creating today. It's completely free.</p>
+    </div>
+
+    <div style="max-width:600px;margin:0 auto;padding:0 40px 24px;">
+      <div class="beta-banner" style="margin:0 0 32px;">
+        <div class="icon">⚠️</div>
+        <div>
+          <h3>Beta Version</h3>
+          <p>This is an early beta release. Expect bugs and incomplete features. Previous beta versions are not kept — always download the latest version.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="download-card" style="margin:0 auto 32px;">
+      <div class="version-badge">v0.1.0-beta</div>
+      <h2>Proton# Studio</h2>
+      <p>Latest beta release — Windows — Released 2025</p>
+
+      <div class="checkbox-group">
+        <label>
+          <input type="checkbox" id="check1" onchange="updateDownloadBtn()"/>
+          I am 13 years of age or older, or I have permission from a parent or guardian to download Proton#.
+        </label>
+        <label>
+          <input type="checkbox" id="check2" onchange="updateDownloadBtn()"/>
+          I have read and agree to the <a href="#" onclick="showPage('legal')">Terms of Service</a> and <a href="#" onclick="showPage('legal')">Software License</a>.
+        </label>
+      </div>
+
+      <button class="btn-download" id="downloadBtn" onclick="startDownload()">
+        ⬇ Download Proton# v0.1.0-beta
+      </button>
+    </div>
+
+    <div class="patch-notes">
+      <h3>📋 What's new in v0.1.0-beta</h3>
+      <div class="patch-item">Initial beta release</div>
+      <div class="patch-item">Basic Proton# Studio editor</div>
+      <div class="patch-item">2D game support</div>
+      <div class="patch-item">.pros scripting support</div>
+      <div class="patch-item">Built-in AI assistant (powered by Claude)</div>
+      <p style="color:var(--gray-text);font-size:0.8rem;margin-top:16px;">By downloading Proton# you agree to use it responsibly. Proton# is not liable for any damages caused by beta software.</p>
+    </div>
+
+  </div>
+
+  <!-- ══════════════ TEAM PAGE ══════════════ -->
+  <div class="page" id="page-team">
+
+    <div class="team-hero">
+      <h1>The <span>Team</span></h1>
+      <p style="color:var(--gray-text);">The people building Proton# from the ground up.</p>
+    </div>
+
+    <div class="team-section">
+      <h2>👑 Founder & Lead Developer</h2>
+      <div class="team-grid">
+        <div class="team-card founder">
+          <div class="crown">👑</div>
+          <h3>[Your Username]</h3>
+          <div class="role">Founder & Lead Dev</div>
+          <p>Founder of Proton# and lead developer. Manages the project vision, Lua datastores, and overall direction of the platform.</p>
+        </div>
+      </div>
+
+      <h2>🔧 Core Development Team</h2>
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="crown">💻</div>
+          <h3>[Username]</h3>
+          <div class="role">C# Developer</div>
+          <p>Builds and maintains the Proton# Studio editor.</p>
+        </div>
+        <div class="team-card">
+          <div class="crown">🐍</div>
+          <h3>[Username]</h3>
+          <div class="role">Python Developer</div>
+          <p>Works on the Proton language interpreter and core logic.</p>
+        </div>
+        <div class="team-card">
+          <div class="crown">🎨</div>
+          <h3>[Username]</h3>
+          <div class="role">UI/UX Designer</div>
+          <p>Designs the look and feel of Proton# Studio and the website.</p>
+        </div>
+        <div class="team-card">
+          <div class="crown">✏️</div>
+          <h3>[Username]</h3>
+          <div class="role">Graphics Designer</div>
+          <p>Creates logos, banners, and visual assets for the platform.</p>
+        </div>
+      </div>
+
+      <h2>🌍 Community Team</h2>
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="crown">🌐</div>
+          <h3>[Username]</h3>
+          <div class="role">Website Manager</div>
+          <p>Keeps the Proton# website up to date.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="join-box">
+      <h2>Want to <span>join the team?</span></h2>
+      <p>We're always looking for passionate people to help build Proton#. All positions are volunteer based and open to everyone. No experience required but always appreciated! A resume is not required but recommended.</p>
+      <div class="buttons">
+        <button class="btn-primary">📋 Apply Now</button>
+        <button class="btn-secondary" onclick="showPage('socials')">Our GitHub</button>
+      </div>
+      <p style="color:var(--gray-text);font-size:0.8rem;margin-top:24px;margin-bottom:0;">Proton# is a volunteer passion project. All team members contribute in their own time. We appreciate every single one of them.</p>
+    </div>
+
+  </div>
+
+  <!-- ══════════════ SOCIALS PAGE ══════════════ -->
+  <div class="page" id="page-socials">
+
+    <div class="socials-hero">
+      <h1>Find us <span>Online</span></h1>
+      <p style="color:var(--gray-text);">Join the Proton# community across all platforms.</p>
+    </div>
+
+    <div class="socials-grid">
+      <div class="social-card">
+        <div class="s-icon">🐙</div>
+        <h3>GitHub</h3>
+        <p>View the source code, report bugs, and follow the development of Proton#.</p>
+        <br/>
+        <button class="btn-primary" style="width:100%">View on GitHub</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══════════════ LEGAL PAGE ══════════════ -->
+  <div class="page" id="page-legal">
+    <div class="legal-content">
+      <h1>Legal <span>Documents</span></h1>
+      <p class="updated">Last Updated: 2025</p>
+
+      <div class="legal-section">
+        <h2>1. Beta Terms of Service</h2>
+        <p>By downloading, installing, or using Proton# you agree to these terms.</p>
+
+        <h3>1.1 Beta Software</h3>
+        <p>Proton# is currently in beta. It is unfinished software. Bugs, crashes, data loss, and incomplete features are expected. Use at your own risk.</p>
+
+        <h3>1.2 Who Can Use It</h3>
+        <p>Proton# is open to everyone. If you are under 13, please get a parent or guardian's permission before using the platform.</p>
+
+        <h3>1.3 Your Creations</h3>
+        <p>You own everything you create using Proton#. We do not claim ownership over your games or scripts.</p>
+
+        <h3>1.4 Acceptable Use</h3>
+        <p>You agree not to use Proton# to create or share anything that is illegal, harmful, hateful, or inappropriate.</p>
+
+        <h3>1.5 Changes</h3>
+        <p>We may update these terms at any time. Continued use of Proton# means you accept any changes.</p>
+
+        <h3>1.6 Liability</h3>
+        <p>Proton# is provided as-is with no warranties. We are not responsible for any damages caused by using beta software.</p>
+      </div>
+
+      <div class="legal-section">
+        <h2>2. Software License</h2>
+
+        <h3>2.1 Free to Use</h3>
+        <p>Proton# Studio and the Proton scripting language are free to download and use.</p>
+
+        <h3>2.2 You Own Your Games</h3>
+        <p>Any game, script, or creation made using Proton# belongs to you, the creator.</p>
+
+        <h3>2.3 What You Cannot Do</h3>
+        <p>You may not resell, redistribute, or claim ownership of the Proton# software itself. You may not reverse engineer or modify the Proton# Studio application.</p>
+
+        <h3>2.4 Open Community</h3>
+        <p>You are encouraged to share your games and .pros scripts with the Proton# community.</p>
+
+        <h3>2.5 No Warranty</h3>
+        <p>This software is provided free of charge with no guarantees of fitness for any particular purpose.</p>
+      </div>
+
+      <div class="legal-section">
+        <h2>3. Privacy Notice</h2>
+        <p>This site is hosted on GitHub Pages. Visiting this site may be subject to GitHub's Privacy Policy. Proton# does not collect or store any personal data from visitors to this website.</p>
+        <p>© 2025 Proton#. All rights reserved.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="logo"><span>&lt;/&gt;</span> Proton#</div>
+    <p>© 2025 Proton#. All rights reserved. — Create. Share. Play.</p>
+    <div class="footer-links">
+      <button onclick="showPage('download')">Download</button>
+      <button onclick="showPage('team')">Team</button>
+      <button onclick="showPage('socials')">Socials</button>
+      <button onclick="showPage('legal')">Legal</button>
+    </div>
+  </footer>
+
+  <script>
+    function showPage(name) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+      document.getElementById('page-' + name).classList.add('active');
+      document.getElementById('nav-' + name).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function updateDownloadBtn() {
+      const c1 = document.getElementById('check1').checked;
+      const c2 = document.getElementById('check2').checked;
+      const btn = document.getElementById('downloadBtn');
+      if (c1 && c2) {
+        btn.classList.add('enabled');
+      } else {
+        btn.classList.remove('enabled');
+      }
+    }
+
+    function startDownload() {
+      alert('Download starting! Replace this with your actual GitHub release link.');
+      // Replace with: window.location.href = 'YOUR_GITHUB_RELEASE_LINK';
+    }
+  </script>
+
+</body>
+</html>
