@@ -55,7 +55,7 @@ const TEAM = {
     username:    "Xynox1",
     role:        "Founder & Lead Developer",
     description: "Founder of Proton# and lead developer. Manages the project vision, Lua datastores, and overall direction of the platform.",
-    about:       "Hey I'm Xynox1! I'm the founder of Proton# and a Boy Scout. I love coding and game development and started this whole project from scratch. Lua and Python are my main languages!",
+    about:       "Hey I'm Xynox1! I'm the founder and head devoloper of this project. I enjoy working with LUA for datastores and configs and Python for games. I mostly script on roblox. My idea for this came from me and my friends just talking about programming languages. Enjoy!,
     emoji:       "🔨"
   },
 
