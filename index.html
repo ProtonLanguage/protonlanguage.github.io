@@ -698,6 +698,7 @@
       <button onclick="showPage('download')" id="nav-download">Download</button>
       <button onclick="showPage('team')" id="nav-team">Team</button>
       <button onclick="showPage('devlog')" id="nav-devlog">Devlog</button>
+      <button onclick="showPage('learn')" id="nav-learn">Learn</button>
       <button onclick="showPage('socials')" id="nav-socials">Socials</button>
       <button onclick="showPage('legal')" id="nav-legal">Legal</button>
       <button onclick="window.location.href='docs/'" style="background:var(--orange);color:#fff;border-color:var(--orange);">📖 Docs</button>
@@ -888,6 +889,46 @@
 
   </div>
 
+  <!-- ══════════════ LEARN PAGE ══════════════ -->
+  <div class="page" id="page-learn">
+    <div style="text-align:center; padding:80px 40px 40px;">
+      <h1 style="font-size:3rem; font-weight:800; margin-bottom:12px;">Learn <span style="color:var(--orange);">Proton#</span></h1>
+      <p style="color:var(--gray-text);">Everything you need to start building with Proton.</p>
+    </div>
+
+    <div style="display:flex; gap:24px; max-width:900px; margin:0 auto; padding:0 40px 80px; flex-wrap:wrap;">
+
+      <!-- Docs Card -->
+      <div style="flex:1; min-width:280px; background:var(--bg-card); border:1px solid var(--border); border-radius:16px; padding:32px; transition:all 0.2s; cursor:pointer;" onmouseover="this.style.borderColor='var(--orange)'" onmouseout="this.style.borderColor='var(--border)'" onclick="window.location.href='docs/'">
+        <div style="font-size:2.5rem; margin-bottom:16px;">📖</div>
+        <h2 style="font-size:1.4rem; font-weight:700; margin-bottom:10px;">Official Docs</h2>
+        <p style="color:var(--gray-text); font-size:0.9rem; line-height:1.7; margin-bottom:20px;">The full in-depth language reference. Learn the Proton syntax, data types, functions, datastores, and more. Written and maintained by the Proton# team.</p>
+        <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:24px;">
+          <span style="background:var(--bg-panel); color:var(--gray-text); font-size:0.75rem; padding:4px 10px; border-radius:20px;">Language Spec</span>
+          <span style="background:var(--bg-panel); color:var(--gray-text); font-size:0.75rem; padding:4px 10px; border-radius:20px;">Syntax Guide</span>
+          <span style="background:var(--bg-panel); color:var(--gray-text); font-size:0.75rem; padding:4px 10px; border-radius:20px;">Built-in Functions</span>
+          <span style="background:var(--bg-panel); color:var(--gray-text); font-size:0.75rem; padding:4px 10px; border-radius:20px;">Datastores</span>
+        </div>
+        <button class="btn-primary" onclick="window.location.href='docs/'">Open Docs →</button>
+      </div>
+
+      <!-- Wiki Card -->
+      <div style="flex:1; min-width:280px; background:var(--bg-card); border:1px solid var(--border); border-radius:16px; padding:32px; transition:all 0.2s; cursor:pointer;" onmouseover="this.style.borderColor='var(--orange)'" onmouseout="this.style.borderColor='var(--border)'" onclick="window.open('https://proton-sharp.fandom.com/wiki/Proton_Sharp_Wiki')">
+        <div style="font-size:2.5rem; margin-bottom:16px;">🌐</div>
+        <h2 style="font-size:1.4rem; font-weight:700; margin-bottom:10px;">Community Wiki</h2>
+        <p style="color:var(--gray-text); font-size:0.9rem; line-height:1.7; margin-bottom:20px;">Community driven tips, tricks, tutorials, and workarounds. Find real world solutions, game examples, and guides written by Proton# players and developers.</p>
+        <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:24px;">
+          <span style="background:var(--bg-panel); color:var(--gray-text); font-size:0.75rem; padding:4px 10px; border-radius:20px;">Tutorials</span>
+          <span style="background:var(--bg-panel); color:var(--gray-text); font-size:0.75rem; padding:4px 10px; border-radius:20px;">Tips & Tricks</span>
+          <span style="background:var(--bg-panel); color:var(--gray-text); font-size:0.75rem; padding:4px 10px; border-radius:20px;">Community</span>
+          <span style="background:var(--bg-panel); color:var(--gray-text); font-size:0.75rem; padding:4px 10px; border-radius:20px;">Examples</span>
+        </div>
+        <button class="btn-primary" onclick="window.open('https://proton-sharp.fandom.com/wiki/Proton_Sharp_Wiki')">Open Wiki →</button>
+      </div>
+
+    </div>
+  </div>
+
   <!-- ══════════════ SOCIALS PAGE ══════════════ -->
   <div class="page" id="page-socials">
 
@@ -966,6 +1007,7 @@
       <button onclick="showPage('download')">Download</button>
       <button onclick="showPage('team')">Team</button>
       <button onclick="showPage('devlog')">Devlog</button>
+      <button onclick="showPage('learn')">Learn</button>
       <button onclick="showPage('socials')">Socials</button>
       <button onclick="showPage('legal')">Legal</button>
     </div>
