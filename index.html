@@ -13,6 +13,8 @@
       name:      "Proton#",
       tagline:   "Create. Share. Play.",
       copyright: "2026 Proton#. All rights reserved.",
+      version:   "0.1.0",
+      stage:     "beta",  // beta, alpha, release
     };
 
     const LINKS = {
@@ -149,7 +151,32 @@
     const DIARIES = [   
     ];
 
-  </script>
+    // ════════════════════════════════════════════════
+    // DOWNLOAD PAGE CONFIG
+    // ════════════════════════════════════════════════
+
+    // PATCH NOTES — shown under the download button
+    // tag options: "new", "fix", "change", "removed"
+    const PATCH_NOTES = [
+      { tag: "new",    text: "Initial beta release" },
+      { tag: "new",    text: "Basic Proton# Studio editor" },
+      { tag: "new",    text: "2D game support" },
+      { tag: "new",    text: ".pros scripting support" },
+      // ← Add new patch notes here (newest first)
+    ];
+
+    // FEATURES TABLE — shown at the bottom of the download page
+    const FEATURES = [
+      { feature: "Proton# Studio Editor",   status: "✅ Included",     note: "Basic editor for writing .pros scripts" },
+      { feature: "2D Game Engine",          status: "✅ Included",     note: "Build and run 2D games" },
+      { feature: ".pros Script Support",    status: "✅ Included",     note: "Full Proton language scripting" },
+      { feature: "Datastore (Lua backend)", status: "✅ Included",     note: "Save and load game data" },
+      { feature: "Multiplayer Support",     status: "🚧 Coming Soon",  note: "Player hosted via server.pros" },
+      { feature: "Game Browser",            status: "🚧 Coming Soon",  note: "Browse and play community games" },
+      { feature: "VS Code Extension",       status: "🚧 Coming Soon",  note: "Syntax highlighting and autocomplete" },
+      { feature: "Mobile Support",          status: "❌ Not Planned",  note: "Windows only for now" },
+      // ← Add or edit features here
+    ];
   <!-- ════════════════════════════════════════════════ -->
   <!-- 🔒 DO NOT EDIT BELOW THIS LINE                  -->
   <!-- ════════════════════════════════════════════════ -->
@@ -618,6 +645,19 @@
     .social-card h3 { font-size: 1.1rem; margin-bottom: 8px; }
     .social-card p { color: var(--gray-text); font-size: 0.9rem; line-height: 1.6; }
 
+    /* ── FEATURES TABLE ── */
+    .features-section { margin-top: 40px; }
+    .features-section h3 { font-size: 1.2rem; color: var(--orange); margin-bottom: 16px; }
+    .features-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    .features-table th { background: var(--bg-dark); color: var(--orange); font-weight: 700; padding: 10px 16px; text-align: left; border-bottom: 2px solid var(--border); }
+    .features-table td { padding: 10px 16px; border-bottom: 1px solid var(--border); color: var(--gray-text); vertical-align: top; }
+    .features-table tr:hover td { background: rgba(255,255,255,0.02); }
+    .patch-tag { font-size: 0.68rem; font-weight: 700; padding: 2px 8px; border-radius: 20px; text-transform: uppercase; margin-right: 8px; }
+    .tag-new     { background: rgba(100,200,100,0.15); color: #6dc86d; }
+    .tag-fix     { background: rgba(100,150,255,0.15); color: #7aadff; }
+    .tag-change  { background: rgba(255,200,0,0.15);   color: #ffc800; }
+    .tag-removed { background: rgba(255,100,100,0.15); color: #ff8080; }
+
     /* ── DEVLOG ── */
     .devlog-hero { text-align: center; padding: 80px 40px 40px; }
     .devlog-hero h1 { font-size: 3rem; font-weight: 800; margin-bottom: 12px; }
@@ -709,7 +749,7 @@
   <div class="page active" id="page-home">
 
     <div class="hero">
-      <div class="hero-badge">⚡ Early Beta — v0.1.0</div>
+      <div class="hero-badge">⚡ Early <span id="site-stage-cap"></span> — v<span id="site-version-hero"></span></div>
       <h1><span class="bracket">&lt;/&gt;</span> Proton<span class="bracket">#</span></h1>
       <div class="tagline"><span>Create.</span> Share. <span>Play.</span></div>
       <p>The game development platform built for everyone. Build 2D games, share them with the world, and play creations made by the community — all powered by the Proton scripting language.</p>
@@ -804,7 +844,7 @@
     </div>
 
     <div class="download-card" style="margin:0 auto 32px;">
-      <div class="version-badge">v0.1.0-beta</div>
+      <div class="version-badge">v<span id="site-version-badge"></span>-<span id="site-stage-badge"></span></div>
       <h2>Proton# Studio</h2>
       <p>Latest beta release — Windows — Released 2026</p>
 
@@ -820,18 +860,22 @@
       </div>
 
       <button class="btn-download" id="downloadBtn" onclick="startDownload()">
-        ⬇ Download Proton# v0.1.0-beta
+        ⬇ Download Proton# v<span id="site-version-dl"></span>-<span id="site-stage-dl"></span>
       </button>
     </div>
 
     <div class="patch-notes">
-      <h3>📋 What's new in v0.1.0-beta</h3>
-      <div class="patch-item">Initial beta release</div>
-      <div class="patch-item">Basic Proton# Studio editor</div>
-      <div class="patch-item">2D game support</div>
-      <div class="patch-item">.pros scripting support</div>
-      <div class="patch-item">Built-in AI assistant (powered by Claude)</div>
+      <h3>📋 What's new in v<span id="site-version-patch"></span>-<span id="site-stage-patch"></span></h3>
+      <div id="patch-notes-container"></div>
       <p style="color:var(--gray-text);font-size:0.8rem;margin-top:16px;">By downloading Proton# you agree to use it responsibly. Proton# is not liable for any damages caused by beta software.</p>
+    </div>
+
+    <div class="features-section">
+      <h3>📊 Features</h3>
+      <table class="features-table">
+        <thead><tr><th>Feature</th><th>Status</th><th>Notes</th></tr></thead>
+        <tbody id="features-table-body"></tbody>
+      </table>
     </div>
 
   </div>
@@ -1263,6 +1307,30 @@
     }
     document.getElementById('footer-copyright').textContent = '© ' + SITE.copyright + ' — ' + SITE.tagline;
     document.getElementById('legal-copyright').textContent = '© ' + SITE.copyright;
+
+    // ── VERSION ──
+    const v = SITE.version;
+    const s = SITE.stage;
+    const sCap = s.charAt(0).toUpperCase() + s.slice(1);
+    ['site-version-hero','site-version-badge','site-version-dl','site-version-patch'].forEach(id => { const el = document.getElementById(id); if(el) el.textContent = v; });
+    ['site-stage-badge','site-stage-dl','site-stage-patch'].forEach(id => { const el = document.getElementById(id); if(el) el.textContent = s; });
+    const stageCap = document.getElementById('site-stage-cap'); if(stageCap) stageCap.textContent = sCap;
+
+    // ── PATCH NOTES ──
+    const patchContainer = document.getElementById('patch-notes-container');
+    if (patchContainer) {
+      patchContainer.innerHTML = PATCH_NOTES.map(p =>
+        `<div class="patch-item"><span class="patch-tag tag-${p.tag}">${p.tag}</span>${p.text}</div>`
+      ).join('');
+    }
+
+    // ── FEATURES TABLE ──
+    const featuresBody = document.getElementById('features-table-body');
+    if (featuresBody) {
+      featuresBody.innerHTML = FEATURES.map(f =>
+        `<tr><td>${f.feature}</td><td>${f.status}</td><td>${f.note}</td></tr>`
+      ).join('');
+    }
 
   </script>
 
