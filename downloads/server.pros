@@ -12,6 +12,8 @@
   4. They connect using network.connect("YOUR_IP", 7777)
   
   Proton# — protonlanguage.github.io
+
+####ANY REUPLOAD OF THIS FILE IS NOT ALLOWED AND WILL RESULT IN REPORT. PLEASE ONLY USE THIS FILE FOR INTENDED PURPOSES####
 ]]
 
 import std.network;
