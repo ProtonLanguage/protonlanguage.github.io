@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Proton# Professional | Enterprise & EDU</title>
+    <link href="https://fonts.googleapis.com" rel="stylesheet">
+    <style>
+        :root { --bg: #0d0d0d; --card: #161616; --purple: #8e44ad; --accent: #bb86fc; }
+        body { background: var(--bg); color: #e0e0e0; font-family: 'Inter', sans-serif; margin: 0; }
+        
+        header { padding: 2rem 5%; border-bottom: 2px solid var(--purple); background: var(--card); display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-weight: 900; font-size: 1.5rem; letter-spacing: -1px; color: var(--accent); }
+        
+        .hero { padding: 80px 10%; text-align: center; }
+        .hero h1 { font-size: 4rem; margin: 0; background: linear-gradient(to right, #fff, var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; padding: 4rem 10%; }
+        .box { background: var(--card); padding: 2.5rem; border-radius: 15px; border: 1px solid #222; }
+        .box h3 { color: var(--accent); margin-top: 0; }
+        
+        .btn { background: var(--purple); color: white; padding: 1rem 2.5rem; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block; transition: 0.3s; }
+        .btn:hover { background: var(--accent); transform: scale(1.05); }
+
+        footer { background: #000; padding: 3rem 10%; text-align: center; font-size: 0.8rem; color: #555; }
+        .legal-footer a { color: #888; text-decoration: none; margin: 0 10px; border-bottom: 1px solid transparent; }
+        .legal-footer a:hover { border-bottom: 1px solid var(--accent); }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">PROTON# PROFESSIONAL.</div>
+        <nav class="legal-footer"><a href="../docs">Docs</a><a href="../legal">Legal</a></nav>
+    </header>
+
+    <section class="hero">
+        <h1>Engineered for Enterprise.</h1>
+        <p>Advanced automation, silent deployment, and priority EDU support.</p>
+        <br><a href="https://forms.gle" class="btn">Apply for Professional License</a>
+    </section>
+
+    <div class="grid">
+        <div class="box"><h3>🏢 Enterprise Automation</h3><p>Command-line interfaces and headless modes for high-scale server automation.</p></div>
+        <div class="box"><h3>🎓 EDU Lab Management</h3><p>Designed for school networks with restricted permissions and no-admin installs.</p></div>
+        <div class="box"><h3>💼 Commercial Licensing</h3><p>Legal clarity for corporations building proprietary tools on the Proton# engine.</p></div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Proton# Studio. All rights reserved.</p>
+        <div class="legal-footer"><a href="../legal">Privacy & Legal Documentation</a></div>
+    </footer>
+</body>
+</html>
