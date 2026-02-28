@@ -136,6 +136,9 @@
     <div class="nav-label">Reference</div>
     <a class="nav-link" onclick="showSection('comments')">             <span class="nav-icon">💬</span> Comments</a>
     <a class="nav-link" onclick="showSection('cheatsheet')">           <span class="nav-icon">⚡</span> Quick Reference</a>
+    <div class="nav-label">Community</div>
+    <a class="nav-link" href="https://proton-sharp.fandom.com/wiki/Proton_Sharp_Wiki" target="_blank"><span class="nav-icon">🌐</span> Community Wiki</a>
+    <a class="nav-link" href="../" target="_blank"><span class="nav-icon">🏠</span> Main Site</a>
     <div class="no-results" id="no-results">No results found.</div>
   </nav>
 </aside>
@@ -284,16 +287,69 @@ x <span class="op">=</span> x <span class="op">+</span> <span class="num">5</spa
     <div class="doc-section" id="section-variables">
       <div class="section-tag">Language</div>
       <h1><span>Variables</span></h1>
-      <p class="section-intro">Variables store data that your script can read and change. Constants store data that never changes.</p>
-      <h2>Declaring Variables</h2>
+      <p class="section-intro">Proton has a full variable scoping system. Variables can be script-local, global across all scripts via modules, regular, or constant. Understanding scope is key to writing clean Proton code.</p>
+
+      <h2>Overview</h2>
+      <table class="doc-table">
+        <tr><th>Syntax</th><th>Scope</th><th>Changeable?</th></tr>
+        <tr><td><code>var x = 10;</code></td><td>Current script</td><td>Yes</td></tr>
+        <tr><td><code>var:local x = 10;</code></td><td>Current script only — isolated</td><td>Yes</td></tr>
+        <tr><td><code>const x = 10;</code></td><td>Current script</td><td>No</td></tr>
+        <tr><td><code>const:local x = 10;</code></td><td>Current script only — isolated</td><td>No</td></tr>
+        <tr><td><code>module.x = 10;</code></td><td>Global — all scripts</td><td>Yes</td></tr>
+      </table>
+
+      <h2>Regular Variables</h2>
+      <p>Declared with <code>var</code>. Accessible within the current script.</p>
       <div class="code-block">
         <div class="code-header"><span class="code-lang">proton</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
         <pre><span class="kw">var</span> x    <span class="op">=</span> <span class="num">10</span>;
 <span class="kw">var</span> name <span class="op">=</span> <span class="str">"Xynox1"</span>;
 <span class="kw">var</span> flag <span class="op">=</span> <span class="kw">false</span>;</pre>
       </div>
+
+      <h2>Local Variables</h2>
+      <p>Declared with <code>var:local</code>. Completely isolated to the current script. Two different scripts can both have a <code>var:local</code> with the same name and they will never interfere with each other.</p>
+      <div class="code-block">
+        <div class="code-header"><span class="code-lang">proton</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="cmt">-- script1.pros</span>
+<span class="kw">var:local</span> hi <span class="op">=</span> <span class="str">"Hello from script 1"</span>;
+
+<span class="cmt">-- script2.pros</span>
+<span class="kw">var:local</span> hi <span class="op">=</span> <span class="str">"Hello from script 2"</span>;
+
+<span class="cmt">-- These are completely separate. No conflict!</span></pre>
+      </div>
+
+      <h2>Local Constants</h2>
+      <p>Declared with <code>const:local</code>. Same isolation as <code>var:local</code> but cannot be reassigned.</p>
+      <div class="code-block">
+        <div class="code-header"><span class="code-lang">proton</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="kw">const:local</span> MAX_SPEED <span class="op">=</span> <span class="num">50</span>;
+
+MAX_SPEED <span class="op">=</span> <span class="num">100</span>; <span class="cmt">-- ❌ Error: Cannot reassign a constant</span></pre>
+      </div>
+
+      <h2>Module Variables (Global)</h2>
+      <p>Declared with <code>module.x</code>. These are global and accessible from every script in the project. Use these carefully — changes in one script affect all others.</p>
+      <div class="code-block">
+        <div class="code-header"><span class="code-lang">proton</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="cmt">-- Set a global variable</span>
+module.playerName <span class="op">=</span> <span class="str">"Xynox1"</span>;
+module.score      <span class="op">=</span> <span class="num">0</span>;
+
+<span class="cmt">-- Read it from any other script</span>
+<span class="fn">print</span>(module.playerName); <span class="cmt">-- Xynox1</span></pre>
+      </div>
+
+      <div class="callout callout-warn">
+        <strong>⚠️ Name Conflict Warning</strong>
+        If you declare a <code>var:local</code> with the same name as an existing <code>module</code> variable, Proton# Studio will show an automated warning:<br/><br/>
+        <em>"x is already a variable used globally. Please choose a different name or change the module variable."</em>
+      </div>
+
       <h2>Constants</h2>
-      <p>Constants are declared with <code>const</code> and cannot be changed after assignment.</p>
+      <p>Declared with <code>const</code>. Cannot be changed after assignment.</p>
       <div class="code-block">
         <div class="code-header"><span class="code-lang">proton</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
         <pre><span class="kw">const</span> MAX_PLAYERS <span class="op">=</span> <span class="num">10</span>;
@@ -301,13 +357,16 @@ x <span class="op">=</span> x <span class="op">+</span> <span class="num">5</spa
 
 MAX_PLAYERS <span class="op">=</span> <span class="num">20</span>; <span class="cmt">-- ❌ Error: Cannot reassign a constant</span></pre>
       </div>
+
       <h2>Reassignment</h2>
+      <p>Variables (<code>var</code> and <code>var:local</code>) can be reassigned without the keyword.</p>
       <div class="code-block">
         <div class="code-header"><span class="code-lang">proton</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
         <pre><span class="kw">var</span> score <span class="op">=</span> <span class="num">0</span>;
 score <span class="op">=</span> <span class="num">100</span>;
 score <span class="op">=</span> score <span class="op">+</span> <span class="num">50</span>;</pre>
       </div>
+
       <div class="page-nav">
         <button class="page-nav-btn" onclick="showSection('types')"><div class="nav-dir">← Previous</div><div class="nav-title">Data Types</div></button>
         <button class="page-nav-btn next" onclick="showSection('operators')"><div class="nav-dir">Next →</div><div class="nav-title">Operators</div></button>
