@@ -20,7 +20,7 @@
     const LINKS = {
       positions_doc: "https://docs.google.com/document/d/1lJOzzOJWunofEx4wEWXpCQPCdjj1Qn8TBqSZJvhX0XE/edit?usp=sharing",
       apply_form:    "https://forms.gle/mzkLaUsEwVChsh876",
-      download:      "https://github.com/ProtonLanguage/proton-vscode",
+      download:      "https://github.com/ProtonLanguage/proton-studio/releases/tag/v0.1.0",
       support_email: "protoncoding@outlook.com"
     };
 
@@ -115,13 +115,20 @@
     // },
 
     const ANNOUNCEMENTS = [
-      //{
-        //title: "Docs are realsed!",
-        //date: "Febuary 28, 2026",
-        //tag: "milestone",
-        //image: null
-        //body: "We have realsed our docs at protonlanguage.github.io/docs. This is a list of everything that I intended to be done. We will have an community ran wiki soon where you guys can find bypasses and stuff and those wont be fixed (but if like a bug causes the bypass like slow loading speed can give you an advantage, I will fix those."
-     // },
+      {
+        title: "2D studio is realsed!",
+        date: "Febuary 28, 2026",
+        tag: "update",
+        image: null,
+        body: "We have now made our 2D studio. Download it today!"
+      },
+      {
+        title: "Docs are realsed!",
+        date: "Febuary 28, 2026",
+        tag: "milestone",
+        image: null
+        body: "We have realsed our docs at protonlanguage.github.io/docs. This is a list of everything that I intended to be done. We will have an community ran wiki soon where you guys can find bypasses and stuff and those wont be fixed (but if like a bug causes the bypass like slow loading speed can give you an advantage, I will fix those."
+      },
       {
         title: "Applications Are Open!",
         date: "Febuary 27, 2026 to TBD ",
@@ -159,7 +166,8 @@
     // tag options: "new", "fix", "change", "removed"
     const PATCH_NOTES = [
       { tag: "new",    text: "Initial pre-alpha release" },
-      { tag: "new",    text: "Basic VS code exentsion" },
+      { tag: "new",    text: "Pre-Alpha 2d Engine"},
+      //{ tag: "new",    text: "Basic VS code exentsion" },
      { tag: "new",    text: "Basic support for games" },
       { tag: "new",    text: ".pros scripting support" },
       // ← Add new patch notes here (newest first)
@@ -168,12 +176,12 @@
     // FEATURES TABLE — shown at the bottom of the download page
     const FEATURES = [
       //{ feature: "Proton# Studio Editor",   status: "🚧 Coming Soon",     note: "Basic editor for writing .pros scripts" },
-      //{ feature: "2D Game Engine",          status: "✅ Included",     note: "Build and run 2D games" },
+      { feature: "2D Game Engine",          status: "✅ Included",     note: "Build and run 2D games" },
       { feature: ".pros Script Support",    status: "✅ Included",     note: "Full Proton language scripting" },
       { feature: "Datastore (Lua backend)", status: "✅ Included",     note: "Save and load game data" },
-      //{ feature: "Multiplayer Support",     status: "🚧 Coming Soon",  note: "Player hosted via server.pros" },
+      { feature: "Multiplayer Support",     status: "🚧 Coming Soon",  note: "Player hosted via server.pros (Pretty scrappy but should work more info at our docs)" },
       //{ feature: "Game Browser",            status: "🚧 Coming Soon",  note: "Browse and play community games" },
-      { feature: "VS Code Extension",       status: "✅ Included",  note: "Syntax highlighting and autocomplete" },
+      { feature: "VS Code Extension",       status: "🚧 Coming Soon",  note: "Syntax highlighting and autocomplete in progress (Download at https://github.com/ProtonLanguage/proton-vscode/releases/tag/v0.1.0 )" },
       //{ feature: "Mobile Support",          status: "❌ Not Planned",  note: "Windows only for now (hint: keyword)" },
       // ← Add or edit features here
     ];
