@@ -1,0 +1,100 @@
+--[[
+  server.pros
+  Proton# Multiplayer Server Script
+  
+  Run this file to host a multiplayer session.
+  Players connect to your IP and port number.
+  
+  Instructions:
+  1. Run this file with Proton# Studio
+  2. Find your local IP (run ipconfig in terminal)
+  3. Share your IP and port with friends
+  4. They connect using network.connect("YOUR_IP", 7777)
+  
+  Proton# — protonlanguage.github.io
+]]
+
+import std.network;
+
+-- ════════════════════════════════
+-- SERVER CONFIG
+-- ════════════════════════════════
+
+const:local PORT        = 7777;     -- Port to host on
+const:local MAX_PLAYERS = math.huge; -- No limit by default
+
+-- ════════════════════════════════
+-- SERVER STATE
+-- ════════════════════════════════
+
+module.players     = [];
+module.gameRunning = false;
+
+-- ════════════════════════════════
+-- CONNECTION HANDLERS
+-- ════════════════════════════════
+
+-- Called when a player connects
+network.onConnect(func(player) do
+    print("[SERVER] " .. player.name .. " connected. (" .. player.ip .. ")");
+    module.players.push(player);
+
+    -- Tell everyone else this player joined
+    network.broadcastExcept(player, "PlayerJoined", {
+        id:   player.id,
+        name: player.name
+    });
+
+    -- Send the new player the current player list
+    network.send("Welcome", {
+        yourId:  player.id,
+        players: module.players
+    });
+end);
+
+-- Called when a player disconnects
+network.onDisconnect(func(player) do
+    print("[SERVER] " .. player.name .. " disconnected.");
+    var:local idx = module.players.indexOf(player);
+    module.players.remove(idx);
+
+    network.broadcast("PlayerLeft", {
+        id:   player.id,
+        name: player.name
+    });
+end);
+
+-- ════════════════════════════════
+-- MESSAGE HANDLERS
+-- ════════════════════════════════
+
+-- Handle player movement sync
+network.onMessage("MovePlayer", func(player, data) do
+    player.x = data.x;
+    player.y = data.y;
+
+    -- Broadcast to all other players
+    network.broadcastExcept(player, "PlayerMoved", {
+        id: player.id,
+        x:  data.x,
+        y:  data.y
+    });
+end);
+
+-- Handle chat messages
+network.onMessage("ChatMessage", func(player, data) do
+    print("[CHAT] " .. player.name .. ": " .. data.text);
+    network.broadcast("ChatMessage", {
+        name: player.name,
+        text: data.text
+    });
+end);
+
+-- ════════════════════════════════
+-- START SERVER
+-- ════════════════════════════════
+
+network.startServer(PORT);
+print("[SERVER] Proton# Server running on port " .. PORT);
+print("[SERVER] Share your IP with friends to let them join!");
+print("[SERVER] Waiting for players...");
