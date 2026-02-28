@@ -2,139 +2,51 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proton# Enterprise & EDU | Professional Automation</title>
-    <!-- Professional Google Font: Inter (Used by many Tech/Medical sites) -->
+    <title>Proton# Professional | Enterprise & EDU</title>
     <link href="https://fonts.googleapis.com" rel="stylesheet">
-    
     <style>
-        :root {
-            --bg-dark: #121212;      /* Deep "Anesthesia" Black */
-            --bg-card: #1e1e1e;      /* Component Grey */
-            --proton-purple: #8e44ad; /* Your Branding Purple */
-            --text-main: #e0e0e0;
-            --accent: #bb86fc;
-        }
+        :root { --bg: #0d0d0d; --card: #161616; --purple: #8e44ad; --accent: #bb86fc; }
+        body { background: var(--bg); color: #e0e0e0; font-family: 'Inter', sans-serif; margin: 0; }
+        
+        header { padding: 2rem 5%; border-bottom: 2px solid var(--purple); background: var(--card); display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-weight: 900; font-size: 1.5rem; letter-spacing: -1px; color: var(--accent); }
+        
+        .hero { padding: 80px 10%; text-align: center; }
+        .hero h1 { font-size: 4rem; margin: 0; background: linear-gradient(to right, #fff, var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; padding: 4rem 10%; }
+        .box { background: var(--card); padding: 2.5rem; border-radius: 15px; border: 1px solid #222; }
+        .box h3 { color: var(--accent); margin-top: 0; }
+        
+        .btn { background: var(--purple); color: white; padding: 1rem 2.5rem; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block; transition: 0.3s; }
+        .btn:hover { background: var(--accent); transform: scale(1.05); }
 
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        /* --- Header / Navigation --- */
-        header {
-            background: var(--bg-card);
-            padding: 1rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid var(--proton-purple);
-        }
-
-        .logo { font-weight: 800; font-size: 1.5rem; color: var(--accent); }
-
-        /* --- Hero Section --- */
-        .hero {
-            padding: 60px 10%;
-            text-align: center;
-            background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-dark) 100%);
-        }
-
-        .hero h1 { font-size: 3.5rem; margin-bottom: 10px; }
-        .hero p { font-size: 1.2rem; color: #aaa; margin-bottom: 30px; }
-
-        /* --- Professional Features Grid --- */
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            padding: 40px 10%;
-        }
-
-        .feature-card {
-            background: var(--bg-card);
-            padding: 30px;
-            border-radius: 12px;
-            border: 1px solid #333;
-            transition: 0.3s;
-        }
-
-        .feature-card:hover { border-color: var(--proton-purple); transform: translateY(-5px); }
-        .feature-card h3 { color: var(--accent); margin-top: 0; }
-
-        /* --- CTA Button --- */
-        .btn-pro {
-            background-color: var(--proton-purple);
-            color: white;
-            padding: 15px 40px;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
-            display: inline-block;
-        }
-
-        /* --- COPPA / Legal Footer --- */
-        footer {
-            margin-top: auto;
-            background: #0a0a0a;
-            padding: 40px 10%;
-            text-align: center;
-            font-size: 0.85rem;
-            color: #666;
-            border-top: 1px solid #222;
-        }
-
-        .legal-links a { color: #888; text-decoration: none; margin: 0 10px; }
-        .legal-links a:hover { color: var(--accent); }
+        footer { background: #000; padding: 3rem 10%; text-align: center; font-size: 0.8rem; color: #555; }
+        .legal-footer a { color: #888; text-decoration: none; margin: 0 10px; border-bottom: 1px solid transparent; }
+        .legal-footer a:hover { border-bottom: 1px solid var(--accent); }
     </style>
 </head>
 <body>
-
     <header>
-        <div class="logo">PROTON# ENTERPRISE / EDU</div>
-        <nav class="legal-links">
-            <a href="../docs">Documentation</a>
-            <a href="../legal">Legal</a>
-            <a href="mailto:protoncoding@outlook.com">Contact</a>
-        </nav>
+        <div class="logo">PROTON# PROFESSIONAL.</div>
+        <nav class="legal-footer"><a href="../docs">Docs</a><a href="../legal">Legal</a></nav>
     </header>
 
     <section class="hero">
-        <h1>Engineered for Professional Lab Environments.</h1>
-        <p>Zero-Config automation with the power of C#, Python, and Lua.</p>
-        <a href="#apply" class="btn-pro">Apply for Pro Access</a>
+        <h1>Engineered for Enterprise.</h1>
+        <p>Advanced automation, silent deployment, and priority EDU support.</p>
+        <br><a href="https://forms.gle" class="btn">Apply for Professional License</a>
     </section>
 
-    <div class="features">
-        <div class="feature-card">
-            <h3>🔬 School Stability</h3>
-            <p>Built for educational lab environments. Our lightweight engine runs on any hardware without lag.</p>
-        </div>
-        <div class="feature-card">
-            <h3>🛡️ Security-First</h3>
-            <p>COPPA compliant and hosted via GitHub Secure Pages. No data collection, ever.</p>
-        </div>
-        <div class="feature-card">
-            <h3>⚙️ Automated Deploy</h3>
-            <p>Silent installers for IT managers. Push Proton# to an entire network in one click.</p>
-        </div>
+    <div class="grid">
+        <div class="box"><h3>🏢 Enterprise Automation</h3><p>Command-line interfaces and headless modes for high-scale server automation.</p></div>
+        <div class="box"><h3>🎓 EDU Lab Management</h3><p>Designed for school networks with restricted permissions and no-admin installs.</p></div>
+        <div class="box"><h3>💼 Commercial Licensing</h3><p>Legal clarity for corporations building proprietary tools on the Proton# engine.</p></div>
     </div>
 
     <footer>
         <p>&copy; 2026 Proton# Studio. All rights reserved.</p>
-        <p><strong>COPPA NOTICE:</strong> This platform is designed for educational use. Users under 13 must have parental permission.</p>
-        <div class="legal-links">
-            <a href="../legal/terms">Terms of Service</a> | 
-            <a href="../legal/privacy">Privacy Policy</a> | 
-            <a href="https://www.mozilla.org">MPL 2.0 License</a>
-        </div>
+        <div class="legal-footer"><a href="../legal">Privacy & Legal Documentation</a></div>
     </footer>
-
 </body>
 </html>
