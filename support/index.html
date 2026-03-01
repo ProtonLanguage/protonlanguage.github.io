@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proton# | Support Terminal</title>
+    <link href="https://fonts.googleapis.com" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #000000;
+            --panel: #0a0a0a;
+            --border: #1a1a1a;
+            --proton-orange: #ff8c00; /* THE MAIN THEME */
+            --text-dim: #666;
+            --mono: 'JetBrains Mono', monospace;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--proton-orange);
+            font-family: var(--mono);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 800px;
+            border: 1px solid var(--border);
+            background: var(--panel);
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 0 30px rgba(255, 140, 0, 0.05);
+        }
+
+        h1 { font-size: 1.5rem; margin-bottom: 30px; letter-spacing: -1px; }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            border: 1px solid var(--border);
+            padding: 20px;
+            border-radius: 4px;
+            transition: border-color 0.3s;
+            text-decoration: none;
+            color: var(--proton-orange);
+        }
+
+        .card:hover { border-color: var(--proton-orange); background: rgba(255, 140, 0, 0.02); }
+        .card h3 { font-size: 0.8rem; margin: 0 0 10px 0; color: var(--text-dim); text-transform: uppercase; }
+
+        .ai-gate {
+            border-top: 1px solid var(--border);
+            padding-top: 40px;
+            margin-top: 20px;
+        }
+
+        .warning { color: #ff4444; font-size: 0.75rem; margin-bottom: 15px; font-weight: bold; }
+
+        input[type="checkbox"] { accent-color: var(--proton-orange); cursor: pointer; }
+
+        button {
+            background: var(--proton-orange);
+            color: #000;
+            border: none;
+            padding: 15px 40px;
+            font-family: var(--mono);
+            font-weight: 800;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-top: 20px;
+            opacity: 0.3;
+            transition: 0.3s;
+        }
+
+        button:not([disabled]) { opacity: 1; box-shadow: 0 0 15px rgba(255, 140, 0, 0.3); }
+        button:not([disabled]):hover { transform: translateY(-2px); }
+
+        footer { margin-top: 40px; font-size: 0.7rem; color: var(--text-dim); }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>> PROTON# SUPPORT_UPLINK</h1>
+
+    <div class="grid" id="link-grid">
+        <!-- Links injected by JS -->
+    </div>
+
+    <div class="ai-gate">
+        <div class="warning">⚠️ EXPERIMENTAL FEATURE: 13+ ONLY</div>
+        <p style="font-size: 0.85rem; color: #888; margin-bottom: 20px;">
+            Accessing the Proton# AI requires parental consent or age verification. 
+            All sessions are ephemeral and COPPA-compliant.
+        </p>
+        
+        <label style="font-size: 0.8rem; cursor: pointer;">
+            <input type="checkbox" id="gate-check"> I AM 13+ OR A PARENT AGREEING TO TERMS
+        </label>
+        <br>
+        <button id="enter-btn" disabled onclick="location.href='/ai'">INITIALIZE_AI</button>
+    </div>
+
+    <footer>
+        [SYSTEM]: NO_ACCOUNTS_ACTIVE | PRIVACY_ENFORCED
+    </footer>
+</div>
+
+<script>
+    // --- CEO CONFIG SECTION ---
+    const PROTON_CONFIG = {
+        email: "protoncoding@outlook.com",
+        discord: "https://discord.gg", // Update this!
+        docs: "https://protonlanguage.github.io/docs",
+        wiki: "https://proton-sharp.fandom.com/wiki/Proton_Sharp_Wiki",
+        legal: "https://protonlanguage.github.io/legal"
+    };
+
+    // --- RENDER LINKS ---
+    const grid = document.getElementById('link-grid');
+    const links = [
+        { label: "Community", val: "Discord Server", url: PROTON_CONFIG.discord },
+        { label: "Contact", val: PROTON_CONFIG.email, url: `mailto:${PROTON_CONFIG.email}` },
+        { label: "Developer", val: "Documentation", url: PROTON_CONFIG.docs },
+        { label: "Reference", val: "Project Wiki", url: PROTON_CONFIG.wiki }
+    ];
+
+    grid.innerHTML = links.map(l => `
+        <a href="${l.url}" class="card" target="_blank">
+            <h3>${l.label}</h3>
+            <div>${l.val}</div>
+        </a>
+    `).join('');
+
+    // --- GATE LOGIC ---
+    const check = document.getElementById('gate-check');
+    const btn = document.getElementById('enter-btn');
+
+    check.addEventListener('change', () => {
+        btn.disabled = !check.checked;
+    });
+</script>
+
+</body>
+</html>
