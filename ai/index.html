@@ -2,99 +2,76 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Proton# | AI_CORE</title>
     <link href="https://fonts.googleapis.com" rel="stylesheet">
     <style>
         :root {
-            --bg: #000000;
-            --panel: #0a0a0a;
-            --border: #1a1a1a;
-            --proton-orange: #ff8c00;
-            --pro-purple: #a855f7;
-            --mono: 'JetBrains Mono', monospace;
+            --bg: #000000; --panel: #0a0a0a; --border: #1a1a1a;
+            --proton-orange: #ff8c00; --pro-purple: #a855f7; --mono: 'JetBrains Mono', monospace;
         }
 
-        body, html { 
-            background: var(--bg); 
-            color: var(--proton-orange); 
-            font-family: var(--mono); 
-            margin: 0; padding: 0; height: 100vh; overflow: hidden; 
-        }
+        body, html { background: var(--bg); color: var(--proton-orange); font-family: var(--mono); margin: 0; height: 100vh; overflow: hidden; }
 
-        /* THE TERMINAL (Visible but blurred) */
+        /* THE TERMINAL - Starts Blurred */
         #terminal-wrapper {
-            display: flex; flex-direction: column; height: 100vh;
-            padding: 40px; box-sizing: border-box;
-            transition: filter 0.5s ease;
-            filter: blur(15px); /* LOCKED STATE */
+            display: flex; flex-direction: column; height: 100vh; padding: 40px; box-sizing: border-box;
+            transition: filter 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            filter: blur(20px); /* THE BLUR */
+            pointer-events: none; /* Prevents typing while blurred */
         }
+
+        /* THE GATE OVERLAY */
+        #gate-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85); display: flex; align-items: center; justify-content: center; z-index: 1000;
+            transition: opacity 0.5s ease, visibility 0.5s;
+        }
+
+        .gate-card {
+            background: var(--panel); border: 1px solid var(--pro-purple); padding: 40px; border-radius: 12px;
+            text-align: center; max-width: 450px; box-shadow: 0 0 50px rgba(168, 85, 247, 0.15);
+        }
+
+        button#unlock-btn {
+            background: var(--pro-purple); color: #fff; border: none; padding: 12px 30px; 
+            font-family: var(--mono); font-weight: 800; cursor: pointer; margin-top: 25px; opacity: 0.3;
+        }
+        button#unlock-btn:not([disabled]) { opacity: 1; box-shadow: 0 0 15px var(--pro-purple); }
 
         #chat-log { flex: 1; overflow-y: auto; margin-bottom: 20px; font-size: 0.9rem; }
         .input-area { display: flex; gap: 15px; border-top: 1px solid var(--border); padding-top: 20px; }
         input { flex: 1; background: transparent; border: none; color: #fff; font-family: var(--mono); outline: none; }
-        
-        /* THE "LEGAL GATE" OVERLAY */
-        #gate-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.7);
-            display: flex; align-items: center; justify-content: center; z-index: 999;
-        }
-
-        .gate-card {
-            background: var(--panel); border: 1px solid var(--pro-purple);
-            padding: 40px; border-radius: 12px; text-align: center; max-width: 450px;
-            box-shadow: 0 0 40px rgba(168, 85, 247, 0.2);
-        }
-
-        .gate-card h2 { color: #fff; margin-top: 0; }
-        .gate-card label { font-size: 0.8rem; color: #888; cursor: pointer; line-height: 1.5; }
-        .gate-card a { color: var(--proton-orange); text-decoration: none; font-weight: bold; }
-
-        button#unlock-btn {
-            background: var(--pro-purple); color: #fff; border: none;
-            padding: 12px 30px; border-radius: 4px; font-family: var(--mono);
-            font-weight: 800; cursor: pointer; margin-top: 25px; opacity: 0.3;
-        }
-
-        button#unlock-btn:not([disabled]) { opacity: 1; }
     </style>
 </head>
 <body>
 
-<!-- THE TERMINAL -->
-<div id="terminal-wrapper">
-    <div id="chat-log">
-        <div style="color: var(--pro-purple)">[SYSTEM]: UPLINK_ESTABLISHED. KEY_1_ACTIVE.</div>
-        <div style="color: #444;">> Terminal session initialized...</div>
-    </div>
-    <div class="input-area">
-        <span style="color: var(--pro-purple)">$</span>
-        <input type="text" id="user-input" placeholder="Enter command..." disabled>
-    </div>
-</div>
-
-<!-- THE LEGAL GATE -->
 <div id="gate-overlay">
     <div class="gate-card">
         <h2 style="color: var(--pro-purple);">AI_CORE ACCESS</h2>
-        <p style="color: #ff4444; font-size: 0.7rem; font-weight: bold; letter-spacing: 1px;">WARNING: EXPERIMENTAL_REASONING_NODE</p>
+        <p style="color: #666; font-size: 0.8rem; margin-bottom: 25px;">[VERIFICATION REQUIRED]</p>
         
-        <label>
+        <label style="font-size: 0.85rem; color: #888; cursor: pointer;">
             <input type="checkbox" id="legal-check"> 
-            I confirm that I am 13 years of age or older or a parent or guardian agrees and I've read all 
-            <a href="https://protonlanguage.github.io" target="_blank">legal documentation</a>.
+            I confirm I am 13+ or a parent/guardian agrees and I've read the 
+            <a href="https://protonlanguage.github.io" target="_blank" style="color:var(--proton-orange)">legal documentation</a>.
         </label>
         <br>
         <button id="unlock-btn" disabled onclick="unlockTerminal()">UNLOCK_TERMINAL</button>
     </div>
 </div>
 
-<script>
-    const DAILY_LIMIT = 25;
-    let userStats = JSON.parse(localStorage.getItem('proton_usage')) || { day: new Date().toDateString(), count: 0 };
+<div id="terminal-wrapper">
+    <div id="chat-log">
+        <div style="color: var(--pro-purple)">[SYSTEM]: UPLINK_ESTABLISHED. KEY_1_ACTIVE.</div>
+        <div style="color: #444;">> Waiting for authorization...</div>
+    </div>
+    <div class="input-area">
+        <span style="color: var(--pro-purple)">$</span>
+        <input type="text" id="user-input" placeholder="Type a message..." autocomplete="off">
+    </div>
+</div>
 
-    // --- GATE LOGIC ---
+<script>
     const check = document.getElementById('legal-check');
     const unlockBtn = document.getElementById('unlock-btn');
     const wrapper = document.getElementById('terminal-wrapper');
@@ -104,45 +81,40 @@
     check.onchange = () => unlockBtn.disabled = !check.checked;
 
     function unlockTerminal() {
-        overlay.style.display = 'none';
-        wrapper.style.filter = 'none';
-        inputField.disabled = false;
-        inputField.focus();
+        // 1. Delete the Blur
+        wrapper.style.filter = "none";
+        wrapper.style.pointerEvents = "auto";
+        
+        // 2. Delete the Overlay
+        overlay.style.opacity = "0";
+        overlay.style.visibility = "hidden";
+        
+        // 3. Focus the cursor
+        setTimeout(() => inputField.focus(), 600);
+        
+        appendLog("SYSTEM", "ACCESS GRANTED. WELCOME FOUNDER.", "#6dc86d");
     }
 
-    // --- AI LOGIC ---
+    // --- AI FETCH LOGIC ---
     inputField.addEventListener('keypress', async (e) => {
-        if (e.key === 'Enter' && !inputField.disabled) {
+        if (e.key === 'Enter') {
             const query = inputField.value.trim();
             if (!query) return;
 
-            // Check Quota
-            if (userStats.count >= DAILY_LIMIT) {
-                alert("QUOTA EXCEEDED: 25/25 REQUESTS USED.");
-                return;
-            }
-
-            appendLog(`USER`, query, '#fff');
+            appendLog("USER", query, "#fff");
             inputField.value = "";
-            inputField.disabled = true;
 
             try {
+                // This calls your SECURE Netlify Proxy
                 const response = await fetch("/.netlify/functions/chat", {
                     method: "POST",
                     body: JSON.stringify({ prompt: query })
                 });
                 const data = await response.json();
-                appendLog(`PROTON#`, data.choices.message.content, '#a855f7');
-                
-                // Track Usage
-                userStats.count++;
-                localStorage.setItem('proton_usage', JSON.stringify(userStats));
+                appendLog("PROTON#", data.choices.message.content, "#a855f7");
             } catch (err) {
-                appendLog(`SYSTEM`, "UPLINK_FAILURE: CHECK_NETLIFY_LOGS", "red");
+                appendLog("SYSTEM", "UPLINK_ERROR: Check Netlify Functions.", "red");
             }
-            
-            inputField.disabled = false;
-            inputField.focus();
         }
     });
 
@@ -152,6 +124,5 @@
         log.scrollTop = log.scrollHeight;
     }
 </script>
-
 </body>
 </html>
