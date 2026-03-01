@@ -1,75 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Proton# | AI_CORE</title>
-    <link href="https://fonts.googleapis.com" rel="stylesheet">
-    <style>
-        :root {
-            --bg: #000000; --panel: #0a0a0a; --border: #1a1a1a;
-            --proton-orange: #ff8c00; --pro-purple: #a855f7; --mono: 'JetBrains Mono', monospace;
-        }
-
-        body, html { background: var(--bg); color: var(--proton-orange); font-family: var(--mono); margin: 0; height: 100vh; overflow: hidden; }
-
-        /* THE TERMINAL - Starts Blurred */
-        #terminal-wrapper {
-            display: flex; flex-direction: column; height: 100vh; padding: 40px; box-sizing: border-box;
-            transition: filter 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            filter: blur(20px); /* THE BLUR */
-            pointer-events: none; /* Prevents typing while blurred */
-        }
-
-        /* THE GATE OVERLAY */
-        #gate-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85); display: flex; align-items: center; justify-content: center; z-index: 1000;
-            transition: opacity 0.5s ease, visibility 0.5s;
-        }
-
-        .gate-card {
-            background: var(--panel); border: 1px solid var(--pro-purple); padding: 40px; border-radius: 12px;
-            text-align: center; max-width: 450px; box-shadow: 0 0 50px rgba(168, 85, 247, 0.15);
-        }
-
-        button#unlock-btn {
-            background: var(--pro-purple); color: #fff; border: none; padding: 12px 30px; 
-            font-family: var(--mono); font-weight: 800; cursor: pointer; margin-top: 25px; opacity: 0.3;
-        }
-        button#unlock-btn:not([disabled]) { opacity: 1; box-shadow: 0 0 15px var(--pro-purple); }
-
-        #chat-log { flex: 1; overflow-y: auto; margin-bottom: 20px; font-size: 0.9rem; }
-        .input-area { display: flex; gap: 15px; border-top: 1px solid var(--border); padding-top: 20px; }
-        input { flex: 1; background: transparent; border: none; color: #fff; font-family: var(--mono); outline: none; }
-    </style>
-</head>
-<body>
-
-<div id="gate-overlay">
-    <div class="gate-card">
-        <h2 style="color: var(--pro-purple);">AI_CORE ACCESS</h2>
-        <p style="color: #666; font-size: 0.8rem; margin-bottom: 25px;">[VERIFICATION REQUIRED]</p>
-        
-        <label style="font-size: 0.85rem; color: #888; cursor: pointer;">
-            <input type="checkbox" id="legal-check"> 
-            I confirm I am 13+ or a parent/guardian agrees and I've read the 
-            <a href="https://protonlanguage.github.io" target="_blank" style="color:var(--proton-orange)">legal documentation</a>.
-        </label>
-        <br>
-        <button id="unlock-btn" disabled onclick="unlockTerminal()">UNLOCK_TERMINAL</button>
-    </div>
-</div>
-
-<div id="terminal-wrapper">
-    <div id="chat-log">
-        <div style="color: var(--pro-purple)">[SYSTEM]: UPLINK_ESTABLISHED. KEY_1_ACTIVE.</div>
-        <div style="color: #444;">> Waiting for authorization...</div>
-    </div>
-    <div class="input-area">
-        <span style="color: var(--pro-purple)">$</span>
-        <input type="text" id="user-input" placeholder="Type a message..." autocomplete="off">
-    </div>
-</div>
+<style>
+    /* Add this to your CSS for a legendary terminal look */
+    #user-input:disabled { opacity: 0.5; cursor: not-allowed; }
+    .typing { color: #444; font-style: italic; }
+</style>
 
 <script>
     const check = document.getElementById('legal-check');
@@ -78,51 +11,74 @@
     const overlay = document.getElementById('gate-overlay');
     const inputField = document.getElementById('user-input');
 
-    check.onchange = () => unlockBtn.disabled = !check.checked;
+    // Enable/Disable Unlock Button
+    check.onchange = () => {
+        unlockBtn.disabled = !check.checked;
+        unlockBtn.style.opacity = check.checked ? "1" : "0.3";
+    };
 
     function unlockTerminal() {
-        // 1. Delete the Blur
         wrapper.style.filter = "none";
         wrapper.style.pointerEvents = "auto";
-        
-        // 2. Delete the Overlay
         overlay.style.opacity = "0";
-        overlay.style.visibility = "hidden";
-        
-        // 3. Focus the cursor
-        setTimeout(() => inputField.focus(), 600);
-        
+        setTimeout(() => {
+            overlay.style.display = "none";
+            inputField.focus();
+        }, 500);
         appendLog("SYSTEM", "ACCESS GRANTED. WELCOME FOUNDER.", "#6dc86d");
     }
 
-    // --- AI FETCH LOGIC ---
+    // --- ENHANCED AI FETCH LOGIC ---
     inputField.addEventListener('keypress', async (e) => {
         if (e.key === 'Enter') {
             const query = inputField.value.trim();
             if (!query) return;
 
+            // 1. Show User Message & Lock Input
             appendLog("USER", query, "#fff");
             inputField.value = "";
+            inputField.disabled = true;
+
+            // 2. Show Typing Indicator
+            const typingId = "msg-" + Date.now();
+            const log = document.getElementById("chat-log");
+            log.innerHTML += `<div id="${typingId}" class="typing">> PROTON#: Thinking...</div>`;
+            log.scrollTop = log.scrollHeight;
 
             try {
-                // This calls your SECURE Netlify Proxy
                 const response = await fetch("/.netlify/functions/chat", {
                     method: "POST",
+                    headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ prompt: query })
                 });
+
                 const data = await response.json();
-                appendLog("PROTON#", data.choices.message.content, "#a855f7");
+                
+                // Remove Typing Indicator
+                document.getElementById(typingId).remove();
+
+                if (data.choices && data.choices[0]) {
+                    const aiContent = data.choices[0].message.content;
+                    appendLog("PROTON#", aiContent, "#a855f7");
+                } else {
+                    throw new Error(data.error?.message || "Empty response from AI_CORE");
+                }
+
             } catch (err) {
-                appendLog("SYSTEM", "UPLINK_ERROR: Check Netlify Functions.", "red");
+                if (document.getElementById(typingId)) document.getElementById(typingId).remove();
+                appendLog("SYSTEM", `UPLINK_ERROR: ${err.message}`, "#ff4444");
+            } finally {
+                inputField.disabled = false;
+                inputField.focus();
             }
         }
     });
 
     function appendLog(role, text, color) {
         const log = document.getElementById("chat-log");
-        log.innerHTML += `<div style="margin-bottom: 10px; color: ${color}">> ${role}: ${text}</div>`;
+        // Convert newlines to <br> so the terminal respects formatting
+        const formattedText = text.replace(/\n/g, '<br>');
+        log.innerHTML += `<div style="margin-bottom: 12px; color: ${color}; line-height: 1.4;">> ${role}: ${formattedText}</div>`;
         log.scrollTop = log.scrollHeight;
     }
 </script>
-</body>
-</html>
