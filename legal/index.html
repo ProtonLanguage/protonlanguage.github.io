@@ -1,35 +1,419 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Legal Documentation | Proton#</title>
-    <style>
-        body { background: #f9f9f9; color: #333; font-family: serif; line-height: 1.6; padding: 50px 15%; }
-        h1 { border-bottom: 2px solid #333; padding-bottom: 10px; }
-        .doc-section { margin-bottom: 40px; background: white; padding: 30px; border: 1px solid #ddd; box-shadow: 2px 2px 10px rgba(0,0,0,0.05); }
-        .coppa-alert { background: #fff3cd; border: 1px solid #ffeeba; padding: 15px; margin-bottom: 20px; font-weight: bold; }
-    </style>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Legal — Proton# Studio</title>
+  <link rel="icon" type="image/png" href="../proton-logo.png"/>
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    body{background:#f9f9f9;color:#1a1a1a;font-family:Georgia,serif;font-size:15px;line-height:1.8;}
+    .page{max-width:820px;margin:0 auto;padding:48px 32px 80px;}
+
+    /* NAV */
+    .top-nav{background:#fff;border-bottom:2px solid #1a1a1a;padding:12px 0;margin-bottom:48px;display:flex;gap:24px;align-items:center;}
+    .top-nav a{color:#1a1a1a;text-decoration:none;font-family:'Arial',sans-serif;font-size:13px;font-weight:700;}
+    .top-nav a:hover{text-decoration:underline;}
+    .top-nav .home{color:#FF6B00;}
+
+    /* HEADER */
+    .doc-header{border-bottom:3px solid #1a1a1a;padding-bottom:24px;margin-bottom:40px;}
+    .doc-header h1{font-size:2rem;font-weight:700;margin-bottom:8px;letter-spacing:-0.5px;}
+    .doc-header .meta{font-family:'Arial',sans-serif;font-size:12px;color:#666;display:flex;gap:24px;flex-wrap:wrap;margin-top:12px;}
+    .doc-header .meta span{display:flex;align-items:center;gap:4px;}
+
+    /* SIDEBAR TOC */
+    .layout{display:flex;gap:48px;align-items:flex-start;}
+    .toc{width:200px;flex-shrink:0;position:sticky;top:24px;font-family:'Arial',sans-serif;}
+    .toc-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#999;margin-bottom:10px;}
+    .toc a{display:block;font-size:12px;color:#555;text-decoration:none;padding:4px 0;border-left:2px solid #e0e0e0;padding-left:10px;transition:all 0.15s;line-height:1.4;}
+    .toc a:hover{color:#1a1a1a;border-left-color:#FF6B00;}
+    .toc a.section{font-weight:700;color:#1a1a1a;margin-top:8px;font-size:11px;text-transform:uppercase;letter-spacing:0.5px;}
+    .toc-sep{height:1px;background:#e0e0e0;margin:8px 0;}
+
+    /* CONTENT */
+    .doc-content{flex:1;min-width:0;}
+    .doc-section{margin-bottom:48px;padding-bottom:48px;border-bottom:1px solid #e0e0e0;}
+    .doc-section:last-child{border-bottom:none;}
+    .section-label{font-family:'Arial',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#FF6B00;margin-bottom:8px;}
+    h2{font-size:1.4rem;font-weight:700;margin-bottom:20px;letter-spacing:-0.3px;}
+    h3{font-size:1rem;font-weight:700;margin:24px 0 10px;font-family:'Arial',sans-serif;}
+    p{margin-bottom:14px;color:#2a2a2a;}
+    ul,ol{margin:0 0 14px 24px;}
+    li{margin-bottom:6px;color:#2a2a2a;}
+    strong{font-weight:700;}
+    .highlight-box{background:#fff8f0;border-left:4px solid #FF6B00;padding:16px 20px;margin:20px 0;border-radius:0 8px 8px 0;}
+    .highlight-box.warning{background:#fff5f5;border-left-color:#cc0000;}
+    .highlight-box.info{background:#f0f7ff;border-left-color:#0066cc;}
+    .highlight-box p{margin-bottom:0;font-size:0.9rem;}
+    .highlight-box strong{display:block;margin-bottom:6px;font-size:0.85rem;text-transform:uppercase;letter-spacing:0.5px;}
+    table{width:100%;border-collapse:collapse;margin:16px 0;font-family:'Arial',sans-serif;font-size:13px;}
+    th{background:#1a1a1a;color:#fff;padding:10px 14px;text-align:left;font-weight:700;}
+    td{padding:9px 14px;border-bottom:1px solid #e0e0e0;vertical-align:top;}
+    tr:nth-child(even) td{background:#f5f5f5;}
+    .contact-box{background:#1a1a1a;color:#f0f0f0;padding:24px;border-radius:8px;margin-top:24px;font-family:'Arial',sans-serif;font-size:13px;}
+    .contact-box a{color:#FF6B00;}
+    .effective{font-family:'Arial',sans-serif;font-size:13px;color:#666;font-style:italic;margin-bottom:20px;}
+    .coppa-age{display:inline-block;background:#cc0000;color:#fff;font-family:'Arial',sans-serif;font-size:11px;font-weight:700;padding:2px 8px;border-radius:4px;vertical-align:middle;margin-left:4px;}
+
+    @media(max-width:700px){.layout{flex-direction:column;}.toc{width:100%;position:static;}.top-nav{gap:12px;}}
+  </style>
 </head>
 <body>
-    <h1>Proton# Legal Repository</h1>
-    
-    <div class="coppa-alert">⚠️ COPPA COMPLIANCE: This platform does not collect personal data. Users under 13 must use parental accounts for GitHub interaction.</div>
+<div class="page">
 
-    <div class="doc-section">
-        <h2>1. Privacy Policy</h2>
-        <p>Proton# is hosted via GitHub Pages. We do not store, track, or sell user data. Our site is a static repository for information and software distribution.</p>
+  <!-- NAV -->
+  <div class="top-nav">
+    <a class="home" href="../">← proton-sharp.com</a>
+    <a href="../docs/">Docs</a>
+    <a href="../pro/">Pro / EDU</a>
+    <a href="mailto:protoncoding@outlook.com">Contact</a>
+  </div>
+
+  <!-- HEADER -->
+  <div class="doc-header">
+    <div class="section-label">Legal Repository</div>
+    <h1>Proton# Studio — Legal Documentation</h1>
+    <p style="color:#555;margin-top:8px;">This page contains all legal documents governing your use of Proton# Studio, its website, marketplace, and related services. Please read all sections carefully.</p>
+    <div class="meta">
+      <span>📅 Last updated: March 1, 2026</span>
+      <span>🏢 Proton# Studio</span>
+      <span>📧 protoncoding@outlook.com</span>
+      <span>⚖️ Mozilla Public License 2.0</span>
+    </div>
+  </div>
+
+  <div class="layout">
+
+    <!-- TOC -->
+    <div class="toc">
+      <div class="toc-title">Contents</div>
+      <a class="section" href="#terms">Terms of Service</a>
+      <a href="#tos-acceptance">1. Acceptance</a>
+      <a href="#tos-accounts">2. Accounts</a>
+      <a href="#tos-conduct">3. Conduct</a>
+      <a href="#tos-marketplace">4. Marketplace</a>
+      <a href="#tos-shards">5. Shards</a>
+      <a href="#tos-plugins">6. Plugins</a>
+      <a href="#tos-termination">7. Termination</a>
+      <a href="#tos-liability">8. Liability</a>
+      <div class="toc-sep"></div>
+      <a class="section" href="#privacy">Privacy Policy</a>
+      <a href="#priv-collect">1. What We Collect</a>
+      <a href="#priv-use">2. How We Use It</a>
+      <a href="#priv-share">3. Who Sees It</a>
+      <a href="#priv-rights">4. Your Rights</a>
+      <a href="#priv-security">5. Security</a>
+      <div class="toc-sep"></div>
+      <a class="section" href="#coppa">COPPA Policy</a>
+      <a href="#coppa-age">1. Age Requirements</a>
+      <a href="#coppa-consent">2. Parental Consent</a>
+      <a href="#coppa-data">3. Children's Data</a>
+      <a href="#coppa-removal">4. Data Removal</a>
+      <div class="toc-sep"></div>
+      <a class="section" href="#dmca">DMCA Policy</a>
+      <a class="section" href="#license">Software License</a>
+      <a class="section" href="#joint">Marketplace Ownership</a>
     </div>
 
-    <div class="doc-section">
-        <h2>2. Software License (MPL 2.0)</h2>
-        <p>Proton# is licensed under the Mozilla Public License 2.0. This allows for corporate use while ensuring that changes to the core engine remain open-source.</p>
-    </div>
+    <!-- CONTENT -->
+    <div class="doc-content">
 
-    <div class="doc-section">
-        <h2>3. Joint Ownership Policy (Asset Store)</h2>
-        <p>Users own their Full Projects. Individual assets uploaded to the Proton# Store grant a non-exclusive, joint-ownership license to Proton# and its users.</p>
-    </div>
+      <!-- ══ TERMS OF SERVICE ══ -->
+      <div class="doc-section" id="terms">
+        <div class="section-label">Document 1 of 6</div>
+        <h2>Terms of Service</h2>
+        <p class="effective">Effective: March 1, 2026 — Applies to all users of proton-sharp.com and Proton# Studio software.</p>
 
-    <p><a href="../">← Return to Main Site</a></p>
+        <div class="highlight-box">
+          <strong>Plain English Summary</strong>
+          <p>Use Proton# fairly, don't break things, don't steal other people's work, and don't try to harm the platform or other users. If you're under 13, you need a parent's permission to have an account.</p>
+        </div>
+
+        <h3 id="tos-acceptance">1. Acceptance of Terms</h3>
+        <p>By accessing proton-sharp.com, downloading Proton# Studio, or creating an account, you agree to be bound by these Terms of Service. If you do not agree, you may not use our services. These terms apply to all visitors, users, and contributors.</p>
+        <p>If you are under the age of 18, your parent or legal guardian must review and agree to these terms on your behalf. If you are under 13, you may not create an account without verified parental consent as described in our COPPA Policy below.</p>
+
+        <h3 id="tos-accounts">2. User Accounts</h3>
+        <p>When you create an account with Proton# Studio, you agree to:</p>
+        <ul>
+          <li>Provide accurate information including your real date of birth for age verification</li>
+          <li>Keep your password secure and not share it with others</li>
+          <li>Be responsible for all activity that occurs under your account</li>
+          <li>Notify us immediately at <strong>protoncoding@outlook.com</strong> if you believe your account has been compromised</li>
+          <li>Not create multiple accounts to evade bans or restrictions</li>
+        </ul>
+        <p>We reserve the right to suspend or permanently terminate accounts that violate these terms, without prior notice in cases of serious violations.</p>
+
+        <h3 id="tos-conduct">3. Acceptable Use &amp; Conduct</h3>
+        <p>You agree not to use Proton# Studio or its services to:</p>
+        <ul>
+          <li>Upload, share, or distribute malicious code, malware, or exploits</li>
+          <li>Harass, threaten, or harm other users in any community space including Guides comments</li>
+          <li>Impersonate Proton# staff, other users, or any real person</li>
+          <li>Attempt to gain unauthorized access to any systems, accounts, or data</li>
+          <li>Distribute content that is illegal, obscene, or violates any person's rights</li>
+          <li>Use automated tools to scrape, spam, or abuse any platform feature</li>
+          <li>Circumvent any age verification, content restriction, or security measure</li>
+          <li>Engage in any form of cheating, exploitation, or abuse of the Shards currency system</li>
+        </ul>
+
+        <p>The <strong>Guides</strong> section of proton-sharp.com is a community documentation and help forum. Users must be 13 or older to post or comment. All content in Guides must be related to Proton# development. Content that is off-topic, harmful, or violates these terms will be removed and the posting account may be suspended.</p>
+
+        <h3 id="tos-marketplace">4. Marketplace Rules</h3>
+        <p>The Proton# Marketplace allows users to buy and sell scripts, assets, templates, plugins, and other content using Shards. By listing content on the Marketplace you agree to the following:</p>
+        <ul>
+          <li>You own or have the legal right to sell everything you upload</li>
+          <li>Your content does not infringe any copyright, trademark, or other intellectual property rights</li>
+          <li>You will accurately describe your asset — misleading listings will be removed</li>
+          <li>You grant Proton# Studio a non-exclusive license to display, distribute, and promote your listing</li>
+          <li>You retain ownership of your full projects. Individual assets uploaded to the Marketplace grant a non-exclusive joint-ownership license to Proton# Studio and its users as described in the Marketplace Ownership section below</li>
+          <li>Proton# Studio takes a <strong>30% platform fee</strong> on all Marketplace transactions. You receive 70% of the Shard value of each sale</li>
+          <li>Proton# Studio reserves the right to remove any listing for any reason without prior notice</li>
+        </ul>
+
+        <h3 id="tos-shards">5. Shards Virtual Currency</h3>
+        <p>Shards are a virtual currency used within the Proton# platform. By using Shards you acknowledge and agree that:</p>
+        <ul>
+          <li>Shards have no real-world monetary value and cannot be exchanged for real money</li>
+          <li>Shards are non-transferable except through official Marketplace transactions</li>
+          <li>Shards purchased with real money are non-refundable except where required by applicable law</li>
+          <li>Proton# Studio may modify the Shards system, pricing, or availability at any time</li>
+          <li>Shards are not available on Enterprise or EDU plan accounts</li>
+          <li>Any attempt to exploit, duplicate, or fraudulently obtain Shards will result in immediate account termination</li>
+        </ul>
+
+        <div class="highlight-box warning">
+          <strong>⚠️ Shards Are Not Real Money</strong>
+          <p>Shards cannot be withdrawn, exchanged, or redeemed for cash or any real-world value under any circumstances. They exist solely for use within the Proton# platform.</p>
+        </div>
+
+        <h3 id="tos-plugins">6. Plugin Certification</h3>
+        <p>Plugins distributed through the Proton# Marketplace are subject to a certification process modelled on the VS Code extension marketplace. This exists to protect users from malicious code.</p>
+        <ul>
+          <li><strong>Uncertified plugins</strong> will display a prominent warning to users before download. Users download uncertified plugins entirely at their own risk</li>
+          <li><strong>Certified plugins</strong> have been reviewed by the Proton# team and meet our security and quality standards. They display a green Certified badge</li>
+          <li>Certification does not guarantee a plugin is free from bugs or errors — it means it passed our security review</li>
+          <li>Certification may be revoked at any time if a plugin is found to violate these terms after certification</li>
+          <li>To apply for certification, contact <strong>protoncoding@outlook.com</strong> with your plugin ID</li>
+        </ul>
+
+        <h3 id="tos-termination">7. Termination</h3>
+        <p>We may suspend or terminate your account and access to Proton# services at our sole discretion, with or without notice, for conduct that we believe violates these Terms of Service or is harmful to other users, us, third parties, or the platform.</p>
+        <p>Upon termination, your right to use the service ceases immediately. Shards balances in terminated accounts are forfeited. If you believe your account was terminated in error, contact us at <strong>protoncoding@outlook.com</strong>.</p>
+
+        <h3 id="tos-liability">8. Limitation of Liability</h3>
+        <p>Proton# Studio is provided "as is" without warranty of any kind. We do not guarantee that the service will be uninterrupted, error-free, or free from security vulnerabilities. To the maximum extent permitted by applicable law, Proton# Studio and its operators shall not be liable for any indirect, incidental, special, or consequential damages arising from your use of the service.</p>
+        <p>The Proton# Studio software is licensed under the Mozilla Public License 2.0. See the Software License section below for full details.</p>
+      </div>
+
+      <!-- ══ PRIVACY POLICY ══ -->
+      <div class="doc-section" id="privacy">
+        <div class="section-label">Document 2 of 6</div>
+        <h2>Privacy Policy</h2>
+        <p class="effective">Effective: March 1, 2026 — Describes how Proton# Studio collects, uses, and protects your personal information.</p>
+
+        <div class="highlight-box info">
+          <strong>Our Core Commitment</strong>
+          <p>We collect the minimum data necessary to operate the platform. We do not sell your data to anyone. We do not serve advertisements. We do not track you across other websites.</p>
+        </div>
+
+        <h3 id="priv-collect">1. Information We Collect</h3>
+        <p>Depending on how you use Proton# Studio, we may collect the following:</p>
+
+        <table>
+          <thead><tr><th>Data Type</th><th>Why We Collect It</th><th>Required?</th></tr></thead>
+          <tbody>
+            <tr><td>Email address</td><td>Account creation, password recovery, important notices</td><td>Yes, for accounts</td></tr>
+            <tr><td>Date of birth</td><td>Age verification and COPPA compliance</td><td>Yes, for accounts</td></tr>
+            <tr><td>Username</td><td>Public identity on the platform</td><td>Yes, for accounts</td></tr>
+            <tr><td>Password (hashed)</td><td>Account security — never stored in plain text</td><td>Yes, for accounts</td></tr>
+            <tr><td>Purchase history</td><td>Marketplace transactions, Shards balance</td><td>Only if you transact</td></tr>
+            <tr><td>Uploaded content</td><td>Marketplace listings you create</td><td>Only if you sell</td></tr>
+            <tr><td>IP address (temporary)</td><td>Security, fraud prevention, rate limiting</td><td>Automatic</td></tr>
+            <tr><td>Browser/OS info</td><td>Bug reporting and compatibility</td><td>Automatic</td></tr>
+          </tbody>
+        </table>
+
+        <p>The <strong>proton-sharp.com website</strong> is hosted on GitHub Pages, which is a static site. The website itself does not collect any personal data. GitHub's own privacy policy applies to hosting infrastructure.</p>
+
+        <h3 id="priv-use">2. How We Use Your Information</h3>
+        <p>We use collected information solely to:</p>
+        <ul>
+          <li>Operate and maintain your account</li>
+          <li>Process Marketplace transactions and maintain Shards balances</li>
+          <li>Send transactional emails (account verification, purchase receipts, password resets)</li>
+          <li>Enforce our Terms of Service and investigate violations</li>
+          <li>Comply with legal obligations including COPPA</li>
+          <li>Improve the platform based on aggregated, anonymized usage patterns</li>
+        </ul>
+        <p>We will <strong>never</strong> use your data for advertising, sell it to third parties, or share it with anyone outside of what is described in this policy.</p>
+
+        <h3 id="priv-share">3. Who Can See Your Information</h3>
+        <ul>
+          <li><strong>Other users</strong> can see your username and public Marketplace listings only</li>
+          <li><strong>Proton# team members</strong> may access account data only to provide support or investigate violations</li>
+          <li><strong>Payment processors</strong> (when Shards purchases are implemented) will handle payment data under their own privacy policies — we will not store full card details</li>
+          <li><strong>Law enforcement</strong> — we will comply with valid legal requests but will notify affected users where legally permitted</li>
+          <li>Your email address, date of birth, IP address, and password are <strong>never publicly visible</strong></li>
+        </ul>
+
+        <h3 id="priv-rights">4. Your Rights</h3>
+        <p>You have the right to:</p>
+        <ul>
+          <li><strong>Access</strong> — request a copy of all data we hold about you</li>
+          <li><strong>Correction</strong> — ask us to correct inaccurate data</li>
+          <li><strong>Deletion</strong> — request deletion of your account and associated data</li>
+          <li><strong>Portability</strong> — receive your data in a machine-readable format</li>
+          <li><strong>Objection</strong> — object to any processing you believe is unlawful</li>
+        </ul>
+        <p>To exercise any of these rights, email <strong>protoncoding@outlook.com</strong> with the subject line "Privacy Request". We will respond within 30 days.</p>
+
+        <h3 id="priv-security">5. Security</h3>
+        <p>We take reasonable technical measures to protect your data including password hashing, encrypted connections (HTTPS), and access controls on any databases. However, no system is perfectly secure. If we discover a breach that affects your personal data, we will notify affected users by email within 72 hours of discovery.</p>
+      </div>
+
+      <!-- ══ COPPA ══ -->
+      <div class="doc-section" id="coppa">
+        <div class="section-label">Document 3 of 6</div>
+        <h2>COPPA Compliance Policy <span class="coppa-age">UNDER 13</span></h2>
+        <p class="effective">The Children's Online Privacy Protection Act (COPPA) is a United States federal law that restricts the collection of personal information from children under the age of 13. This policy describes how Proton# Studio complies with COPPA.</p>
+
+        <div class="highlight-box warning">
+          <strong>⚠️ Important — Parents Please Read</strong>
+          <p>If your child is under 13 and wishes to use Proton# Studio, you must provide verified parental consent before an account can be created. Without this, children under 13 may use the software and website in read-only mode only — no accounts, no Marketplace, no Guides posting.</p>
+        </div>
+
+        <h3 id="coppa-age">1. Age Requirements by Feature</h3>
+        <table>
+          <thead><tr><th>Feature</th><th>Minimum Age</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td>Download Proton# Studio / Editor</td><td>Any age</td><td>No account required</td></tr>
+            <tr><td>Browse the website and docs</td><td>Any age</td><td>Read-only, no data collected</td></tr>
+            <tr><td>Browse Marketplace (no purchase)</td><td>Any age</td><td>Read-only</td></tr>
+            <tr><td>Create an account</td><td>13+ or under 13 with parental consent</td><td>Date of birth required</td></tr>
+            <tr><td>Purchase Shards</td><td>13+ (or 18+ for real money transactions)</td><td>Parent must approve under 18</td></tr>
+            <tr><td>Upload to Marketplace</td><td>13+</td><td>Account required</td></tr>
+            <tr><td>Post or comment in Guides</td><td>13+</td><td>Strictly enforced</td></tr>
+            <tr><td>EDU account (school-managed)</td><td>Any age</td><td>Under parental + school consent</td></tr>
+          </tbody>
+        </table>
+
+        <h3 id="coppa-consent">2. Parental Consent Process</h3>
+        <p>For users who indicate they are under 13 during account registration, the following process applies:</p>
+        <ol>
+          <li>The child's registration is paused and no data is stored beyond a temporary session</li>
+          <li>A parental consent request is sent to the parent email address provided</li>
+          <li>The parent must verify their identity and provide explicit written consent via a signed consent form</li>
+          <li>Until consent is received and verified, no account is created and no personal data is retained</li>
+          <li>If consent is not received within 14 days, all temporary data is permanently deleted</li>
+        </ol>
+        <p>Parents may revoke consent at any time by contacting <strong>protoncoding@outlook.com</strong>. Upon revocation, the child's account and all associated data will be deleted within 5 business days.</p>
+
+        <h3 id="coppa-data">3. What We Do NOT Collect From Children</h3>
+        <p>For users under 13, even with parental consent, we do <strong>not</strong> collect:</p>
+        <ul>
+          <li>Full name or home address</li>
+          <li>Phone number</li>
+          <li>Location data</li>
+          <li>Photos or video</li>
+          <li>Any information beyond what is strictly necessary for the account to function</li>
+        </ul>
+        <p>Children under 13 with parental consent may create an account with only a username, parent-verified email, and date of birth. They may access the Marketplace in read-only mode. They may <strong>not</strong> post or comment in Guides, purchase Shards, or upload content.</p>
+
+        <h3 id="coppa-removal">4. Parents: Reviewing and Removing Your Child's Data</h3>
+        <p>At any time, the parent or legal guardian of a child under 13 may:</p>
+        <ul>
+          <li>Request to review all personal information we have collected from their child</li>
+          <li>Request correction of any inaccurate information</li>
+          <li>Request deletion of their child's account and all associated data</li>
+          <li>Refuse to permit further collection or use of their child's information</li>
+        </ul>
+        <p>To make any of these requests, email <strong>protoncoding@outlook.com</strong> with the subject line "COPPA Request — Child Account". Please include the child's username. We will respond within 5 business days and complete all deletions within 10 business days.</p>
+
+        <div class="highlight-box info">
+          <strong>EDU Accounts and Schools</strong>
+          <p>Schools using Proton# EDU may act as the consent authority for students under 13 under the school's existing parental consent agreements, provided the school has obtained appropriate parental permission as part of their technology use policies. Schools must contact us at protoncoding@outlook.com to establish an EDU agreement before student accounts are created.</p>
+        </div>
+      </div>
+
+      <!-- ══ DMCA ══ -->
+      <div class="doc-section" id="dmca">
+        <div class="section-label">Document 4 of 6</div>
+        <h2>DMCA Policy</h2>
+        <p class="effective">Proton# Studio respects intellectual property rights and complies with the Digital Millennium Copyright Act (DMCA).</p>
+
+        <h3>Reporting Copyright Infringement</h3>
+        <p>If you believe that content on the Proton# Marketplace or any other part of our platform infringes your copyright, please send a written notice to <strong>protoncoding@outlook.com</strong> with the subject line "DMCA Takedown Request" containing:</p>
+        <ol>
+          <li>Your full name and contact information</li>
+          <li>A description of the copyrighted work you claim has been infringed</li>
+          <li>The URL or specific location of the infringing content on our platform</li>
+          <li>A statement that you have a good faith belief the use is not authorized</li>
+          <li>A statement under penalty of perjury that the information is accurate and you are the copyright owner or authorized to act on their behalf</li>
+          <li>Your electronic or physical signature</li>
+        </ol>
+        <p>We will respond to valid DMCA notices by removing the infringing content within <strong>72 hours</strong> and notifying the account that uploaded it. Repeat infringers will have their accounts permanently terminated.</p>
+
+        <h3>Counter-Notices</h3>
+        <p>If you believe your content was removed in error, you may submit a DMCA counter-notice to <strong>protoncoding@outlook.com</strong>. We will forward your counter-notice to the original complainant. If no legal action is filed within 10 business days, we may restore the content.</p>
+      </div>
+
+      <!-- ══ SOFTWARE LICENSE ══ -->
+      <div class="doc-section" id="license">
+        <div class="section-label">Document 5 of 6</div>
+        <h2>Software License</h2>
+        <p class="effective">Proton# Studio is licensed under the Mozilla Public License 2.0 (MPL-2.0).</p>
+
+        <h3>What This Means</h3>
+        <p>The MPL 2.0 is a copyleft license that balances open-source freedoms with the ability to use Proton# in commercial products. In plain terms:</p>
+        <ul>
+          <li><strong>You can</strong> use Proton# in commercial projects and products</li>
+          <li><strong>You can</strong> modify the Proton# source code for your own use</li>
+          <li><strong>You must</strong> make any modifications to Proton# core engine files open source under MPL 2.0</li>
+          <li><strong>You do not</strong> need to open-source your own games, scripts, or tools built with Proton# — only modifications to the engine itself</li>
+          <li><strong>Enterprise licenses</strong> may include additional commercial terms negotiated separately</li>
+        </ul>
+
+        <p>The full text of the Mozilla Public License 2.0 is available at <a href="https://www.mozilla.org/en-US/MPL/2.0/" style="color:#FF6B00;">mozilla.org/MPL/2.0</a>.</p>
+      </div>
+
+      <!-- ══ MARKETPLACE OWNERSHIP ══ -->
+      <div class="doc-section" id="joint">
+        <div class="section-label">Document 6 of 6</div>
+        <h2>Marketplace Ownership Policy</h2>
+        <p class="effective">This policy describes how ownership and rights work for content sold on the Proton# Marketplace.</p>
+
+        <h3>Your Content, Your Rights</h3>
+        <p><strong>You own your full projects.</strong> Scripts, games, tools, and complete projects you build with Proton# are entirely yours. We make no claim on them.</p>
+
+        <h3>Marketplace Asset Listings</h3>
+        <p>When you upload an individual asset, script, template, or plugin to the Marketplace for sale or free distribution, you grant Proton# Studio a <strong>non-exclusive, royalty-free, worldwide license</strong> to:</p>
+        <ul>
+          <li>Display, promote, and distribute your listing on the Marketplace</li>
+          <li>Use your asset name and description in search results and promotional material</li>
+          <li>Include your asset in featured collections and promotional showcases</li>
+        </ul>
+        <p>This license does <strong>not</strong> give Proton# Studio the right to resell your asset outside the Marketplace, modify and redistribute it as our own product, or claim ownership over your work. You may remove your listing at any time, which terminates this license for future distributions (existing purchases are not affected).</p>
+
+        <h3>Buyer Rights</h3>
+        <p>When a user purchases an asset from the Marketplace, they receive a <strong>non-exclusive, non-transferable license</strong> to use that asset in their own Proton# projects. They may not resell, redistribute, or re-upload the purchased asset as their own listing.</p>
+
+        <h3>Revenue Split</h3>
+        <p>All Marketplace transactions are subject to a <strong>70/30 revenue split</strong>: the creator receives 70% of the Shard value of each sale, and Proton# Studio retains 30% as a platform fee.</p>
+
+        <!-- CONTACT -->
+        <div class="contact-box">
+          <strong style="display:block;margin-bottom:8px;font-size:0.9rem;">Questions About These Policies?</strong>
+          For any legal questions, privacy requests, COPPA requests, DMCA notices, or concerns about these documents, contact us at:<br/><br/>
+          📧 <a href="mailto:protoncoding@outlook.com">protoncoding@outlook.com</a><br/>
+          🌐 <a href="https://proton-sharp.com">proton-sharp.com</a><br/><br/>
+          <span style="font-size:0.8rem;color:#aaa;">We are a small independent team. We will respond to all legal requests within 5 business days and all general enquiries within 14 days.</span>
+        </div>
+      </div>
+
+    </div><!-- /doc-content -->
+  </div><!-- /layout -->
+</div><!-- /page -->
 </body>
 </html>
