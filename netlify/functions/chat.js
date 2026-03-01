@@ -1,12 +1,16 @@
 exports.handler = async (event) => {
-  if (event.httpMethod !== "POST") {
-    return { statusCode: 405, body: "Method Not Allowed" };
-  }
+  if (event.httpMethod !== "POST") return { statusCode: 405, body: "POST Only" };
 
   try {
     const { prompt } = JSON.parse(event.body);
     const API_KEY = process.env.KEY_1;
 
+    // Safety: If Key is missing, don't even try the fetch
+    if (!API_KEY || API_KEY === "") {
+      return { statusCode: 500, body: JSON.stringify({ error: { message: "API_KEY_NOT_FOUND_IN_NETLIFY" }}) };
+    }
+
+    
     const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
       headers: {
