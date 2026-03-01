@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Staff — Proton# Studio</title>
+  <link rel="icon" type="image/png" href="../proton-logo.png"/>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Syne:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    :root{
+      --bg:#0a0a0a;--bg-dark:#050505;--bg-card:#141414;--bg-card2:#1c1c1c;
+      --border:#1e1e1e;--border-hi:#2a2a2a;
+      --orange:#FF6B00;--orange-lo:rgba(255,107,0,0.1);
+      --text:#f0f0f0;--gray:#666;--gray-hi:#999;
+      
+      --purple:#bb86fc;--purple-lo:rgba(187,134,252,0.1);
+      --blue:#4da6ff;--blue-lo:rgba(77,166,255,0.1);
+      --green:#4caf7d;--green-lo:rgba(76,175,125,0.1);
+      --red:#ff5252;--red-lo:rgba(255,82,82,0.1);
+      --teal:#00bcd4;--teal-lo:rgba(0,188,212,0.1);
+    }
+    html{scroll-behavior:smooth;}
+    body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-height:100vh;}
+
+    /* HEADER */
+    header{position:sticky;top:0;z-index:100;background:rgba(5,5,5,0.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);height:58px;display:flex;align-items:center;padding:0 28px;gap:16px;}
+    .logo{font-weight:900;font-size:1.05rem;color:var(--orange);text-decoration:none;}
+    nav{margin-left:auto;display:flex;gap:4px;}
+    nav a{color:var(--gray-hi);text-decoration:none;padding:6px 13px;border-radius:8px;font-size:0.83rem;font-weight:600;transition:all 0.2s;}
+    nav a:hover{color:var(--text);background:var(--bg-card);}
+    nav a.active{color:var(--orange);}
+
+    /* HERO */
+    .hero{background:linear-gradient(135deg,#0f0800,#0a0a0a);border-bottom:1px solid var(--border);padding:60px 10% 48px;position:relative;overflow:hidden;text-align:center;}
+    .hero::before{content:'';position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(255,107,0,0.08) 0%,transparent 70%);pointer-events:none;}
+    .hero-label{font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--orange);margin-bottom:12px;}
+    .hero h1{font-size:clamp(2rem,5vw,3.5rem);font-weight:900;margin-bottom:12px;background:linear-gradient(135deg,#fff 40%,var(--orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+    .hero p{color:var(--gray-hi);font-size:0.95rem;max-width:480px;margin:0 auto;line-height:1.7;}
+
+    /* SECTION */
+    .section{padding:56px 10%;}
+    .section-header{margin-bottom:32px;}
+    .rank-label{font-family:'JetBrains Mono',monospace;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;}
+    .section-title{font-size:1.3rem;font-weight:800;}
+    .section-desc{font-size:0.85rem;color:var(--gray-hi);margin-top:6px;line-height:1.6;}
+    hr.divider{border:none;border-top:1px solid var(--border);margin:0 10%;}
+
+    /* ── RANK: BUREAUCRAT ── crown treatment, most elaborate */
+    .grid-bureaucrat{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:24px;}
+    .card-bureaucrat{
+      background:linear-gradient(135deg,#1a0800 0%,#0f0500 50%,#1a0a00 100%);
+      border:1px solid rgba(255,107,0,0.5);
+      border-radius:20px;padding:32px;position:relative;overflow:hidden;
+      box-shadow:0 0 40px rgba(255,107,0,0.08),inset 0 1px 0 rgba(255,107,0,0.15);
+      transition:all 0.3s;
+    }
+    .card-bureaucrat::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--orange),transparent);}
+    .card-bureaucrat::after{content:'⚡';position:absolute;top:16px;right:20px;font-size:1.4rem;opacity:0.7;}
+    .card-bureaucrat:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(255,107,0,0.15),inset 0 1px 0 rgba(255,107,0,0.2);}
+    .card-bureaucrat .rank-pill{background:var(--orange-lo);color:var(--orange);border:1px solid rgba(255,107,0,0.4);}
+    .card-bureaucrat .staff-name{font-size:1.4rem;font-weight:900;background:linear-gradient(135deg,var(--orange),#ffcc88);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+    .card-bureaucrat .staff-pos{color:rgba(255,107,0,0.8);}
+    .card-bureaucrat .staff-perms{border-color:rgba(255,107,0,0.2);}
+    .card-bureaucrat .perm-tag{background:var(--orange-lo);color:var(--orange);border:1px solid rgba(255,107,0,0.25);}
+
+    /* ── RANK: ADMINISTRATOR ── */
+    .grid-administrator{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;}
+    .card-administrator{
+      background:linear-gradient(135deg,#12001a,#0a0a14);
+      border:1px solid rgba(187,134,252,0.35);
+      border-radius:16px;padding:28px;position:relative;overflow:hidden;
+      box-shadow:0 0 24px rgba(187,134,252,0.05);
+      transition:all 0.25s;
+    }
+    .card-administrator::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--purple),transparent);}
+    .card-administrator::after{content:'⚡';position:absolute;top:14px;right:18px;font-size:1.1rem;opacity:0.5;}
+    .card-administrator:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(187,134,252,0.1);}
+    .card-administrator .rank-pill{background:var(--purple-lo);color:var(--purple);border:1px solid rgba(187,134,252,0.3);}
+    .card-administrator .staff-name{font-size:1.2rem;font-weight:800;color:#e0c0ff;}
+    .card-administrator .staff-pos{color:rgba(187,134,252,0.7);}
+    .card-administrator .staff-perms{border-color:rgba(187,134,252,0.15);}
+    .card-administrator .perm-tag{background:rgba(187,134,252,0.08);color:var(--purple);border:1px solid rgba(187,134,252,0.2);}
+
+    /* ── RANK: MODERATOR ── */
+    .grid-moderator{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;}
+    .card-moderator{
+      background:linear-gradient(135deg,#001218,#0a0f14);
+      border:1px solid rgba(77,166,255,0.25);
+      border-radius:14px;padding:24px;position:relative;overflow:hidden;
+      transition:all 0.2s;
+    }
+    .card-moderator::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--blue),transparent);}
+    .card-moderator:hover{transform:translateY(-2px);border-color:rgba(77,166,255,0.4);box-shadow:0 8px 20px rgba(77,166,255,0.07);}
+    .card-moderator .rank-pill{background:var(--blue-lo);color:var(--blue);border:1px solid rgba(77,166,255,0.25);}
+    .card-moderator .staff-name{font-size:1.05rem;font-weight:700;color:#c0deff;}
+    .card-moderator .staff-pos{color:rgba(77,166,255,0.6);}
+    .card-moderator .staff-perms{border-color:rgba(77,166,255,0.12);}
+    .card-moderator .perm-tag{background:rgba(77,166,255,0.07);color:var(--blue);border:1px solid rgba(77,166,255,0.15);}
+
+    /* ── RANK: CONTENT / DISCUSSION (share same level) ── */
+    .card-content::after{content:'👁️';position:absolute;top:12px;right:16px;font-size:1rem;opacity:0.5;}
+    .grid-content{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;}
+    .card-content{
+      background:var(--bg-card);
+      border:1px solid rgba(76,175,125,0.2);
+      border-radius:12px;padding:20px;
+      position:relative;overflow:hidden;
+      transition:all 0.2s;
+    }
+    .card-content:hover{border-color:rgba(76,175,125,0.35);background:var(--bg-card2);}
+    .card-content .rank-pill{background:var(--green-lo);color:var(--green);border:1px solid rgba(76,175,125,0.2);}
+    .card-content .staff-name{font-size:1rem;font-weight:700;color:#b0e8c8;}
+    .card-content .staff-pos{color:rgba(76,175,125,0.6);}
+    .card-content .staff-perms{border-color:rgba(76,175,125,0.1);}
+    .card-content .perm-tag{background:rgba(76,175,125,0.07);color:var(--green);border:1px solid rgba(76,175,125,0.12);}
+
+    /* shared card internals */
+    .rank-pill{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:700;padding:3px 9px;border-radius:20px;letter-spacing:0.5px;margin-bottom:14px;}
+    .staff-name{margin-bottom:4px;}
+    .staff-pos{font-size:0.8rem;margin-bottom:14px;}
+    .staff-bio{font-size:0.82rem;color:var(--gray-hi);line-height:1.65;margin-bottom:14px;}
+    .staff-perms{border-top:1px solid;padding-top:12px;display:flex;flex-wrap:wrap;gap:5px;}
+    .perm-tag{font-size:0.62rem;font-weight:700;padding:2px 8px;border-radius:20px;font-family:'JetBrains Mono',monospace;}
+    .staff-joined{font-size:0.7rem;color:var(--gray);margin-top:10px;font-family:'JetBrains Mono',monospace;}
+
+    /* COLLAB NOTE */
+    .collab-note{background:rgba(77,166,255,0.06);border:1px solid rgba(77,166,255,0.2);border-radius:10px;padding:14px 18px;font-size:0.82rem;color:var(--gray-hi);line-height:1.65;margin-bottom:28px;display:flex;gap:10px;align-items:flex-start;}
+    .collab-note span{color:var(--blue);font-weight:700;flex-shrink:0;}
+
+    /* APPLY */
+    .apply-section{background:linear-gradient(135deg,#0f0800,#0a0a0a);border-top:1px solid var(--border);padding:56px 10%;text-align:center;}
+    .apply-section h2{font-size:1.5rem;font-weight:800;margin-bottom:8px;}
+    .apply-section p{color:var(--gray-hi);font-size:0.9rem;margin-bottom:24px;max-width:460px;margin-left:auto;margin-right:auto;line-height:1.7;}
+    .apply-btn{display:inline-block;background:var(--orange);color:#fff;padding:13px 32px;border-radius:10px;font-weight:700;text-decoration:none;font-size:0.9rem;transition:all 0.2s;}
+    .apply-btn:hover{background:#ff8c38;transform:translateY(-2px);}
+
+    /* FOOTER */
+    footer{background:var(--bg-dark);border-top:1px solid var(--border);padding:24px 10%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:0.78rem;color:var(--gray);}
+    footer a{color:var(--gray);text-decoration:none;}
+    footer a:hover{color:var(--orange);}
+
+    @media(max-width:600px){.section{padding:40px 6%;}.hero{padding:40px 6% 32px;}}
+  </style>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="../">⚡ Proton#</a>
+  <nav>
+    <a href="../">Home</a>
+    <a href="../docs/">Docs</a>
+    <a href="../explore/">Explore</a>
+    <a href="../pro/">Pro</a>
+    <a href="#" class="active">Staff</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-label">The Team</div>
+  <h1>Proton# Staff</h1>
+  <p>The people who build, moderate, and grow the Proton# platform. Every role matters.</p>
+</div>
+
+<div id="staff-page"></div>
+
+<div class="apply-section">
+  <h2>Join the Team</h2>
+  <p>Interested in becoming a moderator or contributing to Proton#? We're always looking for passionate people who care about the community.</p>
+  <a href="mailto:hello@protonsharp.com" class="apply-btn">Apply to Staff →</a>
+</div>
+
+<footer>
+  <span>© 2026 Proton# Studio</span>
+  <div style="display:flex;gap:16px;">
+    <a href="../">Home</a>
+    <a href="../legal/">Legal</a>
+    <a href="mailto:hello@protonsharp.com">Contact</a>
+  </div>
+</footer>
+
+<script>
+// ╔══════════════════════════════════════════════════════════════════╗
+// ║  STAFF LIST                                                      ║
+// ║  Add / remove / edit staff here.                                 ║
+// ║  Ranks (highest to lowest):                                      ║
+// ║    bureaucrat   → founders, full control                         ║
+// ║    administrator → platform admins                               ║
+// ║    moderator    → content + discussion mod (full mod)            ║
+// ║    content      → approves thumbnails, removes games             ║
+// ║    discussion   → moderates guides/comments only                 ║
+// ║  note: content + discussion work together until accounts launch  ║
+// ╚══════════════════════════════════════════════════════════════════╝
+const STAFF = [
+
+  // ── BUREAUCRATS ──────────────────────────────────────────────────
+  {
+    name: "xynox1x",
+    position: "Founder & Lead Developer",
+    rank: "bureaucrat",
+    bio: "Creator of Proton#. Designed the language, built the platform, and leads all development decisions.",
+    perms: ["Full Platform Access", "Language Design", "Hiring", "Financial", "Legal"],
+    joined: "2026-01-01",
+  },
+
+  // ── ADMINISTRATORS ───────────────────────────────────────────────
+  // {
+  //   name: "AdminName",
+  //   position: "Platform Administrator",
+  //   rank: "administrator",
+  //   bio: "Short bio here.",
+  //   perms: ["User Management", "Ban Appeals", "Platform Config"],
+  //   joined: "2026-01-01",
+  // },
+
+  // ── MODERATORS ───────────────────────────────────────────────────
+  // {
+  //   name: "ModName",
+  //   position: "Senior Moderator",
+  //   rank: "moderator",
+  //   bio: "Short bio here.",
+  //   perms: ["Thumbnail Approval", "Game Takedown", "Comment Removal", "Guides Moderation"],
+  //   joined: "2026-01-01",
+  // },
+
+  // ── CONTENT MODERATORS ───────────────────────────────────────────
+  // {
+  //   name: "ContentModName",
+  //   position: "Content Moderator",
+  //   rank: "content",
+  //   bio: "Short bio here.",
+  //   perms: ["Thumbnail Approval", "Game Takedown"],
+  //   joined: "2026-01-01",
+  // },
+
+  // ── DISCUSSION MODERATORS ────────────────────────────────────────
+  // {
+  //   name: "DiscussionModName",
+  //   position: "Discussion Moderator",
+  //   rank: "discussion",
+  //   bio: "Short bio here.",
+  //   perms: ["Comment Removal", "Guides Moderation"],
+  //   joined: "2026-01-01",
+  // },
+
+];
+// ╔══════════════════════════════════════════════════╗
+// ║  END OF STAFF — do not edit below this line      ║
+// ╚══════════════════════════════════════════════════╝
+
+// ── RANK CONFIG ──────────────────────────────────────────────────
+const RANKS = {
+  bureaucrat: {
+    label: "BUREAUCRAT",
+    title: "Bureaucrats",
+    desc: "Founders and platform owners. Full control over every aspect of Proton#.",
+    cardClass: "card-bureaucrat",
+    gridClass: "grid-bureaucrat",
+    labelColor: "#FF6B00",
+    order: 0,
+  },
+  administrator: {
+    label: "ADMINISTRATOR",
+    title: "Administrators",
+    desc: "Platform administrators who manage users, handle appeals, and maintain platform health.",
+    cardClass: "card-administrator",
+    gridClass: "grid-administrator",
+    labelColor: "#bb86fc",
+    order: 1,
+  },
+  moderator: {
+    label: "MODERATOR",
+    title: "Moderators",
+    desc: "Full moderators who handle both content approval and community discussion.",
+    cardClass: "card-moderator",
+    gridClass: "grid-moderator",
+    labelColor: "#4da6ff",
+    order: 2,
+  },
+  content: {
+    label: "CONTENT MOD",
+    title: "Content Moderators",
+    desc: "Review and approve game thumbnails, and can take down games that violate platform rules.",
+    cardClass: "card-content",
+    gridClass: "grid-content",
+    labelColor: "#4caf7d",
+    order: 3,
+  },
+  discussion: {
+    label: "DISCUSSION MOD",
+    title: "Discussion Moderators",
+    desc: "Moderate the Guides section — comments, posts, and community discussions. Work alongside Content Moderators until the account system launches.",
+    cardClass: "card-content",
+    gridClass: "grid-content",
+    labelColor: "#4caf7d",
+    order: 4,
+  },
+};
+
+// ── RENDER ──────────────────────────────────────────────────────
+function render() {
+  const container = document.getElementById('staff-page');
+
+  // Group by rank in order
+  const rankOrder = ['bureaucrat','administrator','moderator','content','discussion'];
+  const groups = {};
+  rankOrder.forEach(r => { groups[r] = []; });
+  STAFF.forEach(s => { if (groups[s.rank]) groups[s.rank].push(s); });
+
+  // Check if content + discussion should show collab note
+  const hasContent    = groups.content.length > 0;
+  const hasDiscussion = groups.discussion.length > 0;
+
+  let html = '';
+
+  rankOrder.forEach((rank, i) => {
+    const members = groups[rank];
+    if (!members.length) return;
+
+    const cfg = RANKS[rank];
+    const isLast = rankOrder.slice(i+1).every(r => !groups[r].length);
+
+    html += `<div class="section">
+      <div class="section-header">
+        <div class="rank-label" style="color:${cfg.labelColor};">— ${cfg.label}</div>
+        <div class="section-title">${cfg.title}</div>
+        <div class="section-desc">${cfg.desc}</div>
+      </div>`;
+
+    // Show collab note before content mods
+    if (rank === 'content' && (hasContent || hasDiscussion)) {
+      html += `<div class="collab-note">
+        <span>ℹ️</span>
+        <span>Content Moderators and Discussion Moderators work together as one moderation team until the account system launches. Once accounts are live, these roles will have separate dedicated tools.</span>
+      </div>`;
+    }
+
+    html += `<div class="${cfg.gridClass}">`;
+    members.forEach(m => {
+      const joined = new Date(m.joined).toLocaleDateString('en-US',{year:'numeric',month:'long'});
+      html += `
+        <div class="${cfg.cardClass}">
+          <div class="rank-pill">${cfg.label}</div>
+          <div class="staff-name">${m.name}</div>
+          <div class="staff-pos">${m.position}</div>
+          ${m.bio ? `<div class="staff-bio">${m.bio}</div>` : ''}
+          <div class="staff-perms">
+            ${m.perms.map(p => `<span class="perm-tag">${p}</span>`).join('')}
+          </div>
+          <div class="staff-joined">Joined ${joined}</div>
+        </div>`;
+    });
+    html += `</div></div>`;
+    if (!isLast) html += `<hr class="divider"/>`;
+  });
+
+  // Empty state
+  if (!STAFF.length) {
+    html = `<div style="text-align:center;padding:80px 20px;color:#666;">
+      <div style="font-size:2.5rem;margin-bottom:16px;">👥</div>
+      <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:8px;">No staff listed yet</h3>
+      <p style="font-size:0.88rem;">Add staff members to the STAFF array at the top of the script.</p>
+    </div>`;
+  }
+
+  container.innerHTML = html;
+}
+
+window.onload = render;
+</script>
+</body>
+</html>
