@@ -33,7 +33,7 @@ exports.handler = async (event) => {
         "X-Title": "Proton# Support Bot"
       },
       body: JSON.stringify({
-        "model": "google/gemma-2-9b-it:free", // Using a stable free model
+        "model": "google/gemini-2.0-flash-exp:free", // Using a stable free model
         "messages": [
           { 
             "role": "system", 
