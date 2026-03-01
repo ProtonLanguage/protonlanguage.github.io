@@ -16,7 +16,7 @@ exports.handler = async (event) => {
         "X-Title": "Proton# AI_CORE"
       },
       body: JSON.stringify({
-        "model": "google/gemini-2.0-flash-lite-preview-02-05:free", 
+        "model": "mistralai/mistral-7b-instruct:free", 
         "messages": [
           { 
             "role": "system", 
