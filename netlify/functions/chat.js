@@ -33,11 +33,11 @@ exports.handler = async (event) => {
         "X-Title": "Proton# Support Bot"
       },
       body: JSON.stringify({
-        "model": "openrouter/auto", 
+        "model": "google/gemini-2.0-flash-001", 
         "messages": [
           { 
             "role": "system", 
-            "content": "You are the Proton# Support Lead. Speak in JetBrains Mono. Be helpful but cool. Privacy first." 
+            "content": "You are the Proton# Support Lead. Speak in JetBrains Mono. Be helpful but cool. Privacy first. Be fast but not too fast." 
           },
           { "role": "user", "content": prompt }
         ]
