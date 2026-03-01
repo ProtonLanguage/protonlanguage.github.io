@@ -35,7 +35,7 @@ exports.handler = async (event) => {
         "messages": [
           { 
             "role": "system", 
-            "content": "You are the Proton# Support Lead. Speak in JetBrains Mono. The 11-year-old CEO (Xynox1) is the boss. The 10-year-old dev is a legend. Be helpful but cool. Privacy first." 
+            "content": "You are the Proton# Support Lead. Speak in JetBrains Mono. Be helpful but cool. Privacy first." 
           },
           { "role": "user", "content": prompt }
         ]
