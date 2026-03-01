@@ -1,52 +1,311 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Proton# Professional | Enterprise & EDU</title>
-    <link href="https://fonts.googleapis.com" rel="stylesheet">
-    <style>
-        :root { --bg: #0d0d0d; --card: #161616; --purple: #8e44ad; --accent: #bb86fc; }
-        body { background: var(--bg); color: #e0e0e0; font-family: 'Inter', sans-serif; margin: 0; }
-        
-        header { padding: 2rem 5%; border-bottom: 2px solid var(--purple); background: var(--card); display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-weight: 900; font-size: 1.5rem; letter-spacing: -1px; color: var(--accent); }
-        
-        .hero { padding: 80px 10%; text-align: center; }
-        .hero h1 { font-size: 4rem; margin: 0; background: linear-gradient(to right, #fff, var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; padding: 4rem 10%; }
-        .box { background: var(--card); padding: 2.5rem; border-radius: 15px; border: 1px solid #222; }
-        .box h3 { color: var(--accent); margin-top: 0; }
-        
-        .btn { background: var(--purple); color: white; padding: 1rem 2.5rem; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block; transition: 0.3s; }
-        .btn:hover { background: var(--accent); transform: scale(1.05); }
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Proton# Professional — Enterprise & EDU</title>
+  <link rel="icon" type="image/png" href="../proton-logo.png"/>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    :root{
+      --bg:#0f0f0f;--bg-dark:#080808;--bg-card:#181818;--bg-card2:#1e1e1e;
+      --border:#2a2a2a;--purple:#9b59d0;--purple-lo:rgba(155,89,208,0.12);
+      --purple-mid:#bb86fc;--text:#f0f0f0;--gray:#888888;--white:#ffffff;
+      --green:#6dc86d;
+    }
+    html{scroll-behavior:smooth;}
+    body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-height:100vh;overflow-x:hidden;}
 
-        footer { background: #000; padding: 3rem 10%; text-align: center; font-size: 0.8rem; color: #555; }
-        .legal-footer a { color: #888; text-decoration: none; margin: 0 10px; border-bottom: 1px solid transparent; }
-        .legal-footer a:hover { border-bottom: 1px solid var(--accent); }
-    </style>
+    /* HEADER */
+    header{position:sticky;top:0;z-index:100;background:rgba(8,8,8,0.94);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 5%;height:60px;display:flex;align-items:center;justify-content:space-between;}
+    .logo{font-weight:800;font-size:1.1rem;color:var(--purple-mid);display:flex;align-items:center;gap:8px;text-decoration:none;}
+    .pro-badge{font-size:0.65rem;background:var(--purple-lo);color:var(--purple-mid);padding:2px 8px;border-radius:20px;border:1px solid rgba(155,89,208,0.3);font-family:'JetBrains Mono',monospace;}
+    nav{display:flex;align-items:center;gap:6px;}
+    nav a{color:var(--gray);text-decoration:none;padding:6px 13px;border-radius:8px;font-size:0.85rem;font-weight:600;transition:all 0.2s;}
+    nav a:hover{color:var(--text);background:var(--bg-card);}
+    .nav-cta{background:var(--purple)!important;color:#fff!important;border-radius:8px;}
+    .nav-cta:hover{background:var(--purple-mid)!important;}
+
+    /* HERO */
+    .hero{padding:100px 10% 80px;text-align:center;position:relative;overflow:hidden;}
+    .hero::before{content:'';position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:700px;height:700px;background:radial-gradient(circle,rgba(155,89,208,0.15) 0%,transparent 70%);pointer-events:none;}
+    .hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--purple-lo);border:1px solid rgba(155,89,208,0.3);color:var(--purple-mid);padding:6px 16px;border-radius:20px;font-size:0.78rem;font-weight:700;letter-spacing:0.5px;margin-bottom:28px;font-family:'JetBrains Mono',monospace;}
+    .hero h1{font-size:clamp(2.5rem,6vw,4.5rem);font-weight:800;line-height:1.1;margin-bottom:20px;background:linear-gradient(135deg,#fff 30%,var(--purple-mid));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+    .hero p{font-size:1.05rem;color:var(--gray);max-width:560px;margin:0 auto 40px;line-height:1.7;}
+    .hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+
+    /* BUTTONS */
+    .btn-primary{background:var(--purple);color:#fff;padding:13px 28px;border-radius:10px;font-size:0.9rem;font-weight:700;text-decoration:none;border:none;cursor:pointer;transition:all 0.2s;font-family:'Syne',sans-serif;display:inline-block;}
+    .btn-primary:hover{background:var(--purple-mid);transform:translateY(-2px);box-shadow:0 8px 24px rgba(155,89,208,0.4);}
+    .btn-secondary{background:transparent;color:var(--text);padding:13px 28px;border-radius:10px;font-size:0.9rem;font-weight:700;text-decoration:none;border:1px solid var(--border);cursor:pointer;transition:all 0.2s;font-family:'Syne',sans-serif;display:inline-block;}
+    .btn-secondary:hover{border-color:var(--purple);color:var(--purple-mid);}
+
+    /* SECTIONS */
+    section{padding:80px 10%;}
+    .section-label{font-family:'JetBrains Mono',monospace;font-size:0.73rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--purple);margin-bottom:12px;}
+    .section-title{font-size:clamp(1.8rem,3.5vw,2.5rem);font-weight:800;margin-bottom:14px;line-height:1.2;}
+    .section-title span{color:var(--purple-mid);}
+    .section-sub{color:var(--gray);font-size:1rem;line-height:1.7;max-width:600px;margin-bottom:48px;}
+    hr.divider{border:none;border-top:1px solid var(--border);margin:0 10%;}
+
+    /* TABS */
+    .tabs{display:flex;gap:4px;margin-bottom:40px;background:var(--bg-card);border-radius:12px;padding:4px;width:fit-content;}
+    .tab-btn{padding:10px 28px;border-radius:9px;border:none;cursor:pointer;font-family:'Syne',sans-serif;font-size:0.9rem;font-weight:700;background:transparent;color:var(--gray);transition:all 0.2s;}
+    .tab-btn.active{background:var(--purple);color:#fff;}
+    .tab-btn:hover:not(.active){color:var(--text);}
+    .tab-content{display:none;}
+    .tab-content.active{display:block;}
+
+    /* FEATURE GRID */
+    .feature-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;}
+    .feature-card{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:28px;transition:all 0.2s;}
+    .feature-card:hover{border-color:var(--purple);background:var(--bg-card2);transform:translateY(-2px);}
+    .feature-card .icon{font-size:1.8rem;margin-bottom:14px;}
+    .feature-card h3{font-size:1rem;font-weight:700;margin-bottom:8px;color:var(--white);}
+    .feature-card p{font-size:0.875rem;color:var(--gray);line-height:1.65;}
+    .feature-card code{color:var(--purple-mid);font-family:'JetBrains Mono',monospace;font-size:0.82rem;}
+
+    /* COMPARE TABLE */
+    .compare-wrap{overflow-x:auto;}
+    .compare-table{width:100%;border-collapse:collapse;font-size:0.82rem;min-width:900px;}
+    .compare-table th{padding:12px 14px;text-align:left;background:var(--bg-card);color:var(--gray);font-weight:700;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.5px;border-bottom:2px solid var(--border);white-space:nowrap;}
+    .compare-table th.hi{color:var(--purple-mid);}
+    .compare-table th.ultimate{background:linear-gradient(135deg,rgba(155,89,208,0.2),rgba(187,134,252,0.08));color:var(--purple-mid);}
+    .compare-table td{padding:11px 14px;border-bottom:1px solid var(--border);color:var(--gray);}
+    .compare-table td:first-child{color:var(--text);font-weight:600;}
+    .compare-table tr:hover td{background:rgba(255,255,255,0.015);}
+    .check{color:var(--green);}
+    .cross{color:#383838;}
+    .pro-col{color:var(--purple-mid);font-weight:700;}
+    .ult-col{color:var(--purple-mid);font-weight:800;}
+
+    /* ULTIMATE GLOW */
+    .ultimate-section{background:linear-gradient(135deg,rgba(155,89,208,0.06),transparent);border-top:1px solid rgba(155,89,208,0.2);border-bottom:1px solid rgba(155,89,208,0.2);}
+
+    /* APPLY CARDS */
+    .apply-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;}
+    .apply-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:32px;display:flex;flex-direction:column;gap:14px;}
+    .apply-card.glow{border-color:var(--purple);background:linear-gradient(135deg,var(--bg-card) 50%,rgba(155,89,208,0.07));}
+    .apply-card.ultimate-card{border-color:var(--purple-mid);background:linear-gradient(135deg,var(--bg-card) 40%,rgba(187,134,252,0.1));}
+    .apply-card .tag{display:inline-block;background:var(--purple-lo);color:var(--purple-mid);font-size:0.7rem;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid rgba(155,89,208,0.3);width:fit-content;font-family:'JetBrains Mono',monospace;letter-spacing:0.5px;}
+    .apply-card .tag.ult-tag{background:rgba(187,134,252,0.15);color:var(--purple-mid);border-color:rgba(187,134,252,0.5);}
+    .apply-card h3{font-size:1.2rem;font-weight:800;}
+    .apply-card p{font-size:0.85rem;color:var(--gray);line-height:1.65;flex:1;}
+    .apply-card ul{list-style:none;display:flex;flex-direction:column;gap:8px;}
+    .apply-card ul li{font-size:0.85rem;color:var(--gray);display:flex;gap:8px;align-items:flex-start;}
+    .apply-card ul li::before{content:'✓';color:var(--purple-mid);font-weight:700;flex-shrink:0;}
+
+    /* FOOTER */
+    footer{background:var(--bg-dark);border-top:1px solid var(--border);padding:32px 10%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+    footer .f-logo{font-weight:800;font-size:0.95rem;color:var(--purple-mid);}
+    footer .f-links{display:flex;gap:16px;}
+    footer .f-links a{color:var(--gray);text-decoration:none;font-size:0.82rem;}
+    footer .f-links a:hover{color:var(--purple-mid);}
+    footer .f-copy{font-size:0.78rem;color:var(--gray);}
+  </style>
 </head>
 <body>
-    <header>
-        <div class="logo">PROTON# PROFESSIONAL.</div>
-        <nav class="legal-footer"><a href="../docs">Docs</a><a href="../legal">Legal</a></nav>
-    </header>
 
-    <section class="hero">
-        <h1>Engineered for Enterprise.</h1>
-        <p>Advanced automation, silent deployment, and priority EDU support.</p>
-        <br><a href="https://forms.gle/Jig3UXePz5ssDCRU6" class="btn">Apply for Professional License</a>
-    </section>
+<!-- HEADER -->
+<header>
+  <a class="logo" href="../">&lt;/&gt; Proton# <span class="pro-badge">PRO</span></a>
+  <nav>
+    <a href="../">Home</a>
+    <a href="../docs/">Docs</a>
+    <a href="../legal/">Legal</a>
+    <a href="https://forms.gle/Jig3UXePz5ssDCRU6" class="nav-cta">Apply Now</a>
+  </nav>
+</header>
 
-    <div class="grid">
-        <div class="box"><h3>🏢 Enterprise Automation</h3><p>Command-line interfaces and headless modes for high-scale server automation.</p></div>
-        <div class="box"><h3>🎓 EDU Lab Management</h3><p>Designed for school networks with restricted permissions and no-admin installs.</p></div>
-        <div class="box"><h3>💼 Commercial Licensing</h3><p>Legal clarity for corporations building proprietary tools on the Proton# engine.</p></div>
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">⚡ Enterprise &amp; EDU Licensing</div>
+  <h1>Built for Those<br/>Who Build at Scale.</h1>
+  <p>Professional licensing for enterprises, studios, and educational institutions. Unlock advanced tooling, commercial rights, and dedicated support.</p>
+  <div class="hero-btns">
+    <a href="https://forms.gle/Jig3UXePz5ssDCRU6" class="btn-primary">Apply for License</a>
+    <a href="../legal/" class="btn-secondary">View Legal Docs</a>
+  </div>
+</div>
+
+<hr class="divider"/>
+
+<!-- TABS SECTION -->
+<section>
+  <div class="section-label">Plans</div>
+  <h2 class="section-title">Choose Your <span>License Type</span></h2>
+  <p class="section-sub">Proton# Professional covers two distinct licensing tracks. Select the one that fits your organization.</p>
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('enterprise',this)">🏢 Enterprise</button>
+    <button class="tab-btn" onclick="switchTab('edu',this)">🎓 EDU</button>
+  </div>
+
+  <div class="tab-content active" id="tab-enterprise">
+    <div class="feature-grid">
+      <div class="feature-card"><div class="icon">⚙️</div><h3>Enterprise Automation</h3><p>Command-line interfaces and headless modes for high-scale server automation and CI/CD pipeline integration.</p></div>
+      <div class="feature-card"><div class="icon">🔒</div><h3>Commercial Licensing</h3><p>Legal clarity for corporations building proprietary tools and games on Proton#. Full commercial rights included.</p></div>
+      <div class="feature-card"><div class="icon">🚀</div><h3>Silent Deployment</h3><p>Deploy Proton# Studio and the Lightweight Editor across your entire organization — no user prompts, no admin required.</p></div>
+      <div class="feature-card"><div class="icon">📡</div><h3>Priority Support</h3><p>Dedicated support channel with guaranteed response times. Direct line to the Proton# development team.</p></div>
+      <div class="feature-card"><div class="icon">📦</div><h3>Enterprise Libraries</h3><p>Access to <code>import enterprise.*</code> — analytics, cloud saves, in-game payments, and advanced auth.</p></div>
+      <div class="feature-card"><div class="icon">∞</div><h3>Unlimited Members</h3><p>No seat limits. Add your entire organization — every member gets full access under one plan.</p></div>
     </div>
+  </div>
 
-    <footer>
-        <p>&copy; 2026 Proton# Studio. All rights reserved.</p>
-        <div class="legal-footer"><a href="../legal">Privacy & Legal Documentation</a></div>
-    </footer>
+  <div class="tab-content" id="tab-edu">
+    <div class="feature-grid">
+      <div class="feature-card"><div class="icon">🎓</div><h3>EDU Lab Management</h3><p>Designed for school networks with restricted permissions. Installs without admin rights on managed devices.</p></div>
+      <div class="feature-card"><div class="icon">📚</div><h3>EDU Libraries — Free</h3><p>Full access to <code>import edu.*</code> — physics, geometry, AI pathfinding, data structures, and algorithms.</p></div>
+      <div class="feature-card"><div class="icon">👨‍🏫</div><h3>Classroom Tools</h3><p>Teacher dashboard to view student projects, assign scripts, and track progress across the whole class.</p></div>
+      <div class="feature-card"><div class="icon">🛡️</div><h3>COPPA Compliant</h3><p>Full COPPA compliance for under-13 users. No personal data collected. Safe for primary and secondary schools.</p></div>
+      <div class="feature-card"><div class="icon">💸</div><h3>Free for Students</h3><p>Students get EDU libraries completely free with a verified school email. No credit card, no subscription.</p></div>
+      <div class="feature-card"><div class="icon">🌐</div><h3>Offline Mode</h3><p>Full Proton# Studio and the Lightweight Editor work offline — perfect for schools with restricted internet.</p></div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- COMPARE TABLE -->
+<section>
+  <div class="section-label">Comparison</div>
+  <h2 class="section-title">Every Plan <span>Side by Side</span></h2>
+  <p class="section-sub">From solo developers to global organizations — every tier at a glance.</p>
+  <div class="compare-wrap">
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>Free</th>
+          <th>Pro<br/><span style="font-weight:400;color:#555;font-size:0.78rem;">$4.99/mo</span></th>
+          <th>Creator<br/><span style="font-weight:400;color:#555;font-size:0.78rem;">$9.99/mo</span></th>
+          <th>Team<br/><span style="font-weight:400;color:#555;font-size:0.78rem;">$24.99/mo</span></th>
+          <th class="hi">Enterprise</th>
+          <th class="hi">EDU</th>
+          <th class="ultimate">Ultimate ★</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Core Proton# Language</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check pro-col">✓</td><td class="check pro-col">✓</td><td class="check ult-col">✓</td></tr>
+        <tr><td>std.* Libraries</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check pro-col">✓</td><td class="check pro-col">✓</td><td class="check ult-col">✓</td></tr>
+        <tr><td>edu.* Libraries</td><td class="cross">—</td><td class="cross">—</td><td class="cross">—</td><td class="cross">—</td><td class="cross">—</td><td class="pro-col">✓ Free</td><td class="ult-col">✓</td></tr>
+        <tr><td>enterprise.* Libraries</td><td class="cross">—</td><td class="cross">—</td><td class="cross">—</td><td class="cross">—</td><td class="pro-col">✓</td><td class="cross">—</td><td class="ult-col">✓</td></tr>
+        <tr><td>Lightweight Editor</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check pro-col">✓</td><td class="check pro-col">✓</td><td class="check ult-col">✓</td></tr>
+        <tr><td>Proton# Studio</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check pro-col">✓</td><td class="check pro-col">✓</td><td class="check ult-col">✓</td></tr>
+        <tr><td>Commercial Rights</td><td class="cross">—</td><td class="cross">—</td><td class="cross">—</td><td class="check">✓</td><td class="check pro-col">✓</td><td class="cross">—</td><td class="check ult-col">✓</td></tr>
+        <tr><td>Collab Members</td><td>1 user</td><td>Up to 3</td><td>Up to 5</td><td>Up to 25</td><td class="pro-col">Unlimited</td><td class="pro-col">Unlimited</td><td class="ult-col">Unlimited</td></tr>
+        <tr><td>Silent Deployment</td><td class="cross">—</td><td class="cross">—</td><td class="cross">—</td><td class="cross">—</td><td class="pro-col">✓</td><td class="pro-col">✓</td><td class="ult-col">✓</td></tr>
+        <tr><td>Priority Support</td><td class="cross">—</td><td class="cross">—</td><td class="cross">—</td><td class="check">✓</td><td class="pro-col">✓</td><td class="cross">—</td><td class="ult-col">✓</td></tr>
+        <tr><td>Marketplace Access</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="pro-col">✓ Custom</td><td class="check pro-col">✓</td><td class="ult-col">✓ Custom</td></tr>
+        <tr><td>AI Time</td><td>31 hrs/mo</td><td>93 hrs/mo</td><td>Unlimited</td><td>Unlimited</td><td class="pro-col">Unlimited</td><td class="pro-col">Unlimited</td><td class="ult-col">Unlimited</td></tr>
+        <tr><td>Weekly Shards</td><td>100</td><td>200</td><td>300</td><td>500 shared</td><td class="cross" title="Not applicable — gaming not endorsed">—</td><td class="cross" title="Not applicable — gaming not endorsed">—</td><td class="ult-col">Unlimited</td></tr>
+        <tr><td>Custom Shard Deals</td><td class="cross">—</td><td class="cross">—</td><td class="cross">—</td><td class="cross">—</td><td class="pro-col">✓</td><td class="cross">—</td><td class="ult-col">✓</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="margin-top:14px;font-size:0.78rem;color:var(--gray);">* Shards are not available on Enterprise or EDU plans — these are professional and educational tools, not gaming platforms. ★ Ultimate combines every feature from every plan.</p>
+</section>
+
+<hr class="divider"/>
+
+<!-- ULTIMATE -->
+<section class="ultimate-section">
+  <div class="section-label">The Final Tier</div>
+  <h2 class="section-title">Introducing <span>Ultimate ★</span></h2>
+  <p class="section-sub">Every library. Every feature. Every limit removed. Enterprise tooling, EDU access, unlimited Shards, unlimited members — all under one license. For organizations that refuse to compromise.</p>
+  <div class="feature-grid" style="max-width:1000px;">
+    <div class="feature-card"><div class="icon">∞</div><h3>Unlimited Everything</h3><p>No caps on users, Shards, AI time, collab seats, or deployments. Every number is unlimited.</p></div>
+    <div class="feature-card"><div class="icon">📦</div><h3>All Libraries</h3><p>std.*, edu.*, and enterprise.* — every library Proton# has ever shipped, all included.</p></div>
+    <div class="feature-card"><div class="icon">🏢</div><h3>Enterprise + EDU Combined</h3><p>Run enterprise automation and educational programs simultaneously under the same account.</p></div>
+    <div class="feature-card"><div class="icon">🏷️</div><h3>Custom Everything</h3><p>Custom Shard deals, custom support SLAs, custom deployment pipelines. Built entirely around you.</p></div>
+  </div>
+  <div style="margin-top:40px;text-align:center;">
+    <a href="https://forms.gle/Jig3UXePz5ssDCRU6" class="btn-primary" style="font-size:1rem;padding:16px 44px;background:var(--purple-mid);">Apply for Ultimate →</a>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- APPLY -->
+<section>
+  <div class="section-label">Get Started</div>
+  <h2 class="section-title">Apply for <span>Your License</span></h2>
+  <p class="section-sub">All professional licenses are applied for via a short form. We review every application personally.</p>
+  <div class="apply-grid">
+    <div class="apply-card glow">
+      <div class="tag">TEAM — $24.99/mo</div>
+      <h3>Team</h3>
+      <p>For indie studios and small teams who need commercial rights and collab without full Enterprise pricing.</p>
+      <ul>
+        <li>Up to 25 collaborators</li>
+        <li>Commercial rights included</li>
+        <li>500 shared Shards/week</li>
+        <li>Unlimited AI time</li>
+        <li>Priority support</li>
+      </ul>
+      <a href="https://forms.gle/Jig3UXePz5ssDCRU6" class="btn-primary" style="text-align:center;">Apply for Team →</a>
+    </div>
+    <div class="apply-card glow">
+      <div class="tag">ENTERPRISE</div>
+      <h3>Enterprise</h3>
+      <p>For large studios and corporations. Unlimited members, enterprise.* libraries, and full commercial rights.</p>
+      <ul>
+        <li>Unlimited collaborators</li>
+        <li>enterprise.* library access</li>
+        <li>Silent deployment</li>
+        <li>Priority support SLA</li>
+        <li>Custom Shard deals</li>
+      </ul>
+      <a href="https://forms.gle/Jig3UXePz5ssDCRU6" class="btn-primary" style="text-align:center;">Apply for Enterprise →</a>
+    </div>
+    <div class="apply-card glow">
+      <div class="tag">EDU — FREE</div>
+      <h3>EDU</h3>
+      <p>For schools, universities, and students. Completely free with a verified school email. COPPA compliant.</p>
+      <ul>
+        <li>edu.* library access — free</li>
+        <li>No-admin school network install</li>
+        <li>COPPA compliant for under-13</li>
+        <li>Offline mode supported</li>
+        <li>Unlimited classroom members</li>
+      </ul>
+      <a href="https://forms.gle/Jig3UXePz5ssDCRU6" class="btn-primary" style="text-align:center;">Apply for EDU →</a>
+    </div>
+    <div class="apply-card ultimate-card">
+      <div class="tag ult-tag">ULTIMATE ★ — Contact Us</div>
+      <h3>Ultimate</h3>
+      <p>The final tier. Every feature from every plan, no limits, no compromises. One license for everything.</p>
+      <ul>
+        <li>All std.*, edu.*, enterprise.* libraries</li>
+        <li>Unlimited users, Shards, AI time</li>
+        <li>Commercial + EDU rights combined</li>
+        <li>Silent deployment + custom SLA</li>
+        <li>Custom deals on everything</li>
+      </ul>
+      <a href="https://forms.gle/Jig3UXePz5ssDCRU6" class="btn-primary" style="text-align:center;background:var(--purple-mid);">Apply for Ultimate →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="f-logo">⚡ Proton# Studio</span>
+  <div class="f-links">
+    <a href="../">Home</a>
+    <a href="../docs/">Docs</a>
+    <a href="../legal/">Legal</a>
+    <a href="mailto:protoncoding@outlook.com">Contact</a>
+  </div>
+  <span class="f-copy">© 2026 Proton# Studio. All rights reserved.</span>
+</footer>
+
+<script>
+  function switchTab(name, btn) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+    btn.classList.add('active');
+  }
+</script>
 </body>
 </html>
