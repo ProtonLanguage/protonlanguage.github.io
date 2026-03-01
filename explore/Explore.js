@@ -27,7 +27,7 @@ var GAMES = [
     link: "#",
     thumb: null,
     featured: true,
-    takenDown: false,
+    takenDown: true,
     multiplayer: false
   },
 
@@ -44,7 +44,7 @@ var GAMES = [
     link: "#",
     thumb: null,
     featured: true,
-    takenDown: false,
+    takenDown: true,
     multiplayer: false
   },
 
@@ -56,12 +56,12 @@ var GAMES = [
     desc: "A tactical multiplayer shooter demonstrating server.pros. Host or join a server and battle up to 8 players. Full server.pros reference included.",
     rating: 4.8,
     downloads: 275,
-    age: "T",
+    age: "M",
     date: "2026-03-01",
     link: "#",
     thumb: null,
     featured: true,
-    takenDown: true,
+    takenDown: false,
     multiplayer: true
   },
 
