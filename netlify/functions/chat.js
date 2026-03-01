@@ -23,6 +23,8 @@ exports.handler = async (event) => {
 
     // 3. The Fetch Request (Using the correct OpenRouter API Endpoint)
     const response = await fetch("https://openrouter.ai", {
+
+
       method: "POST",
       headers: {
         "Authorization": `Bearer ${API_KEY}`,
