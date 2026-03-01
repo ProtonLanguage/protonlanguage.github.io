@@ -14,14 +14,14 @@
       tagline:   "Create. Share. Play.",
       copyright: "2026 Proton#. All rights reserved.",
       version:   "0.1.0",
-      stage:     "Alpha",  // beta, alpha, release
+      stage:     "beta",  // beta, alpha, release
     };
 
     const LINKS = {
       positions_doc: "https://docs.google.com/document/d/1lJOzzOJWunofEx4wEWXpCQPCdjj1Qn8TBqSZJvhX0XE/edit?usp=sharing",
       apply_form:    "https://forms.gle/mzkLaUsEwVChsh876",
-      download:      "https://github.com/ProtonLanguage/proton-studio/releases/tag/v0.1.0",
-      support_email: "https://protonlanguage.github.io/support",
+      download:      null,
+      support_email: "protoncoding@outlook.com"
     };
 
     // Set any to null to hide that social card
@@ -115,20 +115,13 @@
     // },
 
     const ANNOUNCEMENTS = [
-      {
-        title: "2D studio is realsed!",
-        date: "Febuary 28, 2026",
-        tag: "update",
-        image: null,
-        body: "We have now made our 2D studio. Download it today!"
-      },
-      {
-        title: "Docs are realsed!",
-        date: "Febuary 28, 2026",
-        tag: "milestone",
-        image: null,
-        body: "We have realsed our docs at protonlanguage.github.io/docs. This is a list of everything that I intended to be done. We will have an community ran wiki soon where you guys can find bypasses and stuff and those wont be fixed (but if like a bug causes the bypass like slow loading speed can give you an advantage, I will fix those."
-      },
+      //{
+        //title: "Docs are realsed!",
+        //date: "Febuary 28, 2026",
+        //tag: "milestone",
+        //image: null
+        //body: "We have realsed our docs at protonlanguage.github.io/docs. This is a list of everything that I intended to be done. We will have an community ran wiki soon where you guys can find bypasses and stuff and those wont be fixed (but if like a bug causes the bypass like slow loading speed can give you an advantage, I will fix those."
+     // },
       {
         title: "Applications Are Open!",
         date: "Febuary 27, 2026 to TBD ",
@@ -165,24 +158,23 @@
     // PATCH NOTES — shown under the download button
     // tag options: "new", "fix", "change", "removed"
     const PATCH_NOTES = [
-      { tag: "new",    text: "Initial pre-alpha release" },
-      { tag: "new",    text: "Pre-Alpha 2d Engine"},
-      //{ tag: "new",    text: "Basic VS code exentsion" },
-     { tag: "new",    text: "Basic support for games" },
+      { tag: "new",    text: "Initial beta release" },
+      { tag: "new",    text: "Basic Proton# Studio editor" },
+      { tag: "new",    text: "2D game support" },
       { tag: "new",    text: ".pros scripting support" },
       // ← Add new patch notes here (newest first)
     ];
 
     // FEATURES TABLE — shown at the bottom of the download page
     const FEATURES = [
-      //{ feature: "Proton# Studio Editor",   status: "🚧 Coming Soon",     note: "Basic editor for writing .pros scripts" },
+      { feature: "Proton# Studio Editor",   status: "✅ Included",     note: "Basic editor for writing .pros scripts" },
       { feature: "2D Game Engine",          status: "✅ Included",     note: "Build and run 2D games" },
       { feature: ".pros Script Support",    status: "✅ Included",     note: "Full Proton language scripting" },
       { feature: "Datastore (Lua backend)", status: "✅ Included",     note: "Save and load game data" },
-      { feature: "Multiplayer Support",     status: "🚧 Coming Soon",  note: "Player hosted via server.pros (Pretty scrappy but should work more info at our docs)" },
-      //{ feature: "Game Browser",            status: "🚧 Coming Soon",  note: "Browse and play community games" },
-      { feature: "VS Code Extension",       status: "🚧 Coming Soon",  note: "Syntax highlighting and autocomplete in progress (Download at https://github.com/ProtonLanguage/proton-vscode/releases/tag/v0.1.0 )" },
-      //{ feature: "Mobile Support",          status: "❌ Not Planned",  note: "Windows only for now (hint: keyword)" },
+      { feature: "Multiplayer Support",     status: "🚧 Coming Soon",  note: "Player hosted via server.pros" },
+      { feature: "Game Browser",            status: "🚧 Coming Soon",  note: "Browse and play community games" },
+      { feature: "VS Code Extension",       status: "🚧 Coming Soon",  note: "Syntax highlighting and autocomplete" },
+      { feature: "Mobile Support",          status: "❌ Not Planned",  note: "Windows only for now" },
       // ← Add or edit features here
     ];
   </script>
@@ -766,6 +758,7 @@
       <p>The game development platform built for everyone. Build 2D games, share them with the world, and play creations made by the community — all powered by the Proton scripting language.</p>
       <div class="hero-buttons">
         <button class="btn-primary" onclick="showPage('download')">⬇ Download Beta</button>
+        <button class="btn-primary" onclick="window.location.href='explore/'" style="background:transparent;border:2px solid var(--orange);color:var(--orange);" onmouseover="this.style.background='var(--orange)';this.style.color='#fff'" onmouseout="this.style.background='transparent';this.style.color='var(--orange)'">🎮 Launch Explorer</button>
         <button class="btn-secondary" onclick="window.location.href='docs/'">📖 Docs</button>
         <button class="btn-secondary" onclick="showPage('socials')">📧 Contact Us</button>
       </div>
