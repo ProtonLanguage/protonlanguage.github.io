@@ -3,7 +3,7 @@
 
 A free, community-driven game development platform powered by the Proton scripting language.
 
-🌐 Website: protonsharp.com
+🌐 Website: https://protonsharp.com
 📥 Download: https://github.com/ProtonLanguage/Proton
 
 
