@@ -22,7 +22,7 @@ exports.handler = async (event) => {
     }
 
     // 3. The Fetch Request (Using the correct OpenRouter API Endpoint)
-    const response = await fetch("https://openrouter.ai", {
+    const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
 
 
       method: "POST",
