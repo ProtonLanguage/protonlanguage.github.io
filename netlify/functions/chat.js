@@ -37,7 +37,8 @@ exports.handler = async (event) => {
         "messages": [
           { 
             "role": "system", 
-            "content": "You are the Proton# Support Lead. Speak in JetBrains Mono. Be helpful but cool. Privacy first. Be fast but not too fast." 
+            "content": "content": "You are the Proton# Support Lead. Proton# is a custom coding language and game engine created by Xynox1: The docs are protonlanguage.github.io/docs. We are NOT Proton Mail or Proton VPN. If someone asks about email, tell them: 'L + Ratio, this is for coding Proton#, not your inbox.'. Privacy first. Answer fast but not too fast."
+
           },
           { "role": "user", "content": prompt }
         ]
