@@ -61,7 +61,7 @@ var GAMES = [
     link: "#",
     thumb: null,
     featured: true,
-    takenDown: false,
+    takenDown: true,
     multiplayer: true
   },
 
@@ -93,7 +93,7 @@ var GAMES = [
     age: "E",
     date: "2026-03-01",
     link: "#",
-    thumb: null,
+    thumb: true,
     featured: false,
     takenDown: false,
     multiplayer: false
