@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Explore Games — Proton# Studio</title>
+  <link rel="icon" type="image/png" href="../proton-logo.png"/>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Syne:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    :root{
+      --bg:#0a0a0a;--bg-dark:#050505;--bg-card:#141414;--bg-card2:#1c1c1c;
+      --border:#1e1e1e;--border-hi:#2a2a2a;
+      --orange:#FF6B00;--orange-lo:rgba(255,107,0,0.1);--orange-mid:#ff8c38;
+      --text:#f0f0f0;--gray:#666;--gray-hi:#999;
+      --green:#4caf7d;--red:#ff5252;--blue:#4da6ff;--yellow:#ffc107;--purple:#bb86fc;
+    }
+    html{scroll-behavior:smooth;}
+    body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-height:100vh;overflow-x:hidden;}
+    header{position:sticky;top:0;z-index:200;background:rgba(5,5,5,0.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);height:58px;display:flex;align-items:center;padding:0 28px;gap:16px;}
+    .logo{font-weight:900;font-size:1.05rem;color:var(--orange);text-decoration:none;white-space:nowrap;}
+    .header-search{flex:1;max-width:400px;position:relative;margin:0 16px;}
+    .header-search input{width:100%;background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:8px 16px 8px 38px;color:var(--text);font-family:'Syne',sans-serif;font-size:0.88rem;outline:none;transition:border-color 0.2s;}
+    .header-search input:focus{border-color:var(--orange);}
+    .header-search input::placeholder{color:var(--gray);}
+    .search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--gray);pointer-events:none;}
+    nav{display:flex;gap:4px;margin-left:auto;}
+    nav a{color:var(--gray-hi);text-decoration:none;padding:6px 13px;border-radius:8px;font-size:0.83rem;font-weight:600;transition:all 0.2s;}
+    nav a:hover{color:var(--text);background:var(--bg-card);}
+    nav a.active{color:var(--orange);}
+    .submit-btn{background:var(--orange);color:#fff;border:none;border-radius:9px;padding:8px 18px;font-family:'Syne',sans-serif;font-size:0.85rem;font-weight:700;cursor:pointer;transition:all 0.2s;text-decoration:none;display:inline-flex;align-items:center;gap:6px;}
+    .submit-btn:hover{background:var(--orange-mid);}
+    .hero{background:linear-gradient(135deg,#0f0800,#110a00,#0a0a0a);border-bottom:1px solid var(--border);padding:44px 28px 36px;position:relative;overflow:hidden;}
+    .hero::before{content:'';position:absolute;top:-150px;right:-80px;width:500px;height:500px;background:radial-gradient(circle,rgba(255,107,0,0.1) 0%,transparent 70%);pointer-events:none;}
+    .hero h1{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;margin-bottom:6px;background:linear-gradient(135deg,#fff 40%,var(--orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+    .hero p{color:var(--gray-hi);font-size:0.95rem;max-width:480px;line-height:1.6;margin-bottom:24px;}
+    .hero-stats{display:flex;gap:28px;flex-wrap:wrap;}
+    .hero-stat .num{font-family:'JetBrains Mono',monospace;font-size:1.3rem;font-weight:700;color:var(--orange);}
+    .hero-stat .lbl{font-size:0.72rem;color:var(--gray);margin-top:1px;text-transform:uppercase;letter-spacing:0.5px;}
+    .mod-notice{background:rgba(255,107,0,0.06);border:1px solid rgba(255,107,0,0.2);border-radius:10px;padding:10px 16px;font-size:0.8rem;color:var(--gray-hi);display:flex;align-items:center;gap:8px;margin:16px 28px 0;max-width:700px;}
+    .mod-notice span{color:var(--orange);font-weight:700;}
+    .main{display:flex;}
+    .sidebar{width:210px;flex-shrink:0;border-right:1px solid var(--border);padding:20px 0;position:sticky;top:58px;height:calc(100vh - 58px);overflow-y:auto;background:var(--bg-dark);}
+    .sidebar::-webkit-scrollbar{width:0;}
+    .sb-label{font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--gray);padding:10px 18px 5px;font-family:'JetBrains Mono',monospace;}
+    .genre-btn{display:flex;align-items:center;gap:10px;width:100%;padding:9px 18px;background:none;border:none;border-left:2px solid transparent;color:var(--gray-hi);font-family:'Syne',sans-serif;font-size:0.88rem;cursor:pointer;text-align:left;transition:all 0.15s;}
+    .genre-btn:hover{color:var(--text);background:rgba(255,255,255,0.03);}
+    .genre-btn.active{color:var(--orange);background:var(--orange-lo);border-left-color:var(--orange);font-weight:700;}
+    .genre-btn .g-icon{font-size:1rem;flex-shrink:0;width:20px;text-align:center;}
+    .genre-btn .g-count{margin-left:auto;font-size:0.7rem;color:var(--gray);font-family:'JetBrains Mono',monospace;}
+    .genre-btn .mp-badge{font-size:0.58rem;background:rgba(77,166,255,0.15);color:var(--blue);border:1px solid rgba(77,166,255,0.25);padding:1px 5px;border-radius:10px;font-family:'JetBrains Mono',monospace;white-space:nowrap;}
+    .sb-divider{height:1px;background:var(--border);margin:10px 18px;}
+    .sort-wrap{padding:8px 18px;}
+    .sort-wrap label{font-size:0.68rem;color:var(--gray);display:block;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.8px;font-family:'JetBrains Mono',monospace;}
+    .sort-select{width:100%;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:8px 10px;color:var(--text);font-family:'Syne',sans-serif;font-size:0.82rem;outline:none;cursor:pointer;}
+    .rating-wrap{padding:6px 18px 12px;}
+    .rating-wrap label{font-size:0.68rem;color:var(--gray);display:block;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.8px;font-family:'JetBrains Mono',monospace;}
+    .rating-opts{display:flex;flex-direction:column;gap:5px;}
+    .rating-opt{display:flex;align-items:center;gap:8px;cursor:pointer;font-size:0.82rem;color:var(--gray-hi);padding:3px 0;}
+    .rating-opt input{accent-color:var(--orange);}
+    .rating-badge{font-size:0.62rem;font-weight:700;padding:1px 6px;border-radius:4px;font-family:'JetBrains Mono',monospace;}
+    .rb-e{background:rgba(76,175,125,0.15);color:var(--green);}
+    .rb-e10{background:rgba(77,166,255,0.15);color:var(--blue);}
+    .rb-t{background:rgba(255,193,7,0.15);color:var(--yellow);}
+    .rb-m{background:rgba(255,82,82,0.15);color:var(--red);}
+    .content{flex:1;padding:24px;min-width:0;}
+    .content-header{display:flex;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap;}
+    .content-header h2{font-size:1.05rem;font-weight:800;}
+    .result-count{font-size:0.78rem;color:var(--gray);font-family:'JetBrains Mono',monospace;}
+    .mp-required{display:none;align-items:center;gap:6px;font-size:0.78rem;color:var(--blue);background:rgba(77,166,255,0.08);border:1px solid rgba(77,166,255,0.2);padding:4px 10px;border-radius:20px;}
+    .featured-row{margin-bottom:28px;}
+    .section-label{font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--orange);margin-bottom:12px;font-family:'JetBrains Mono',monospace;}
+    .featured-scroll{display:flex;gap:14px;overflow-x:auto;padding-bottom:6px;}
+    .featured-scroll::-webkit-scrollbar{height:3px;}
+    .featured-scroll::-webkit-scrollbar-thumb{background:var(--border-hi);}
+    .featured-card{flex-shrink:0;width:300px;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;overflow:hidden;cursor:pointer;transition:all 0.2s;position:relative;}
+    .featured-card:hover{border-color:var(--orange);transform:translateY(-2px);box-shadow:0 8px 28px rgba(255,107,0,0.12);}
+    .featured-thumb{height:150px;display:flex;align-items:center;justify-content:center;font-size:3.5rem;background:linear-gradient(135deg,#1a1000,#0f0a00);position:relative;overflow:hidden;}
+    .featured-thumb img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;}
+    .featured-thumb .feat-badge{position:absolute;top:10px;left:10px;font-size:0.6rem;font-weight:700;color:var(--orange);background:rgba(0,0,0,0.7);padding:3px 8px;border-radius:20px;border:1px solid rgba(255,107,0,0.4);font-family:'JetBrains Mono',monospace;z-index:1;}
+    .featured-thumb .mod-approved{position:absolute;top:10px;right:10px;font-size:0.58rem;color:var(--green);background:rgba(0,0,0,0.7);padding:2px 7px;border-radius:20px;border:1px solid rgba(76,175,125,0.3);font-family:'JetBrains Mono',monospace;z-index:1;}
+    .featured-body{padding:14px;}
+    .featured-body h3{font-size:0.95rem;font-weight:700;margin-bottom:4px;}
+    .featured-body .f-meta{display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;}
+    .featured-body .f-author{font-size:0.75rem;color:var(--gray);}
+    .featured-body .f-footer{display:flex;align-items:center;justify-content:space-between;margin-top:8px;}
+    .stars{color:var(--yellow);font-size:0.8rem;}
+    .star-count{font-size:0.72rem;color:var(--gray);margin-left:4px;}
+    .dl-count{font-size:0.72rem;color:var(--gray);}
+    #games-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;}
+    .game-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;overflow:hidden;cursor:pointer;transition:all 0.2s;position:relative;}
+    .game-card:hover{border-color:var(--border-hi);transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,0.3);}
+    .game-thumb{height:110px;display:flex;align-items:center;justify-content:center;font-size:2.8rem;background:linear-gradient(135deg,var(--bg-card2),var(--bg-dark));position:relative;overflow:hidden;}
+    .game-thumb img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;}
+    .thumb-badges{position:absolute;bottom:6px;left:6px;display:flex;gap:4px;flex-wrap:wrap;z-index:1;}
+    .genre-tag{font-size:0.58rem;font-weight:700;padding:2px 6px;border-radius:10px;font-family:'JetBrains Mono',monospace;background:rgba(0,0,0,0.7);}
+    .gt-rpg{color:#bb86fc;}.gt-tycoon{color:var(--yellow);}.gt-platformer{color:var(--green);}
+    .gt-shooter{color:var(--red);}.gt-puzzle{color:var(--blue);}.gt-horror{color:#ff6b6b;}
+    .gt-simulator{color:#80cbc4;}.gt-adventure{color:var(--orange);}
+    .mp-tag{font-size:0.56rem;font-weight:700;padding:2px 5px;border-radius:10px;background:rgba(77,166,255,0.2);color:var(--blue);border:1px solid rgba(77,166,255,0.3);font-family:'JetBrains Mono',monospace;}
+    .game-body{padding:12px;}
+    .game-name{font-size:0.88rem;font-weight:700;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .game-author{font-size:0.72rem;color:var(--gray);margin-bottom:8px;}
+    .game-meta{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+    .game-stars{color:var(--yellow);font-size:0.72rem;}
+    .game-star-val{font-size:0.72rem;color:var(--gray-hi);font-family:'JetBrains Mono',monospace;}
+    .game-dl{font-size:0.7rem;color:var(--gray);margin-bottom:10px;font-family:'JetBrains Mono',monospace;}
+    .age-badge{font-size:0.58rem;font-weight:700;padding:1px 5px;border-radius:3px;font-family:'JetBrains Mono',monospace;}
+    .age-e{background:rgba(76,175,125,0.15);color:var(--green);}
+    .age-e10{background:rgba(77,166,255,0.15);color:var(--blue);}
+    .age-t{background:rgba(255,193,7,0.15);color:var(--yellow);}
+    .age-m{background:rgba(255,82,82,0.15);color:var(--red);}
+    .dl-btn{width:100%;background:var(--orange-lo);border:1px solid rgba(255,107,0,0.25);color:var(--orange);border-radius:7px;padding:7px;font-size:0.8rem;font-weight:700;cursor:pointer;font-family:'Syne',sans-serif;transition:all 0.15s;display:flex;align-items:center;justify-content:center;gap:6px;}
+    .dl-btn:hover{background:var(--orange);color:#fff;}
+    .dl-btn.mp-btn{background:rgba(77,166,255,0.08);border-color:rgba(77,166,255,0.25);color:var(--blue);}
+    .dl-btn.mp-btn:hover{background:var(--blue);color:#fff;}
+    #empty-state{text-align:center;padding:80px 20px;display:none;}
+    #empty-state .es-icon{font-size:3rem;margin-bottom:16px;}
+    #empty-state h3{font-size:1.1rem;font-weight:700;margin-bottom:8px;}
+    #empty-state p{font-size:0.88rem;color:var(--gray);}
+    #detail-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.8);display:none;align-items:center;justify-content:center;z-index:1000;backdrop-filter:blur(6px);}
+    #detail-overlay.open{display:flex;}
+    #detail-modal{background:var(--bg-card);border:1px solid var(--border-hi);border-radius:18px;width:100%;max-width:600px;max-height:90vh;overflow-y:auto;}
+    .detail-thumb{height:220px;display:flex;align-items:center;justify-content:center;font-size:5rem;background:linear-gradient(135deg,#1a1000,#0a0a0a);border-radius:18px 18px 0 0;position:relative;overflow:hidden;}
+    .detail-thumb img{width:100%;height:100%;object-fit:cover;border-radius:18px 18px 0 0;position:absolute;inset:0;}
+    .detail-thumb .dt-icon{position:relative;z-index:0;}
+    .detail-body{padding:24px;}
+    .detail-title{font-size:1.4rem;font-weight:900;margin-bottom:4px;}
+    .detail-author{font-size:0.85rem;color:var(--gray);margin-bottom:12px;}
+    .detail-badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
+    .detail-desc{font-size:0.9rem;color:var(--gray-hi);line-height:1.7;margin-bottom:20px;}
+    .detail-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px;}
+    .detail-stat{background:var(--bg);border-radius:10px;padding:12px;text-align:center;}
+    .detail-stat .ds-val{font-family:'JetBrains Mono',monospace;font-size:1.1rem;font-weight:700;color:var(--orange);}
+    .detail-stat .ds-lbl{font-size:0.7rem;color:var(--gray);margin-top:2px;text-transform:uppercase;letter-spacing:0.5px;}
+    .detail-btns{display:flex;gap:10px;}
+    .detail-dl{flex:1;background:var(--orange);color:#fff;border:none;border-radius:10px;padding:13px;font-family:'Syne',sans-serif;font-size:0.95rem;font-weight:700;cursor:pointer;transition:all 0.2s;}
+    .detail-dl:hover{background:var(--orange-mid);}
+    .detail-close{background:var(--bg);border:1px solid var(--border-hi);color:var(--gray-hi);border-radius:10px;padding:13px 20px;font-family:'Syne',sans-serif;font-size:0.9rem;font-weight:700;cursor:pointer;}
+    .detail-mp{background:rgba(77,166,255,0.08);border:1px solid rgba(77,166,255,0.2);border-radius:8px;padding:12px;font-size:0.8rem;color:var(--blue);margin-bottom:16px;display:none;line-height:1.6;}
+    #age-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.88);display:none;align-items:center;justify-content:center;z-index:2000;backdrop-filter:blur(8px);}
+    #age-overlay.open{display:flex;}
+    .age-box{background:#141414;border:1px solid #333;border-radius:16px;padding:36px;max-width:420px;width:90%;text-align:center;}
+    footer{background:var(--bg-dark);border-top:1px solid var(--border);padding:28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:0.8rem;color:var(--gray);}
+    footer a{color:var(--gray);text-decoration:none;}
+    footer a:hover{color:var(--orange);}
+    @media(max-width:700px){.sidebar{display:none;}}
+  </style>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="../">&#9889; Proton#</a>
+  <div class="header-search">
+    <span class="search-icon">&#128269;</span>
+    <input type="text" id="search-input" placeholder="Search games..." oninput="filterGames()"/>
+  </div>
+  <nav>
+    <a href="../">Home</a>
+    <a href="../docs/">Docs</a>
+    <a href="#" class="active">Explore</a>
+    <a href="../pro/">Pro</a>
+    <a href="../staff/">Staff</a>
+  </nav>
+  <button class="submit-btn" onclick="openSubmit()">+ Submit Game</button>
+</header>
+
+<div class="hero">
+  <h1>Explore Games</h1>
+  <p>Games built by the Proton# community. Download, play, and get inspired. All thumbnails are mod-approved.</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="num" id="total-games">0</div><div class="lbl">Games</div></div>
+    <div class="hero-stat"><div class="num">8</div><div class="lbl">Genres</div></div>
+    <div class="hero-stat"><div class="num" id="total-downloads">0</div><div class="lbl">Downloads</div></div>
+    <div class="hero-stat"><div class="num">&#10003;</div><div class="lbl">Mod Approved</div></div>
+  </div>
+</div>
+
+<div class="mod-notice">
+  &#128737; <span>All thumbnails require moderator approval</span> before appearing. Games can be taken down at any time.
+</div>
+
+<div class="main">
+  <div class="sidebar">
+    <div class="sb-label">Genre</div>
+    <button class="genre-btn active" onclick="setGenre('all',this)"><span class="g-icon">&#127918;</span> All Games <span class="g-count" id="count-all">0</span></button>
+    <button class="genre-btn" onclick="setGenre('rpg',this)"><span class="g-icon">&#9876;</span> RPG <span class="g-count" id="count-rpg">0</span></button>
+    <button class="genre-btn" onclick="setGenre('tycoon',this)"><span class="g-icon">&#127981;</span> Tycoon <span class="g-count" id="count-tycoon">0</span></button>
+    <button class="genre-btn" onclick="setGenre('platformer',this)"><span class="g-icon">&#127919;</span> Platformer <span class="g-count" id="count-platformer">0</span></button>
+    <button class="genre-btn" onclick="setGenre('shooter',this)"><span class="g-icon">&#127993;</span> Shooter <span class="mp-badge">MP</span><span class="g-count" id="count-shooter">0</span></button>
+    <button class="genre-btn" onclick="setGenre('puzzle',this)"><span class="g-icon">&#129513;</span> Puzzle <span class="g-count" id="count-puzzle">0</span></button>
+    <button class="genre-btn" onclick="setGenre('horror',this)"><span class="g-icon">&#128123;</span> Horror <span class="g-count" id="count-horror">0</span></button>
+    <button class="genre-btn" onclick="setGenre('simulator',this)"><span class="g-icon">&#128668;</span> Simulator <span class="g-count" id="count-simulator">0</span></button>
+    <button class="genre-btn" onclick="setGenre('adventure',this)"><span class="g-icon">&#128506;</span> Adventure <span class="g-count" id="count-adventure">0</span></button>
+    <div class="sb-divider"></div>
+    <div class="sb-label">Sort By</div>
+    <div class="sort-wrap">
+      <select class="sort-select" id="sort-select" onchange="filterGames()">
+        <option value="downloads">Most Downloaded</option>
+        <option value="rating">Highest Rated</option>
+        <option value="newest">Newest</option>
+        <option value="az">A to Z</option>
+      </select>
+    </div>
+    <div class="sb-divider"></div>
+    <div class="sb-label">Age Rating</div>
+    <div class="rating-wrap">
+      <div class="rating-opts">
+        <label class="rating-opt"><input type="checkbox" value="E" onchange="filterGames()" checked> <span class="rating-badge rb-e">E</span> Everyone</label>
+        <label class="rating-opt"><input type="checkbox" value="E10" onchange="filterGames()" checked> <span class="rating-badge rb-e10">E10+</span> 10 and up</label>
+        <label class="rating-opt"><input type="checkbox" value="T" onchange="filterGames()" checked> <span class="rating-badge rb-t">T</span> Teen</label>
+        <label class="rating-opt"><input type="checkbox" value="M" onchange="filterGames()" checked> <span class="rating-badge rb-m">M</span> Mature</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="featured-row" id="featured-row">
+      <div class="section-label">Featured Games</div>
+      <div class="featured-scroll" id="featured-scroll"></div>
+    </div>
+    <div class="content-header">
+      <h2 id="genre-title">All Games</h2>
+      <span class="result-count" id="result-count">0 games</span>
+      <div class="mp-required" id="mp-notice">Shooter games require server.pros multiplayer setup</div>
+    </div>
+    <div id="games-grid"></div>
+    <div id="empty-state">
+      <div class="es-icon">&#127918;</div>
+      <h3>No games found</h3>
+      <p>Try a different genre, rating, or search term.</p>
+    </div>
+  </div>
+</div>
+
+<div id="detail-overlay" onclick="closeDetail(event)">
+  <div id="detail-modal">
+    <div class="detail-thumb" id="d-thumb"></div>
+    <div class="detail-body">
+      <div class="detail-title" id="d-title"></div>
+      <div class="detail-author" id="d-author"></div>
+      <div class="detail-badges" id="d-badges"></div>
+      <div class="detail-mp" id="d-mp">This is a multiplayer shooter. You need server.pros to host or join. <a href="../downloads/server.pros" style="color:var(--blue)">Download template</a></div>
+      <div class="detail-desc" id="d-desc"></div>
+      <div class="detail-stats">
+        <div class="detail-stat"><div class="ds-val" id="d-rating">-</div><div class="ds-lbl">Rating</div></div>
+        <div class="detail-stat"><div class="ds-val" id="d-downloads">-</div><div class="ds-lbl">Downloads</div></div>
+        <div class="detail-stat"><div class="ds-val" id="d-date">-</div><div class="ds-lbl">Added</div></div>
+      </div>
+      <div class="detail-btns">
+        <button class="detail-close" onclick="closeDetail()">Close</button>
+        <button class="detail-dl" id="d-dl-btn" onclick="handleDownload()">Download Game</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="age-overlay">
+  <div class="age-box">
+    <div style="font-size:2.5rem;margin-bottom:12px;">&#128274;</div>
+    <h2 style="font-size:1.1rem;font-weight:800;margin-bottom:10px;">Account Required</h2>
+    <p style="font-size:0.85rem;color:#999;line-height:1.65;margin-bottom:20px;">
+      This game is rated <strong style="color:#ff5252;">M (Mature 17+)</strong>.<br><br>
+      Downloading M-rated games requires a verified Proton# account to confirm your age. Accounts are coming soon.
+    </p>
+    <button onclick="document.getElementById('age-overlay').classList.remove('open')" style="width:100%;padding:11px;border-radius:9px;background:#1c1c1c;border:1px solid #333;color:#999;font-family:Syne,sans-serif;font-size:0.9rem;font-weight:700;cursor:pointer;">Go Back</button>
+  </div>
+</div>
+
+<footer>
+  <span>2026 Proton# Studio</span>
+  <div style="display:flex;gap:16px;">
+    <a href="../">Home</a><a href="../docs/">Docs</a><a href="../legal/">Legal</a><a href="mailto:support@protonsharp.com">Contact</a>
+  </div>
+</footer>
+<script src="explore.js"></script>
+</body>
+</html>
