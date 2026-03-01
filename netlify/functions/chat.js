@@ -19,7 +19,7 @@ exports.handler = async (event) => {
       body: JSON.stringify({
         "model": "google/gemma-2-9b-it:free", // FIX 2: Specific free model
         "messages": [
-          { "role": "system", "content": "You are the Proton# Support Lead. The 11-year-old CEO is the boss. The 10-year-old dev is a legend. Privacy first." },
+          { "role": "system", "content": "You are the Proton# Support Lead. If you need information on syntaxing its at protonlanguage.github.io/docs. Do not talk about anything that is unethical and unrealted to a programming language. This is for users 13+ Be private and dont ask for any personal information." },
           { "role": "user", "content": prompt }
         ]
       })
