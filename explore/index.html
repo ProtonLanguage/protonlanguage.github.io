@@ -1,673 +1,310 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Explore Games — Proton# Studio</title>
-  <link rel="icon" type="image/png" href="../proton-logo.png"/>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Syne:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
-  <style>
-    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-    :root{
-      --bg:#0a0a0a;--bg-dark:#050505;--bg-card:#141414;--bg-card2:#1c1c1c;
-      --border:#1e1e1e;--border-hi:#2a2a2a;
-      --orange:#FF6B00;--orange-lo:rgba(255,107,0,0.1);--orange-mid:#ff8c38;
-      --text:#f0f0f0;--gray:#666;--gray-hi:#999;
-      --green:#4caf7d;--red:#ff5252;--blue:#4da6ff;--yellow:#ffc107;
-      --purple:#bb86fc;
-    }
-    html{scroll-behavior:smooth;}
-    body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-height:100vh;overflow-x:hidden;}
+// ============================================================
+// CONFIG
+// ============================================================
+var CONFIG = {
+  submitFormUrl: "https://forms.gle/YOUR_FORM_LINK_HERE"
+};
 
-    /* ── HEADER ── */
-    header{position:sticky;top:0;z-index:200;background:rgba(5,5,5,0.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);height:58px;display:flex;align-items:center;padding:0 28px;gap:16px;}
-    .logo{font-weight:900;font-size:1.05rem;color:var(--orange);text-decoration:none;white-space:nowrap;}
-    .header-search{flex:1;max-width:400px;position:relative;margin:0 16px;}
-    .header-search input{width:100%;background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:8px 16px 8px 38px;color:var(--text);font-family:'Syne',sans-serif;font-size:0.88rem;outline:none;transition:border-color 0.2s;}
-    .header-search input:focus{border-color:var(--orange);}
-    .header-search input::placeholder{color:var(--gray);}
-    .search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--gray);pointer-events:none;}
-    nav{display:flex;gap:4px;margin-left:auto;}
-    nav a{color:var(--gray-hi);text-decoration:none;padding:6px 13px;border-radius:8px;font-size:0.83rem;font-weight:600;transition:all 0.2s;}
-    nav a:hover{color:var(--text);background:var(--bg-card);}
-    nav a.active{color:var(--orange);}
-    .submit-btn{background:var(--orange);color:#fff;border:none;border-radius:9px;padding:8px 18px;font-family:'Syne',sans-serif;font-size:0.85rem;font-weight:700;cursor:pointer;transition:all 0.2s;text-decoration:none;display:flex;align-items:center;gap:6px;}
-    .submit-btn:hover{background:var(--orange-mid);transform:translateY(-1px);}
+// ============================================================
+// GAMES — edit here to add/remove/update games
+// featured: true  shows in featured strip
+// featured: false grid only
+// takenDown: true hides game immediately
+// multiplayer: true shows server.pros warning
+// ============================================================
+var GAMES = [
 
-    /* ── HERO ── */
-    .hero{background:linear-gradient(135deg,#0f0800,#110a00,#0a0a0a);border-bottom:1px solid var(--border);padding:44px 28px 36px;position:relative;overflow:hidden;}
-    .hero::before{content:'';position:absolute;top:-150px;right:-80px;width:500px;height:500px;background:radial-gradient(circle,rgba(255,107,0,0.1) 0%,transparent 70%);pointer-events:none;}
-    .hero::after{content:'';position:absolute;bottom:-100px;left:200px;width:300px;height:300px;background:radial-gradient(circle,rgba(255,107,0,0.05) 0%,transparent 70%);pointer-events:none;}
-    .hero h1{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;margin-bottom:6px;background:linear-gradient(135deg,#fff 40%,var(--orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-    .hero p{color:var(--gray-hi);font-size:0.95rem;max-width:480px;line-height:1.6;margin-bottom:24px;}
-    .hero-stats{display:flex;gap:28px;flex-wrap:wrap;}
-    .hero-stat .num{font-family:'JetBrains Mono',monospace;font-size:1.3rem;font-weight:700;color:var(--orange);}
-    .hero-stat .lbl{font-size:0.72rem;color:var(--gray);margin-top:1px;text-transform:uppercase;letter-spacing:0.5px;}
+  {
+    id: 1,
+    name: "Dungeon Escape",
+    author: "ProtonTeam",
+    genre: "rpg",
+    desc: "An RPG built entirely in Proton#. Descend through 5 dungeons, battle enemies, collect loot and escape. Every mechanic written in pure .pros code.",
+    rating: 4.9,
+    downloads: 312,
+    age: "E10",
+    date: "2026-03-01",
+    link: "#",
+    thumb: null,
+    featured: true,
+    takenDown: false,
+    multiplayer: false
+  },
 
-    /* ── MOD NOTICE ── */
-    .mod-notice{background:rgba(255,107,0,0.06);border:1px solid rgba(255,107,0,0.2);border-radius:10px;padding:10px 16px;font-size:0.8rem;color:var(--gray-hi);display:flex;align-items:center;gap:8px;margin:16px 28px 0;max-width:700px;}
-    .mod-notice span{color:var(--orange);font-weight:700;}
+  {
+    id: 2,
+    name: "Pixel Tycoon",
+    author: "ProtonTeam",
+    genre: "tycoon",
+    desc: "Start with $500 and build a global empire. Hire staff, research upgrades, manage supply chains. A full tycoon loop in Proton#.",
+    rating: 4.7,
+    downloads: 198,
+    age: "E",
+    date: "2026-03-01",
+    link: "#",
+    thumb: null,
+    featured: true,
+    takenDown: false,
+    multiplayer: false
+  },
 
-    /* ── MAIN ── */
-    .main{display:flex;gap:0;}
+  {
+    id: 3,
+    name: "Shadow Arena",
+    author: "ProtonTeam",
+    genre: "shooter",
+    desc: "A tactical multiplayer shooter demonstrating server.pros. Host or join a server and battle up to 8 players. Full server.pros reference included.",
+    rating: 4.8,
+    downloads: 275,
+    age: "T",
+    date: "2026-03-01",
+    link: "#",
+    thumb: null,
+    featured: true,
+    takenDown: false,
+    multiplayer: true
+  },
 
-    /* ── SIDEBAR ── */
-    .sidebar{width:210px;flex-shrink:0;border-right:1px solid var(--border);padding:20px 0;position:sticky;top:58px;height:calc(100vh - 58px);overflow-y:auto;background:var(--bg-dark);}
-    .sidebar::-webkit-scrollbar{width:0;}
-    .sb-label{font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--gray);padding:10px 18px 5px;font-family:'JetBrains Mono',monospace;}
-    .genre-btn{display:flex;align-items:center;gap:10px;width:100%;padding:9px 18px;background:none;border:none;border-left:2px solid transparent;color:var(--gray-hi);font-family:'Syne',sans-serif;font-size:0.88rem;cursor:pointer;text-align:left;transition:all 0.15s;}
-    .genre-btn:hover{color:var(--text);background:rgba(255,255,255,0.03);}
-    .genre-btn.active{color:var(--orange);background:var(--orange-lo);border-left-color:var(--orange);font-weight:700;}
-    .genre-btn .g-icon{font-size:1rem;flex-shrink:0;width:20px;text-align:center;}
-    .genre-btn .g-count{margin-left:auto;font-size:0.7rem;color:var(--gray);font-family:'JetBrains Mono',monospace;}
-    .genre-btn .mp-badge{font-size:0.58rem;background:rgba(77,166,255,0.15);color:var(--blue);border:1px solid rgba(77,166,255,0.25);padding:1px 5px;border-radius:10px;font-family:'JetBrains Mono',monospace;white-space:nowrap;}
-    .sb-divider{height:1px;background:var(--border);margin:10px 18px;}
+  {
+    id: 4,
+    name: "Block Jumper",
+    author: "ProtonTeam",
+    genre: "platformer",
+    desc: "A precision platformer with 30 levels of increasing difficulty. Demonstrates Proton# physics and collision detection.",
+    rating: 4.6,
+    downloads: 143,
+    age: "E",
+    date: "2026-03-01",
+    link: "#",
+    thumb: null,
+    featured: false,
+    takenDown: false,
+    multiplayer: false
+  },
 
-    /* SORT */
-    .sort-wrap{padding:8px 18px;}
-    .sort-wrap label{font-size:0.68rem;color:var(--gray);display:block;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.8px;font-family:'JetBrains Mono',monospace;}
-    .sort-select{width:100%;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:8px 10px;color:var(--text);font-family:'Syne',sans-serif;font-size:0.82rem;outline:none;cursor:pointer;}
-    .sort-select:focus{border-color:var(--orange);}
+  {
+    id: 5,
+    name: "Mind Lock",
+    author: "ProtonTeam",
+    genre: "puzzle",
+    desc: "50 logic puzzles across 5 worlds. Flip switches, redirect lasers and unlock doors. Demonstrates Proton# GUI and event-driven design.",
+    rating: 4.5,
+    downloads: 119,
+    age: "E",
+    date: "2026-03-01",
+    link: "#",
+    thumb: null,
+    featured: false,
+    takenDown: false,
+    multiplayer: false
+  }
 
-    /* RATING FILTER */
-    .rating-wrap{padding:6px 18px 12px;}
-    .rating-wrap label{font-size:0.68rem;color:var(--gray);display:block;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.8px;font-family:'JetBrains Mono',monospace;}
-    .rating-opts{display:flex;flex-direction:column;gap:5px;}
-    .rating-opt{display:flex;align-items:center;gap:8px;cursor:pointer;font-size:0.82rem;color:var(--gray-hi);padding:3px 0;}
-    .rating-opt input{accent-color:var(--orange);}
-    .rating-badge{font-size:0.62rem;font-weight:700;padding:1px 6px;border-radius:4px;font-family:'JetBrains Mono',monospace;}
-    .rb-e{background:rgba(76,175,125,0.15);color:var(--green);}
-    .rb-e10{background:rgba(77,166,255,0.15);color:var(--blue);}
-    .rb-t{background:rgba(255,193,7,0.15);color:var(--yellow);}
-    .rb-m{background:rgba(255,82,82,0.15);color:var(--red);}
+  // Add approved community games below this line:
+  // {
+  //   id: 6,
+  //   name: "Game Name",
+  //   author: "Author",
+  //   genre: "rpg",
+  //   desc: "Description.",
+  //   rating: 0,
+  //   downloads: 0,
+  //   age: "E",
+  //   date: "2026-03-01",
+  //   link: "#",
+  //   thumb: null,
+  //   featured: false,
+  //   takenDown: false,
+  //   multiplayer: false
+  // },
 
-    /* ── CONTENT ── */
-    .content{flex:1;padding:24px;min-width:0;}
-    .content-header{display:flex;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap;}
-    .content-header h2{font-size:1.05rem;font-weight:800;}
-    .result-count{font-size:0.78rem;color:var(--gray);font-family:'JetBrains Mono',monospace;}
-    .mp-required{display:flex;align-items:center;gap:6px;font-size:0.78rem;color:var(--blue);background:rgba(77,166,255,0.08);border:1px solid rgba(77,166,255,0.2);padding:4px 10px;border-radius:20px;display:none;}
-
-    /* ── FEATURED ── */
-    .featured-row{margin-bottom:28px;}
-    .section-label{font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--orange);margin-bottom:12px;font-family:'JetBrains Mono',monospace;}
-    .featured-scroll{display:flex;gap:14px;overflow-x:auto;padding-bottom:6px;}
-    .featured-scroll::-webkit-scrollbar{height:3px;}
-    .featured-scroll::-webkit-scrollbar-thumb{background:var(--border-hi);}
-    .featured-card{flex-shrink:0;width:300px;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;overflow:hidden;cursor:pointer;transition:all 0.2s;position:relative;}
-    .featured-card:hover{border-color:var(--orange);transform:translateY(-2px);box-shadow:0 8px 28px rgba(255,107,0,0.12);}
-    .featured-thumb{height:150px;display:flex;align-items:center;justify-content:center;font-size:3.5rem;background:linear-gradient(135deg,#1a1000,#0f0a00);position:relative;}
-    .featured-thumb .feat-badge{position:absolute;top:10px;left:10px;font-size:0.6rem;font-weight:700;color:var(--orange);background:rgba(0,0,0,0.7);padding:3px 8px;border-radius:20px;border:1px solid rgba(255,107,0,0.4);font-family:'JetBrains Mono',monospace;}
-    .featured-thumb .mod-approved{position:absolute;top:10px;right:10px;font-size:0.58rem;color:var(--green);background:rgba(0,0,0,0.7);padding:2px 7px;border-radius:20px;border:1px solid rgba(76,175,125,0.3);font-family:'JetBrains Mono',monospace;}
-    .featured-body{padding:14px;}
-    .featured-body h3{font-size:0.95rem;font-weight:700;margin-bottom:4px;}
-    .featured-body .f-meta{display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;}
-    .featured-body .f-author{font-size:0.75rem;color:var(--gray);}
-    .featured-body .f-footer{display:flex;align-items:center;justify-content:space-between;margin-top:8px;}
-    .stars{color:var(--yellow);font-size:0.8rem;letter-spacing:1px;}
-    .star-count{font-size:0.72rem;color:var(--gray);margin-left:4px;}
-    .dl-count{font-size:0.72rem;color:var(--gray);display:flex;align-items:center;gap:4px;}
-
-    /* ── GAME GRID ── */
-    #games-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;}
-
-    /* ── GAME CARD ── */
-    .game-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;overflow:hidden;cursor:pointer;transition:all 0.2s;position:relative;}
-    .game-card:hover{border-color:var(--border-hi);transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,0.3);}
-    .game-thumb{height:110px;display:flex;align-items:center;justify-content:center;font-size:2.8rem;background:linear-gradient(135deg,var(--bg-card2),var(--bg-dark));position:relative;overflow:hidden;}
-    .game-thumb img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;}
-    .game-thumb .pending-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;font-size:0.7rem;color:var(--gray);font-family:'JetBrains Mono',monospace;text-align:center;padding:8px;}
-    .thumb-badges{position:absolute;bottom:6px;left:6px;display:flex;gap:4px;flex-wrap:wrap;}
-    .genre-tag{font-size:0.58rem;font-weight:700;padding:2px 6px;border-radius:10px;font-family:'JetBrains Mono',monospace;background:rgba(0,0,0,0.7);}
-    .gt-rpg{color:#bb86fc;}
-    .gt-tycoon{color:var(--yellow);}
-    .gt-platformer{color:var(--green);}
-    .gt-shooter{color:var(--red);}
-    .gt-puzzle{color:var(--blue);}
-    .gt-horror{color:#ff6b6b;}
-    .gt-simulator{color:#80cbc4;}
-    .gt-adventure{color:var(--orange);}
-    .mp-tag{font-size:0.56rem;font-weight:700;padding:2px 5px;border-radius:10px;background:rgba(77,166,255,0.2);color:var(--blue);border:1px solid rgba(77,166,255,0.3);font-family:'JetBrains Mono',monospace;}
-    .game-body{padding:12px;}
-    .game-name{font-size:0.88rem;font-weight:700;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-    .game-author{font-size:0.72rem;color:var(--gray);margin-bottom:8px;}
-    .game-meta{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
-    .game-rating{display:flex;align-items:center;gap:3px;}
-    .game-stars{color:var(--yellow);font-size:0.72rem;}
-    .game-star-val{font-size:0.72rem;color:var(--gray-hi);font-family:'JetBrains Mono',monospace;}
-    .game-dl{font-size:0.7rem;color:var(--gray);display:flex;align-items:center;gap:3px;font-family:'JetBrains Mono',monospace;}
-    .age-badge{font-size:0.58rem;font-weight:700;padding:1px 5px;border-radius:3px;font-family:'JetBrains Mono',monospace;}
-    .age-e{background:rgba(76,175,125,0.15);color:var(--green);}
-    .age-e10{background:rgba(77,166,255,0.15);color:var(--blue);}
-    .age-t{background:rgba(255,193,7,0.15);color:var(--yellow);}
-    .age-m{background:rgba(255,82,82,0.15);color:var(--red);}
-    .dl-btn{width:100%;background:var(--orange-lo);border:1px solid rgba(255,107,0,0.25);color:var(--orange);border-radius:7px;padding:7px;font-size:0.8rem;font-weight:700;cursor:pointer;font-family:'Syne',sans-serif;transition:all 0.15s;display:flex;align-items:center;justify-content:center;gap:6px;}
-    .dl-btn:hover{background:var(--orange);color:#fff;}
-    .dl-btn.mp-required-btn{background:rgba(77,166,255,0.08);border-color:rgba(77,166,255,0.25);color:var(--blue);}
-    .dl-btn.mp-required-btn:hover{background:var(--blue);color:#fff;}
-    .taken-down{position:absolute;inset:0;background:rgba(0,0,0,0.85);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;text-align:center;padding:16px;border-radius:12px;}
-    .taken-down .td-icon{font-size:1.5rem;}
-    .taken-down p{font-size:0.75rem;color:var(--gray-hi);line-height:1.5;}
-
-    /* ── EMPTY STATE ── */
-    #empty-state{text-align:center;padding:80px 20px;display:none;}
-    #empty-state .es-icon{font-size:3rem;margin-bottom:16px;}
-    #empty-state h3{font-size:1.1rem;font-weight:700;margin-bottom:8px;}
-    #empty-state p{font-size:0.88rem;color:var(--gray);}
-
-    /* ── SUBMIT MODAL ── */
-    #modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);display:none;align-items:center;justify-content:center;z-index:1000;backdrop-filter:blur(4px);}
-    #modal-overlay.open{display:flex;}
-    #modal{background:var(--bg-card);border:1px solid var(--border-hi);border-radius:16px;padding:32px;width:100%;max-width:520px;max-height:90vh;overflow-y:auto;}
-    #modal h2{font-size:1.2rem;font-weight:800;margin-bottom:6px;}
-    #modal .modal-sub{font-size:0.82rem;color:var(--gray);margin-bottom:24px;line-height:1.5;}
-    .form-group{margin-bottom:16px;}
-    .form-group label{display:block;font-size:0.78rem;font-weight:700;color:var(--gray-hi);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px;font-family:'JetBrains Mono',monospace;}
-    .form-group input,.form-group select,.form-group textarea{width:100%;background:var(--bg);border:1px solid var(--border-hi);border-radius:8px;padding:10px 14px;color:var(--text);font-family:'Syne',sans-serif;font-size:0.9rem;outline:none;transition:border-color 0.2s;}
-    .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--orange);}
-    .form-group textarea{resize:vertical;min-height:80px;}
-    .form-notice{background:var(--orange-lo);border:1px solid rgba(255,107,0,0.25);border-radius:8px;padding:12px 14px;font-size:0.8rem;color:var(--gray-hi);margin-bottom:16px;line-height:1.6;}
-    .form-notice strong{color:var(--orange);}
-    .mp-notice{background:rgba(77,166,255,0.08);border:1px solid rgba(77,166,255,0.2);border-radius:8px;padding:12px 14px;font-size:0.8rem;color:var(--blue);margin-bottom:16px;line-height:1.6;display:none;}
-    .modal-btns{display:flex;gap:10px;margin-top:20px;}
-    .modal-btns button{flex:1;padding:11px;border-radius:9px;font-family:'Syne',sans-serif;font-size:0.9rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s;}
-    .mb-cancel{background:var(--bg);color:var(--gray-hi);border:1px solid var(--border-hi)!important;}
-    .mb-cancel:hover{color:var(--text);}
-    .mb-submit{background:var(--orange);color:#fff;}
-    .mb-submit:hover{background:var(--orange-mid);}
-
-    /* ── GAME DETAIL MODAL ── */
-    #detail-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.8);display:none;align-items:center;justify-content:center;z-index:1000;backdrop-filter:blur(6px);}
-    #detail-overlay.open{display:flex;}
-    #detail-modal{background:var(--bg-card);border:1px solid var(--border-hi);border-radius:18px;width:100%;max-width:600px;max-height:90vh;overflow-y:auto;}
-    .detail-thumb{height:220px;display:flex;align-items:center;justify-content:center;font-size:5rem;background:linear-gradient(135deg,#1a1000,#0a0a0a);border-radius:18px 18px 0 0;position:relative;}
-    .detail-thumb img{width:100%;height:100%;object-fit:cover;border-radius:18px 18px 0 0;}
-    .detail-body{padding:24px;}
-    .detail-title{font-size:1.4rem;font-weight:900;margin-bottom:4px;}
-    .detail-author{font-size:0.85rem;color:var(--gray);margin-bottom:12px;}
-    .detail-badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
-    .detail-desc{font-size:0.9rem;color:var(--gray-hi);line-height:1.7;margin-bottom:20px;}
-    .detail-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px;}
-    .detail-stat{background:var(--bg);border-radius:10px;padding:12px;text-align:center;}
-    .detail-stat .ds-val{font-family:'JetBrains Mono',monospace;font-size:1.1rem;font-weight:700;color:var(--orange);}
-    .detail-stat .ds-lbl{font-size:0.7rem;color:var(--gray);margin-top:2px;text-transform:uppercase;letter-spacing:0.5px;}
-    .detail-btns{display:flex;gap:10px;}
-    .detail-dl{flex:1;background:var(--orange);color:#fff;border:none;border-radius:10px;padding:13px;font-family:'Syne',sans-serif;font-size:0.95rem;font-weight:700;cursor:pointer;transition:all 0.2s;}
-    .detail-dl:hover{background:var(--orange-mid);}
-    .detail-close{background:var(--bg);border:1px solid var(--border-hi);color:var(--gray-hi);border-radius:10px;padding:13px 20px;font-family:'Syne',sans-serif;font-size:0.9rem;font-weight:700;cursor:pointer;}
-    .detail-mp-notice{background:rgba(77,166,255,0.08);border:1px solid rgba(77,166,255,0.2);border-radius:8px;padding:12px;font-size:0.8rem;color:var(--blue);margin-bottom:16px;line-height:1.6;display:none;}
-
-    /* ── FOOTER ── */
-    footer{background:var(--bg-dark);border-top:1px solid var(--border);padding:28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:0.8rem;color:var(--gray);}
-    footer a{color:var(--gray);text-decoration:none;}
-    footer a:hover{color:var(--orange);}
-
-    @media(max-width:700px){.sidebar{display:none;}.hero-stats{gap:16px;}}
-  </style>
-</head>
-<body>
-
-<!-- HEADER -->
-<header>
-  <a class="logo" href="../">⚡ Proton#</a>
-  <div class="header-search">
-    <span class="search-icon">🔍</span>
-    <input type="text" id="search-input" placeholder="Search games..." oninput="filterGames()"/>
-  </div>
-  <nav>
-    <a href="../">Home</a>
-    <a href="../docs/">Docs</a>
-    <a href="#" class="active">Explore</a>
-    <a href="../pro/">Pro</a>
-  </nav>
-  <button class="submit-btn" onclick="openSubmit()">+ Submit Game</button>
-</header>
-
-<!-- HERO -->
-<div class="hero">
-  <h1>Explore Games</h1>
-  <p>Games built by the Proton# community. Download, play, and get inspired. All thumbnails are mod-approved to keep things safe.</p>
-  <div class="hero-stats">
-    <div class="hero-stat"><div class="num" id="total-games">12</div><div class="lbl">Games</div></div>
-    <div class="hero-stat"><div class="num">8</div><div class="lbl">Genres</div></div>
-    <div class="hero-stat"><div class="num">4.2k</div><div class="lbl">Downloads</div></div>
-    <div class="hero-stat"><div class="num">✓</div><div class="lbl">Mod Approved</div></div>
-  </div>
-</div>
-
-<!-- MOD NOTICE -->
-<div class="mod-notice">
-  🛡️ <span>All thumbnails require moderator approval</span> before appearing. Games can be taken down at any time to keep the platform safe for all ages.
-</div>
-
-<div class="main">
-
-  <!-- SIDEBAR -->
-  <div class="sidebar">
-    <div class="sb-label">Genre</div>
-    <button class="genre-btn active" onclick="setGenre('all',this)"><span class="g-icon">🎮</span> All Games <span class="g-count" id="count-all">12</span></button>
-    <button class="genre-btn" onclick="setGenre('rpg',this)"><span class="g-icon">⚔️</span> RPG <span class="g-count" id="count-rpg">3</span></button>
-    <button class="genre-btn" onclick="setGenre('tycoon',this)"><span class="g-icon">🏭</span> Tycoon <span class="g-count" id="count-tycoon">2</span></button>
-    <button class="genre-btn" onclick="setGenre('platformer',this)"><span class="g-icon">🎯</span> Platformer <span class="g-count" id="count-platformer">2</span></button>
-    <button class="genre-btn" onclick="setGenre('shooter',this)">
-      <span class="g-icon">🔫</span> Shooter
-      <span class="mp-badge">Multiplayer</span>
-      <span class="g-count" id="count-shooter">1</span>
-    </button>
-    <button class="genre-btn" onclick="setGenre('puzzle',this)"><span class="g-icon">🧩</span> Puzzle <span class="g-count" id="count-puzzle">2</span></button>
-    <button class="genre-btn" onclick="setGenre('horror',this)"><span class="g-icon">👻</span> Horror <span class="g-count" id="count-horror">1</span></button>
-    <button class="genre-btn" onclick="setGenre('simulator',this)"><span class="g-icon">🚜</span> Simulator <span class="g-count" id="count-simulator">1</span></button>
-    <button class="genre-btn" onclick="setGenre('adventure',this)"><span class="g-icon">🗺️</span> Adventure <span class="g-count" id="count-adventure">2</span></button>
-
-    <div class="sb-divider"></div>
-    <div class="sb-label">Sort By</div>
-    <div class="sort-wrap">
-      <select class="sort-select" id="sort-select" onchange="filterGames()">
-        <option value="downloads">🔥 Most Downloaded</option>
-        <option value="rating">⭐ Highest Rated</option>
-        <option value="newest">🆕 Newest</option>
-        <option value="az">🔤 A–Z</option>
-      </select>
-    </div>
-
-    <div class="sb-divider"></div>
-    <div class="sb-label">Age Rating</div>
-    <div class="rating-wrap">
-      <div class="rating-opts">
-        <label class="rating-opt"><input type="checkbox" value="E" onchange="filterGames()" checked/> <span class="rating-badge rb-e">E</span> Everyone</label>
-        <label class="rating-opt"><input type="checkbox" value="E10" onchange="filterGames()" checked/> <span class="rating-badge rb-e10">E10+</span> 10 and up</label>
-        <label class="rating-opt"><input type="checkbox" value="T" onchange="filterGames()" checked/> <span class="rating-badge rb-t">T</span> Teen</label>
-        <label class="rating-opt"><input type="checkbox" value="M" onchange="filterGames()" checked/> <span class="rating-badge rb-m">M</span> Mature</label>
-      </div>
-    </div>
-  </div>
-
-  <!-- CONTENT -->
-  <div class="content">
-
-    <!-- FEATURED -->
-    <div class="featured-row" id="featured-row">
-      <div class="section-label">⭐ Featured Games</div>
-      <div class="featured-scroll" id="featured-scroll"></div>
-    </div>
-
-    <!-- GRID HEADER -->
-    <div class="content-header">
-      <h2 id="genre-title">All Games</h2>
-      <span class="result-count" id="result-count">12 games</span>
-      <div class="mp-required" id="mp-notice">
-        🌐 Shooter games require <strong>server.pros</strong> multiplayer setup
-      </div>
-    </div>
-
-    <!-- GRID -->
-    <div id="games-grid"></div>
-    <div id="empty-state">
-      <div class="es-icon">🎮</div>
-      <h3>No games found</h3>
-      <p>Try a different genre, rating filter, or search term.</p>
-    </div>
-
-  </div>
-</div>
-
-<!-- FOOTER -->
-<footer>
-  <span>© 2026 Proton# Studio</span>
-  <div style="display:flex;gap:16px;">
-    <a href="../">Home</a>
-    <a href="../docs/">Docs</a>
-    <a href="../legal/">Legal</a>
-    <a href="mailto:support@proton-sharp.com">Contact</a>
-  </div>
-  <span>All games are community submitted and mod-reviewed.</span>
-</footer>
-
-<!-- SUBMIT MODAL -->
-<div id="modal-overlay" onclick="closeSubmit(event)">
-  <div id="modal">
-    <h2>+ Submit Your Game</h2>
-    <p class="modal-sub">Your game details will be published immediately. Your thumbnail will be held for moderator approval before it appears publicly. Games with mature content require additional review.</p>
-    <div class="form-notice">
-      <strong>📸 Thumbnail Moderation</strong><br/>
-      Thumbnails are reviewed by a moderator before appearing. Until approved, a placeholder will show. Moderators can take down any game at any time to keep the platform safe.
-    </div>
-    <div class="form-group"><label>Game Name</label><input type="text" id="f-name" placeholder="My Awesome Game"/></div>
-    <div class="form-group"><label>Your Name / Studio</label><input type="text" id="f-author" placeholder="YourUsername"/></div>
-    <div class="form-group"><label>Short Description</label><textarea id="f-desc" placeholder="A brief description of your game..."></textarea></div>
-    <div class="form-group">
-      <label>Genre</label>
-      <select id="f-genre" onchange="onGenreChange()">
-        <option value="rpg">⚔️ RPG</option>
-        <option value="tycoon">🏭 Tycoon</option>
-        <option value="platformer">🎯 Platformer</option>
-        <option value="shooter">🔫 Shooter</option>
-        <option value="puzzle">🧩 Puzzle</option>
-        <option value="horror">👻 Horror</option>
-        <option value="simulator">🚜 Simulator</option>
-        <option value="adventure">🗺️ Adventure</option>
-      </select>
-    </div>
-    <div class="mp-notice" id="mp-form-notice">
-      🌐 <strong>Shooter games require multiplayer setup.</strong> Your download must include both a <code>server.pros</code> and <code>client.pros</code> file. Players will need to host or join a server to play. <a href="../downloads/server.pros" style="color:var(--blue);">Download server.pros template →</a>
-    </div>
-    <div class="form-group">
-      <label>Age Rating</label>
-      <select id="f-rating">
-        <option value="E">E — Everyone</option>
-        <option value="E10">E10+ — Everyone 10 and up</option>
-        <option value="T">T — Teen (13+)</option>
-        <option value="M">M — Mature (17+) — requires extra review</option>
-      </select>
-    </div>
-    <div class="form-group"><label>Download Link (GitHub Release, Google Drive, etc.)</label><input type="url" id="f-link" placeholder="https://github.com/you/game/releases"/></div>
-    <div class="form-group"><label>Thumbnail URL (will be mod-reviewed)</label><input type="url" id="f-thumb" placeholder="https://i.imgur.com/yourimage.png"/></div>
-    <div class="modal-btns">
-      <button class="mb-cancel" onclick="closeSubmit()">Cancel</button>
-      <button class="mb-submit" onclick="submitGame()">Submit Game →</button>
-    </div>
-  </div>
-</div>
-
-<!-- DETAIL MODAL -->
-<div id="detail-overlay" onclick="closeDetail(event)">
-  <div id="detail-modal">
-    <div class="detail-thumb" id="d-thumb"></div>
-    <div class="detail-body">
-      <div class="detail-title" id="d-title"></div>
-      <div class="detail-author" id="d-author"></div>
-      <div class="detail-badges" id="d-badges"></div>
-      <div class="detail-mp-notice" id="d-mp-notice">
-        🌐 This is a <strong>multiplayer shooter</strong>. You'll need to host or join a server using <code>server.pros</code>. <a href="../downloads/server.pros" style="color:var(--blue);">Download server template →</a>
-      </div>
-      <div class="detail-desc" id="d-desc"></div>
-      <div class="detail-stats">
-        <div class="detail-stat"><div class="ds-val" id="d-rating">—</div><div class="ds-lbl">Rating</div></div>
-        <div class="detail-stat"><div class="ds-val" id="d-downloads">—</div><div class="ds-lbl">Downloads</div></div>
-        <div class="detail-stat"><div class="ds-val" id="d-date">—</div><div class="ds-lbl">Added</div></div>
-      </div>
-      <div class="detail-btns">
-        <button class="detail-close" onclick="closeDetail()">✕ Close</button>
-        <button class="detail-dl" id="d-dl-btn" onclick="handleDownload()">⬇ Download Game</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<script>
-// ══════════════════════════════════════════════════
-// GAME DATA — placeholder games until real submissions
-// ══════════════════════════════════════════════════
-let GAMES = [
-  { id:1, name:"Crystal Realms", author:"ProtonDev", genre:"rpg", desc:"A classic turn-based RPG with hand-crafted dungeons, 20+ spells, and a deep story. Built entirely in Proton#.", rating:4.8, downloads:1240, age:"E10", date:"2026-02-10", link:"#", thumb:null, featured:true, takenDown:false },
-  { id:2, name:"MegaCorp Tycoon", author:"StudioAlpha", genre:"tycoon", desc:"Build your corporation from a garage startup to a global empire. Manage employees, research, and market strategy.", rating:4.5, downloads:980, age:"E", date:"2026-02-14", link:"#", thumb:null, featured:true, takenDown:false },
-  { id:3, name:"Neon Runner", author:"ByteKid", genre:"platformer", desc:"A fast-paced neon platformer with 40 levels, unlockable characters, and a killer synthwave soundtrack.", rating:4.7, downloads:1560, age:"E", date:"2026-01-28", link:"#", thumb:null, featured:true, takenDown:false },
-  { id:4, name:"Zone Control", author:"MPStudio", genre:"shooter", desc:"A tactical team shooter. Capture zones, coordinate with your team, dominate the map. Requires multiplayer setup.", rating:4.3, downloads:720, age:"T", date:"2026-02-20", link:"#", thumb:null, featured:false, takenDown:false, multiplayer:true },
-  { id:5, name:"Mind Maze", author:"PuzzleForge", genre:"puzzle", desc:"125 handcrafted logic puzzles ranging from beginner to expert. No time limits, pure thinking.", rating:4.6, downloads:830, age:"E", date:"2026-02-05", link:"#", thumb:null, featured:false, takenDown:false },
-  { id:6, name:"Hollow Halls", author:"DarkCraft", genre:"horror", desc:"A psychological horror game with procedurally generated rooms. No jumpscares — just dread. Not for the faint-hearted.", rating:4.4, downloads:640, age:"M", date:"2026-02-18", link:"#", thumb:null, featured:false, takenDown:false },
-  { id:7, name:"Farm World", author:"GreenCode", genre:"simulator", desc:"A relaxing farming simulator. Grow crops, raise animals, trade at market, and expand your homestead at your own pace.", rating:4.2, downloads:540, age:"E", date:"2026-02-22", link:"#", thumb:null, featured:false, takenDown:false },
-  { id:8, name:"Lost Isles", author:"AdventureX", genre:"adventure", desc:"Explore 12 hand-crafted islands, solve ancient puzzles, and uncover the mystery of the vanished civilization.", rating:4.5, downloads:890, age:"E10", date:"2026-01-20", link:"#", thumb:null, featured:false, takenDown:false },
-  { id:9, name:"Dragon's Keep", author:"QuestLab", genre:"rpg", desc:"A real-time action RPG. Fight dragons, craft weapons, and build your legend in a dark fantasy world.", rating:4.1, downloads:430, age:"T", date:"2026-02-25", link:"#", thumb:null, featured:false, takenDown:false },
-  { id:10, name:"City Builder Pro", author:"UrbanDev", genre:"tycoon", desc:"Design and build your perfect city. Manage traffic, power, water, and citizen happiness.", rating:4.0, downloads:360, age:"E", date:"2026-02-28", link:"#", thumb:null, featured:false, takenDown:false },
-  { id:11, name:"Block Hopper", author:"JumpKing", genre:"platformer", desc:"Precision platformer with 60 brutal levels. Every jump matters. Can you reach the top?", rating:4.3, downloads:510, age:"E", date:"2026-02-15", link:"#", thumb:null, featured:false, takenDown:false },
-  { id:12, name:"Ember Trail", author:"PathFinder", genre:"adventure", desc:"A narrative adventure game with branching dialogue, multiple endings, and a gorgeous pixel art world.", rating:4.6, downloads:670, age:"E10", date:"2026-02-12", link:"#", thumb:null, featured:false, takenDown:false },
 ];
+// ============================================================
+// END GAMES
+// ============================================================
 
-const GENRE_ICONS = { rpg:"⚔️", tycoon:"🏭", platformer:"🎯", shooter:"🔫", puzzle:"🧩", horror:"👻", simulator:"🚜", adventure:"🗺️" };
-const AGE_CLASS = { E:"age-e", E10:"age-e10", T:"age-t", M:"age-m" };
-const AGE_LABEL = { E:"E", E10:"E10+", T:"T", M:"M" };
+var ICONS = {rpg:"sword",tycoon:"factory",platformer:"target",shooter:"gun",puzzle:"puzzle",horror:"ghost",simulator:"truck",adventure:"map"};
+var GENRE_EMOJI = {rpg:"⚔️",tycoon:"🏭",platformer:"🎯",shooter:"🔫",puzzle:"🧩",horror:"👻",simulator:"🚜",adventure:"🗺️"};
+var AGE_CLASS = {E:"age-e",E10:"age-e10",T:"age-t",M:"age-m"};
+var AGE_LABEL = {E:"E",E10:"E10+",T:"T",M:"M"};
+var TITLES = {all:"All Games",rpg:"RPG Games",tycoon:"Tycoon Games",platformer:"Platformers",shooter:"Shooter Games",puzzle:"Puzzle Games",horror:"Horror Games",simulator:"Simulators",adventure:"Adventures"};
 
-let currentGenre = "all";
-let currentGame  = null;
+var currentGenre = "all";
+var currentGame = null;
+var DL_COOLDOWN = 30000;
 
-// ── INIT ──
-window.onload = () => { renderFeatured(); filterGames(); };
+function thumbSrc(g) {
+  if (g.thumb) return g.thumb;
+  var n = g.name.toLowerCase().replace(/[^a-z0-9]/g,"_");
+  return "../media/thumb/" + n + ".png";
+}
 
-// ── GENRE FILTER ──
+function fmtDL(n) {
+  return n >= 1000 ? (n/1000).toFixed(1)+"k" : String(n);
+}
+
+function starStr(r) {
+  var full = Math.round(r);
+  var s = "";
+  for(var i=0;i<5;i++) s += i < full ? "★" : "☆";
+  return s;
+}
+
 function setGenre(g, btn) {
   currentGenre = g;
-  document.querySelectorAll('.genre-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  const titles = { all:"All Games", rpg:"RPG Games", tycoon:"Tycoon Games", platformer:"Platformers", shooter:"Shooter Games", puzzle:"Puzzle Games", horror:"Horror Games", simulator:"Simulators", adventure:"Adventures" };
-  document.getElementById('genre-title').textContent = titles[g] || g;
-  const mpNotice = document.getElementById('mp-notice');
-  mpNotice.style.display = g === 'shooter' ? 'flex' : 'none';
-  document.getElementById('featured-row').style.display = g === 'all' ? 'block' : 'none';
+  document.querySelectorAll(".genre-btn").forEach(function(b){b.classList.remove("active");});
+  btn.classList.add("active");
+  document.getElementById("genre-title").textContent = TITLES[g] || g;
+  document.getElementById("mp-notice").style.display = g === "shooter" ? "flex" : "none";
+  document.getElementById("featured-row").style.display = g === "all" ? "block" : "none";
   filterGames();
 }
 
-// ── FILTER & SORT ──
 function filterGames() {
-  const search = document.getElementById('search-input').value.toLowerCase();
-  const sort   = document.getElementById('sort-select').value;
-  const ratings = [...document.querySelectorAll('.rating-opts input:checked')].map(i => i.value);
+  var search = document.getElementById("search-input").value.toLowerCase();
+  var sort = document.getElementById("sort-select").value;
+  var ratings = Array.from(document.querySelectorAll(".rating-opts input:checked")).map(function(i){return i.value;});
 
-  let games = GAMES.filter(g => !g.takenDown);
-  if (currentGenre !== 'all') games = games.filter(g => g.genre === currentGenre);
-  if (search) games = games.filter(g => g.name.toLowerCase().includes(search) || g.author.toLowerCase().includes(search));
-  games = games.filter(g => ratings.includes(g.age));
+  var games = GAMES.filter(function(g){return !g.takenDown;});
+  if (currentGenre !== "all") games = games.filter(function(g){return g.genre === currentGenre;});
+  if (search) games = games.filter(function(g){return g.name.toLowerCase().indexOf(search) >= 0 || g.author.toLowerCase().indexOf(search) >= 0;});
+  games = games.filter(function(g){return ratings.indexOf(g.age) >= 0;});
 
-  if (sort === 'downloads') games.sort((a,b) => b.downloads - a.downloads);
-  else if (sort === 'rating') games.sort((a,b) => b.rating - a.rating);
-  else if (sort === 'newest') games.sort((a,b) => new Date(b.date) - new Date(a.date));
-  else if (sort === 'az') games.sort((a,b) => a.name.localeCompare(b.name));
+  if (sort === "downloads") games.sort(function(a,b){return b.downloads-a.downloads;});
+  else if (sort === "rating") games.sort(function(a,b){return b.rating-a.rating;});
+  else if (sort === "newest") games.sort(function(a,b){return new Date(b.date)-new Date(a.date);});
+  else games.sort(function(a,b){return a.name.localeCompare(b.name);});
 
-  document.getElementById('result-count').textContent = games.length + ' game' + (games.length !== 1 ? 's' : '');
-  document.getElementById('games-grid').innerHTML = games.map(g => gameCard(g)).join('');
-  document.getElementById('empty-state').style.display = games.length ? 'none' : 'block';
+  document.getElementById("result-count").textContent = games.length + " game" + (games.length !== 1 ? "s" : "");
+  document.getElementById("games-grid").innerHTML = games.map(gameCard).join("");
+  document.getElementById("empty-state").style.display = games.length ? "none" : "block";
 
-  // Update sidebar counts
-  GAMES.filter(g=>!g.takenDown).forEach(()=>{});
-  const allG = GAMES.filter(g=>!g.takenDown);
-  ['all','rpg','tycoon','platformer','shooter','puzzle','horror','simulator','adventure'].forEach(genre => {
-    const el = document.getElementById('count-'+genre);
-    if (el) el.textContent = genre === 'all' ? allG.length : allG.filter(g=>g.genre===genre).length;
+  var all = GAMES.filter(function(g){return !g.takenDown;});
+  document.getElementById("total-games").textContent = all.length;
+  var totalDL = all.reduce(function(s,g){return s+g.downloads;},0);
+  document.getElementById("total-downloads").textContent = fmtDL(totalDL);
+  ["all","rpg","tycoon","platformer","shooter","puzzle","horror","simulator","adventure"].forEach(function(genre){
+    var el = document.getElementById("count-"+genre);
+    if (el) el.textContent = genre === "all" ? all.length : all.filter(function(g){return g.genre===genre;}).length;
   });
-  document.getElementById('total-games').textContent = allG.length;
 }
 
-// ── CARD HTML ──
 function gameCard(g) {
-  const stars = '★'.repeat(Math.round(g.rating)) + '☆'.repeat(5-Math.round(g.rating));
-  const dlFmt = g.downloads >= 1000 ? (g.downloads/1000).toFixed(1)+'k' : g.downloads;
-  const mpTag = g.multiplayer ? `<span class="mp-tag">🌐 MP</span>` : '';
-  const thumb = g.thumb
-    ? `<img src="${g.thumb}" alt="${g.name}"/>`
-    : `<span>${GENRE_ICONS[g.genre]||'🎮'}</span>`;
-  const dlBtnClass = g.multiplayer ? 'dl-btn mp-required-btn' : 'dl-btn';
-  const dlLabel = g.multiplayer ? '🌐 Download + Server Setup' : '⬇ Download';
-  return `
-    <div class="game-card" onclick="openDetail(${g.id})">
-      <div class="game-thumb">
-        ${thumb}
-        <div class="thumb-badges">
-          <span class="genre-tag gt-${g.genre}">${GENRE_ICONS[g.genre]} ${g.genre.toUpperCase()}</span>
-          ${mpTag}
-        </div>
-      </div>
-      <div class="game-body">
-        <div class="game-name">${g.name}</div>
-        <div class="game-author">by ${g.author}</div>
-        <div class="game-meta">
-          <div class="game-rating">
-            <span class="game-stars">${stars}</span>
-            <span class="game-star-val">${g.rating}</span>
-          </div>
-          <span class="age-badge ${AGE_CLASS[g.age]}">${AGE_LABEL[g.age]}</span>
-        </div>
-        <div class="game-dl" style="margin-bottom:10px;">⬇ ${dlFmt} downloads</div>
-        <button class="${dlBtnClass}" onclick="event.stopPropagation();handleDL(${g.id})">${dlLabel}</button>
-      </div>
-    </div>`;
+  var emoji = GENRE_EMOJI[g.genre] || "🎮";
+  var stars = starStr(g.rating);
+  var dlFmt = fmtDL(g.downloads);
+  var mpTag = g.multiplayer ? '<span class="mp-tag">MP</span>' : "";
+  var btnCls = g.multiplayer ? "dl-btn mp-btn" : "dl-btn";
+  var btnTxt = g.multiplayer ? "Download + Server" : "Download";
+  return '<div class="game-card" onclick="openDetail(' + g.id + ')">'
+    + '<div class="game-thumb">'
+    + '<img src="' + thumbSrc(g) + '" alt="' + g.name + '" onerror="this.style.display=\'none\'">'
+    + '<span style="position:relative;z-index:0;">' + emoji + '</span>'
+    + '<div class="thumb-badges">'
+    + '<span class="genre-tag gt-' + g.genre + '">' + emoji + ' ' + g.genre.toUpperCase() + '</span>'
+    + mpTag + '</div></div>'
+    + '<div class="game-body">'
+    + '<div class="game-name">' + g.name + '</div>'
+    + '<div class="game-author">by ' + g.author + '</div>'
+    + '<div class="game-meta">'
+    + '<span><span class="game-stars">' + stars + '</span><span class="game-star-val"> ' + g.rating + '</span></span>'
+    + '<span class="age-badge ' + AGE_CLASS[g.age] + '">' + AGE_LABEL[g.age] + '</span>'
+    + '</div>'
+    + '<div class="game-dl">⬇ ' + dlFmt + ' downloads</div>'
+    + '<button class="' + btnCls + '" onclick="event.stopPropagation();handleDL(' + g.id + ')">' + btnTxt + '</button>'
+    + '</div></div>';
 }
 
-// ── FEATURED ──
 function renderFeatured() {
-  const featured = GAMES.filter(g => g.featured && !g.takenDown);
-  document.getElementById('featured-scroll').innerHTML = featured.map(g => {
-    const stars = '★'.repeat(Math.round(g.rating)) + '☆'.repeat(5-Math.round(g.rating));
-    const dlFmt = g.downloads >= 1000 ? (g.downloads/1000).toFixed(1)+'k' : g.downloads;
-    return `
-      <div class="featured-card" onclick="openDetail(${g.id})">
-        <div class="featured-thumb">
-          <span>${GENRE_ICONS[g.genre]||'🎮'}</span>
-          <span class="feat-badge">★ FEATURED</span>
-          <span class="mod-approved">✓ MOD APPROVED</span>
-        </div>
-        <div class="featured-body">
-          <h3>${g.name}</h3>
-          <div class="f-meta">
-            <span class="f-author">by ${g.author}</span>
-            <span class="age-badge ${AGE_CLASS[g.age]}">${AGE_LABEL[g.age]}</span>
-          </div>
-          <div class="f-footer">
-            <span><span class="stars">${stars}</span><span class="star-count">${g.rating}</span></span>
-            <span class="dl-count">⬇ ${dlFmt}</span>
-          </div>
-        </div>
-      </div>`;
-  }).join('');
+  var featured = GAMES.filter(function(g){return g.featured && !g.takenDown;});
+  document.getElementById("featured-scroll").innerHTML = featured.map(function(g){
+    var emoji = GENRE_EMOJI[g.genre] || "🎮";
+    var stars = starStr(g.rating);
+    return '<div class="featured-card" onclick="openDetail(' + g.id + ')">'
+      + '<div class="featured-thumb">'
+      + '<img src="' + thumbSrc(g) + '" alt="' + g.name + '" onerror="this.style.display=\'none\'">'
+      + '<span class="dt-icon">' + emoji + '</span>'
+      + '<span class="feat-badge">FEATURED</span>'
+      + '<span class="mod-approved">✓ MOD APPROVED</span>'
+      + '</div>'
+      + '<div class="featured-body">'
+      + '<h3>' + g.name + '</h3>'
+      + '<div class="f-meta"><span class="f-author">by ' + g.author + '</span>'
+      + '<span class="age-badge ' + AGE_CLASS[g.age] + '">' + AGE_LABEL[g.age] + '</span></div>'
+      + '<div class="f-footer">'
+      + '<span><span class="stars">' + stars + '</span><span class="star-count"> ' + g.rating + '</span></span>'
+      + '<span class="dl-count">⬇ ' + fmtDL(g.downloads) + '</span>'
+      + '</div></div></div>';
+  }).join("");
 }
 
-// ── DETAIL MODAL ──
 function openDetail(id) {
-  const g = GAMES.find(x => x.id === id);
+  var g = GAMES.find(function(x){return x.id===id;});
   if (!g) return;
   currentGame = g;
-  const stars = '★'.repeat(Math.round(g.rating)) + '☆'.repeat(5-Math.round(g.rating));
-  const dlFmt = g.downloads >= 1000 ? (g.downloads/1000).toFixed(1)+'k' : g.downloads;
-  document.getElementById('d-thumb').innerHTML = g.thumb ? `<img src="${g.thumb}"/>` : `<span style="font-size:5rem">${GENRE_ICONS[g.genre]||'🎮'}</span>`;
-  document.getElementById('d-title').textContent = g.name;
-  document.getElementById('d-author').textContent = 'by ' + g.author;
-  document.getElementById('d-badges').innerHTML = `
-    <span class="genre-tag gt-${g.genre}" style="font-size:0.72rem;padding:3px 9px;">${GENRE_ICONS[g.genre]} ${g.genre.toUpperCase()}</span>
-    <span class="age-badge ${AGE_CLASS[g.age]}" style="font-size:0.72rem;padding:3px 9px;">${AGE_LABEL[g.age]}</span>
-    ${g.multiplayer ? '<span class="mp-tag" style="font-size:0.72rem;padding:3px 9px;">🌐 Multiplayer</span>' : ''}
-  `;
-  document.getElementById('d-desc').textContent = g.desc;
-  document.getElementById('d-rating').innerHTML = `<span style="color:var(--yellow)">${stars}</span> ${g.rating}`;
-  document.getElementById('d-downloads').textContent = dlFmt;
-  document.getElementById('d-date').textContent = g.date.slice(0,7);
-  document.getElementById('d-mp-notice').style.display = g.multiplayer ? 'block' : 'none';
-  const dlBtn = document.getElementById('d-dl-btn');
-  dlBtn.textContent = g.multiplayer ? '🌐 Download + Server Guide' : '⬇ Download Game';
-  document.getElementById('detail-overlay').classList.add('open');
+  var dThumb = document.getElementById("d-thumb");
+  dThumb.innerHTML = '<img src="' + thumbSrc(g) + '" alt="' + g.name + '" onerror="this.style.display=\'none\'">'
+    + '<span class="dt-icon">' + (GENRE_EMOJI[g.genre]||"🎮") + '</span>';
+  document.getElementById("d-title").textContent = g.name;
+  document.getElementById("d-author").textContent = "by " + g.author;
+  var badges = '<span class="genre-tag gt-' + g.genre + '" style="font-size:0.72rem;padding:3px 9px;">' + (GENRE_EMOJI[g.genre]||"🎮") + " " + g.genre.toUpperCase() + '</span>'
+    + '<span class="age-badge ' + AGE_CLASS[g.age] + '" style="font-size:0.72rem;padding:3px 9px;">' + AGE_LABEL[g.age] + '</span>'
+    + (g.multiplayer ? '<span class="mp-tag" style="font-size:0.72rem;padding:3px 9px;">🌐 Multiplayer</span>' : "");
+  document.getElementById("d-badges").innerHTML = badges;
+  document.getElementById("d-desc").textContent = g.desc;
+  document.getElementById("d-rating").innerHTML = '<span style="color:var(--yellow)">' + starStr(g.rating) + '</span> ' + g.rating;
+  document.getElementById("d-downloads").textContent = fmtDL(g.downloads);
+  document.getElementById("d-date").textContent = g.date.slice(0,7);
+  document.getElementById("d-mp").style.display = g.multiplayer ? "block" : "none";
+  document.getElementById("d-dl-btn").textContent = g.multiplayer ? "🌐 Download + Server Guide" : "⬇ Download Game";
+  document.getElementById("detail-overlay").classList.add("open");
 }
 
 function closeDetail(e) {
-  if (!e || e.target === document.getElementById('detail-overlay'))
-    document.getElementById('detail-overlay').classList.remove('open');
+  if (!e || e.target === document.getElementById("detail-overlay")) {
+    document.getElementById("detail-overlay").classList.remove("open");
+  }
 }
 
-// ── ANTI-AUTOCLICKER: 30s cooldown per game per session ──
-const DL_COOLDOWN_MS = 30000;
-function canDownload(gameId) {
-  const key  = 'dl_' + gameId;
-  const last = parseInt(sessionStorage.getItem(key) || '0');
-  const now  = Date.now();
-  if (now - last < DL_COOLDOWN_MS) {
-    const secs = Math.ceil((DL_COOLDOWN_MS - (now - last)) / 1000);
-    alert('⏳ Please wait ' + secs + ' seconds before downloading again.');
+function canDownload(id) {
+  var key = "dl_" + id;
+  var last = parseInt(sessionStorage.getItem(key) || "0");
+  var now = Date.now();
+  if (now - last < DL_COOLDOWN) {
+    var secs = Math.ceil((DL_COOLDOWN - (now - last)) / 1000);
+    alert("Please wait " + secs + " seconds before downloading again.");
     return false;
   }
   sessionStorage.setItem(key, now);
   return true;
 }
 
-// ── AGE GATE: M-rated games require 17+ confirmation ──
-function ageGate(game, onConfirm) {
-  if (game.age !== 'M') { onConfirm(); return; }
-  // Replace browser confirm with our custom modal
-  showAgeModal(game, onConfirm);
-}
-
-function showAgeModal(game, onConfirm) {
-  // Create age gate overlay
-  let overlay = document.getElementById('age-overlay');
-  if (!overlay) {
-    overlay = document.createElement('div');
-    overlay.id = 'age-overlay';
-    overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.85);display:flex;align-items:center;justify-content:center;z-index:2000;backdrop-filter:blur(8px);';
-    overlay.innerHTML = `
-      <div style="background:#141414;border:1px solid #333;border-radius:16px;padding:36px;max-width:420px;width:90%;text-align:center;">
-        <div style="font-size:2.5rem;margin-bottom:12px;">🔞</div>
-        <h2 style="font-size:1.2rem;font-weight:800;margin-bottom:8px;color:#f0f0f0;">Mature Content Warning</h2>
-        <p style="font-size:0.88rem;color:#999;line-height:1.65;margin-bottom:8px;" id="age-game-name"></p>
-        <p style="font-size:0.85rem;color:#888;line-height:1.65;margin-bottom:24px;">This game is rated <strong style="color:#ff5252;">M — Mature (17+)</strong>.<br/>It contains content not suitable for players under 17, including themes of horror, violence, or other disturbing material.</p>
-        <p style="font-size:0.8rem;color:#666;margin-bottom:24px;">By continuing you confirm you are <strong style="color:#f0f0f0;">17 or older</strong>. If you are under 17 please go back.</p>
-        <div style="display:flex;gap:10px;justify-content:center;">
-          <button id="age-cancel" style="flex:1;padding:11px;border-radius:9px;background:#1c1c1c;border:1px solid #333;color:#999;font-family:Syne,sans-serif;font-size:0.9rem;font-weight:700;cursor:pointer;">← Go Back</button>
-          <button id="age-confirm" style="flex:1;padding:11px;border-radius:9px;background:#ff5252;border:none;color:#fff;font-family:Syne,sans-serif;font-size:0.9rem;font-weight:700;cursor:pointer;">I am 17+ — Continue</button>
-        </div>
-      </div>`;
-    document.body.appendChild(overlay);
-  }
-  document.getElementById('age-game-name').textContent = '"' + game.name + '" — ' + game.author;
-  overlay.style.display = 'flex';
-  document.getElementById('age-cancel').onclick  = () => { overlay.style.display = 'none'; };
-  document.getElementById('age-confirm').onclick = () => { overlay.style.display = 'none'; onConfirm(); };
-}
-
 function handleDownload() {
   if (!currentGame) return;
-  ageGate(currentGame, () => {
-    if (!canDownload(currentGame.id)) return;
-    currentGame.downloads++;
-    filterGames();
-    renderFeatured();
-    if (currentGame.link && currentGame.link !== '#') window.open(currentGame.link);
-    document.getElementById('d-downloads').textContent =
-      currentGame.downloads >= 1000 ? (currentGame.downloads/1000).toFixed(1)+'k' : currentGame.downloads;
-  });
+  if (currentGame.age === "M") {
+    document.getElementById("age-overlay").classList.add("open");
+    return;
+  }
+  if (!canDownload(currentGame.id)) return;
+  currentGame.downloads++;
+  filterGames();
+  renderFeatured();
+  document.getElementById("d-downloads").textContent = fmtDL(currentGame.downloads);
+  if (currentGame.link && currentGame.link !== "#") window.open(currentGame.link);
 }
 
 function handleDL(id) {
-  const g = GAMES.find(x=>x.id===id);
-  if (g) { openDetail(id); }
+  openDetail(id);
 }
 
-// ── SUBMIT ──
-function openSubmit() { document.getElementById('modal-overlay').classList.add('open'); }
-function closeSubmit(e) {
-  if (!e || e.target === document.getElementById('modal-overlay'))
-    document.getElementById('modal-overlay').classList.remove('open');
+function openSubmit() {
+  window.open(CONFIG.submitFormUrl, "_blank");
 }
 
-function onGenreChange() {
-  const g = document.getElementById('f-genre').value;
-  document.getElementById('mp-form-notice').style.display = g === 'shooter' ? 'block' : 'none';
-}
-
-function submitGame() {
-  const name   = document.getElementById('f-name').value.trim();
-  const author = document.getElementById('f-author').value.trim();
-  const desc   = document.getElementById('f-desc').value.trim();
-  const genre  = document.getElementById('f-genre').value;
-  const age    = document.getElementById('f-rating').value;
-  const link   = document.getElementById('f-link').value.trim();
-  const thumb  = document.getElementById('f-thumb').value.trim();
-  if (!name || !author || !desc || !link) { alert('Please fill in all required fields.'); return; }
-
-  const newGame = {
-    id: Date.now(), name, author, genre, desc, age,
-    rating: 0, downloads: 0,
-    date: new Date().toISOString().slice(0,10),
-    link, thumb: null, // thumb pending mod approval
-    featured: false, takenDown: false,
-    multiplayer: genre === 'shooter',
-    pendingThumb: thumb || null,
-  };
-  GAMES.unshift(newGame);
-  closeSubmit();
-  filterGames();
-  renderFeatured();
-  alert(`✅ "${name}" submitted!\n\nYour game is now listed. Your thumbnail is pending moderator approval and will appear once reviewed.`);
-}
-
-// keyboard close
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') { closeSubmit(); closeDetail(); }
+document.addEventListener("keydown", function(e) {
+  if (e.key === "Escape") closeDetail();
 });
-</script>
-</body>
-</html>
+
+window.onload = function() {
+  renderFeatured();
+  filterGames();
+};
