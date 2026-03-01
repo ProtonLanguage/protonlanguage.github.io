@@ -1,81 +1,44 @@
-// chat.js - Place in your netlify/functions/ folder
 exports.handler = async (event) => {
-  // 1. Security check: Only allow POST requests
   if (event.httpMethod !== "POST") {
-    return { 
-      statusCode: 405, 
-      body: JSON.stringify({ error: "Method Not Allowed" }) 
-    };
+    return { statusCode: 405, body: "Method Not Allowed" };
   }
 
   try {
     const { prompt } = JSON.parse(event.body);
     const API_KEY = process.env.KEY_1;
 
-    // 2. Safety check: Ensure API key is present
-    if (!API_KEY) {
-      console.error("ERROR: KEY_1 is missing from Netlify environment variables.");
-      return { 
-        statusCode: 500, 
-        body: JSON.stringify({ error: "API_KEY_MISSING" }) 
-      };
-    }
-
-    // 3. The Fetch Request (Using the correct OpenRouter API Endpoint)
     const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-
-
       method: "POST",
       headers: {
         "Authorization": `Bearer ${API_KEY}`,
         "Content-Type": "application/json",
-        "HTTP-Referer": "https://protonsharp.netlify.app", // Keeps your API account safe
-        "X-Title": "Proton# Support Bot"
+        "HTTP-Referer": "https://protonsharp.netlify.app",
+        "X-Title": "Proton# AI_CORE"
       },
       body: JSON.stringify({
-        "model": "google/gemini-2.0-flash-001", 
+        "model": "google/gemini-2.0-flash-lite-preview-02-05:free", 
         "messages": [
           { 
             "role": "system", 
-            "content": "content": "You are the Proton# Support Lead. Proton# is a custom coding language and game engine created by Xynox1: The docs are protonlanguage.github.io/docs. We are NOT Proton Mail or Proton VPN. If someone asks about email, tell them: 'L + Ratio, this is for coding Proton#, not your inbox.'. Privacy first. Answer fast but not too fast."
-
+            "content": "You are the Proton# Support Lead. Proton# is a custom coding language and game engine by Xynox1. We are NOT Proton Mail. The CEO is 11, the dev is 10. Be a legend. Privacy first." 
           },
           { "role": "user", "content": prompt }
         ]
       })
     });
 
-    // 4. Handle HTML-style error pages from OpenRouter/Cloudflare
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error("OpenRouter Error:", errorText);
-      return { 
-        statusCode: response.status, 
-        body: JSON.stringify({ error: "OPENROUTER_REJECTED_REQUEST" }) 
-      };
-    }
-
     const data = await response.json();
 
-    // 5. Success! Return the AI's answer
     return {
       statusCode: 200,
-      headers: { 
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*" // Allows your frontend to talk to this function
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)
     };
-
   } catch (error) {
-    // 6. Final Catch-all for crashes
-    console.error("CRITICAL FUNCTION ERROR:", error.message);
+    console.error("CRITICAL ERROR:", error.message);
     return { 
       statusCode: 500, 
-      body: JSON.stringify({ 
-        error: "UPLINK_FAILURE", 
-        details: error.message 
-      }) 
+      body: JSON.stringify({ error: "UPLINK_FAILURE", details: error.message }) 
     };
   }
 };
