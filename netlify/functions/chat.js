@@ -1,44 +1,78 @@
+// chat.js - Place in your netlify/functions/ folder
 exports.handler = async (event) => {
+  // 1. Security check: Only allow POST requests
   if (event.httpMethod !== "POST") {
-    return { statusCode: 405, body: "Method Not Allowed" };
+    return { 
+      statusCode: 405, 
+      body: JSON.stringify({ error: "Method Not Allowed" }) 
+    };
   }
 
   try {
     const { prompt } = JSON.parse(event.body);
     const API_KEY = process.env.KEY_1;
 
-    // DEBUG LOG: This will show in your Netlify Logs (it's safe, it hides the key)
-    console.log("API Key exists:", !!API_KEY);
+    // 2. Safety check: Ensure API key is present
+    if (!API_KEY) {
+      console.error("ERROR: KEY_1 is missing from Netlify environment variables.");
+      return { 
+        statusCode: 500, 
+        body: JSON.stringify({ error: "API_KEY_MISSING" }) 
+      };
+    }
 
+    // 3. The Fetch Request (Using the correct OpenRouter API Endpoint)
     const response = await fetch("https://openrouter.ai", {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${API_KEY}`,
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "HTTP-Referer": "https://protonsharp.netlify.app", // Keeps your API account safe
+        "X-Title": "Proton# Support Bot"
       },
       body: JSON.stringify({
-        "model": "google/gemma-2-9b-it:free", 
+        "model": "google/gemma-2-9b-it:free", // Using a stable free model
         "messages": [
-          { "role": "system", "content": "You are the Proton# Support Lead." },
+          { 
+            "role": "system", 
+            "content": "You are the Proton# Support Lead. Speak in JetBrains Mono. The 11-year-old CEO (Xynox1) is the boss. The 10-year-old dev is a legend. Be helpful but cool. Privacy first." 
+          },
           { "role": "user", "content": prompt }
         ]
       })
     });
 
-    const data = await response.json();
-    console.log("OpenRouter Response Status:", response.status);
+    // 4. Handle HTML-style error pages from OpenRouter/Cloudflare
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("OpenRouter Error:", errorText);
+      return { 
+        statusCode: response.status, 
+        body: JSON.stringify({ error: "OPENROUTER_REJECTED_REQUEST" }) 
+      };
+    }
 
+    const data = await response.json();
+
+    // 5. Success! Return the AI's answer
     return {
       statusCode: 200,
-      headers: { "Content-Type": "application/json" },
+      headers: { 
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*" // Allows your frontend to talk to this function
+      },
       body: JSON.stringify(data)
     };
+
   } catch (error) {
-    // THIS LOG IS KEY: Check your Netlify logs for this red text!
-    console.error("CRITICAL ERROR:", error.message);
+    // 6. Final Catch-all for crashes
+    console.error("CRITICAL FUNCTION ERROR:", error.message);
     return { 
       statusCode: 500, 
-      body: JSON.stringify({ error: "UPLINK_FAILURE", message: error.message }) 
+      body: JSON.stringify({ 
+        error: "UPLINK_FAILURE", 
+        details: error.message 
+      }) 
     };
   }
 };
