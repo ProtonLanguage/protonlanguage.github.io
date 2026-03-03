@@ -23,6 +23,14 @@
     body { background:var(--bg); color:var(--white); font-family:'Syne',sans-serif; display:flex; min-height:100vh; }
 
     /* SIDEBAR */
+    /* ANNOUNCEMENT BANNER */
+    .announce-banner { background: linear-gradient(90deg, #1a0800, #0f0500, #1a0800); border-bottom: 1px solid rgba(255,107,0,0.4); padding: 10px 20px; display: flex; align-items: center; justify-content: center; gap: 12px; font-size: 0.82rem; color: #f0f0f0; position: sticky; top: 0; z-index: 20; }
+    .announce-banner .ab-badge { background: var(--orange); color: #fff; font-size: 0.62rem; font-weight: 700; padding: 2px 8px; border-radius: 20px; font-family: 'JetBrains Mono', monospace; white-space: nowrap; }
+    .announce-banner a { color: var(--orange); font-weight: 700; text-decoration: none; }
+    .announce-banner a:hover { text-decoration: underline; }
+    .announce-banner .ab-close { margin-left: auto; background: none; border: none; color: #666; cursor: pointer; font-size: 1rem; line-height: 1; padding: 0 4px; }
+    .announce-banner .ab-close:hover { color: #f0f0f0; }
+
     .sidebar { width:var(--sidebar-w); background:var(--bg-card); border-right:1px solid var(--border); position:fixed; top:0; left:0; bottom:0; overflow-y:auto; display:flex; flex-direction:column; z-index:10; }
     .sidebar-header { padding:20px; border-bottom:1px solid var(--border); }
     .sidebar-logo { font-family:'JetBrains Mono',monospace; font-size:1.1rem; font-weight:700; color:var(--white); text-decoration:none; display:block; }
@@ -109,6 +117,12 @@
   </style>
 </head>
 <body>
+<div class="announce-banner" id="announce-banner">
+  <span class="ab-badge">NEW</span>
+  <span>The new Proton# Docs are live at <a href="https://docs.protonsharp.com" target="_blank">docs.protonsharp.com</a> — better navigation, URL routing, and search.</span>
+  <a href="https://docs.protonsharp.com" target="_blank" style="background:var(--orange);color:#fff;padding:4px 14px;border-radius:6px;font-size:0.78rem;white-space:nowrap;">Visit New Docs →</a>
+  <button class="ab-close" onclick="document.getElementById('announce-banner').style.display='none'">✕</button>
+</div>
 
 <aside class="sidebar">
   <div class="sidebar-header">
