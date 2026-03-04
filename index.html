@@ -1425,6 +1425,239 @@
       ).join('');
     }
 
+    // ── FLAPPY BIRD GAME ──
+    (function() {
+      var gameStarted = false;
+
+      function initGame() {
+        if (gameStarted) return;
+        var canvas = document.getElementById('demo-canvas');
+        if (!canvas) return;
+        canvas.width = 320;
+        canvas.height = 480;
+        if (canvas.offsetWidth === 0) return;
+        gameStarted = true;
+
+        var ctx = canvas.getContext('2d');
+        var W = 320, H = 480;
+        var GRAVITY = 0.38, FLAP = -7.2, GAP = 175, PW = 52, SPD = 2.2, BR = 14;
+
+        function freshState() {
+          return {
+            bird: { x: 80, y: 220, vy: 0 },
+            pipes: [],
+            score: 0,
+            alive: false,   // wait for first click
+            waiting: true,  // show start screen
+            frame: 0,
+            pipeTimer: 0,
+            deathTimer: 0
+          };
+        }
+
+        var S = freshState();
+        var best = 0;
+
+        function flap() {
+          if (S.waiting) {
+            // Start the game on first click
+            S.waiting = false;
+            S.alive = true;
+            S.bird.vy = FLAP;
+            // Spawn first two pipes off-screen
+            S.pipes = [
+              { x: W+120, gapY: 140+Math.floor(Math.random()*140), scored: false },
+              { x: W+340, gapY: 140+Math.floor(Math.random()*140), scored: false }
+            ];
+            return;
+          }
+          if (!S.alive && S.deathTimer <= 0) { S = freshState(); return; }
+          if (S.alive) S.bird.vy = FLAP;
+        }
+
+        function spawnPipe() {
+          // gapY = top of gap. Min 80, max so bottom of gap stays above ground (H-60=420)
+          // gap bottom = gapY+GAP, must be < 400 → gapY < 270
+          var gapY = 100 + Math.floor(Math.random() * 150); // 100–250, always centred and fair
+          S.pipes.push({ x: W+PW, gapY: gapY, scored: false });
+        }
+
+        canvas.addEventListener('click', flap);
+        canvas.addEventListener('touchstart', function(e){ e.preventDefault(); flap(); });
+        document.addEventListener('keydown', function(e){
+          if (e.code === 'Space') { e.preventDefault(); flap(); }
+        });
+
+        function drawBg() {
+          var sky = ctx.createLinearGradient(0,0,0,H);
+          sky.addColorStop(0,'#0a0520');
+          sky.addColorStop(0.7,'#1a0a00');
+          sky.addColorStop(1,'#2a1000');
+          ctx.fillStyle = sky;
+          ctx.fillRect(0,0,W,H);
+          [[40,30],[90,15],[150,45],[200,20],[260,35],[30,80],[120,65],[180,90],[280,55],[60,110],[220,105]].forEach(function(s){
+            ctx.globalAlpha = 0.3 + 0.7*Math.abs(Math.sin(S.frame*0.025+s[0]));
+            ctx.fillStyle = '#fff';
+            ctx.fillRect(s[0],s[1],1.5,1.5);
+          });
+          ctx.globalAlpha = 1;
+          ctx.fillStyle = '#1a0800';
+          ctx.fillRect(0,H-60,W,60);
+          var g = ctx.createLinearGradient(0,H-62,0,H-54);
+          g.addColorStop(0,'#FF6B00'); g.addColorStop(1,'#331400');
+          ctx.fillStyle = g;
+          ctx.fillRect(0,H-62,W,8);
+        }
+
+        function drawPipe(p) {
+          var grad = ctx.createLinearGradient(p.x,0,p.x+PW,0);
+          grad.addColorStop(0,'#1a0800');
+          grad.addColorStop(0.4,'#cc4400');
+          grad.addColorStop(1,'#331400');
+          // top pipe — ends exactly at p.gapY, nothing drawn below
+          ctx.fillStyle = grad;
+          ctx.fillRect(p.x, 0, PW, p.gapY);
+
+          // bottom pipe — starts exactly at p.gapY+GAP, nothing drawn above
+          ctx.fillStyle = grad;
+          ctx.fillRect(p.x, p.gapY + GAP, PW, H - (p.gapY + GAP));
+        }
+
+        function drawBird() {
+          ctx.save();
+          ctx.translate(S.bird.x, S.bird.y);
+          ctx.rotate(Math.max(-0.5, Math.min(1.2, S.bird.vy*0.07)));
+          ctx.shadowBlur = 16; ctx.shadowColor = '#FF6B00';
+          ctx.fillStyle = '#FF6B00';
+          ctx.beginPath(); ctx.ellipse(0,0,BR,BR-2,0,0,Math.PI*2); ctx.fill();
+          ctx.fillStyle = '#cc4400';
+          ctx.beginPath(); ctx.ellipse(-4, 4+Math.sin(S.frame*0.25)*3, 8, 5, -0.3, 0, Math.PI*2); ctx.fill();
+          ctx.shadowBlur = 0;
+          ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(6,-4,5,0,Math.PI*2); ctx.fill();
+          ctx.fillStyle = '#1a0800'; ctx.beginPath(); ctx.arc(7,-4,2.5,0,Math.PI*2); ctx.fill();
+          ctx.fillStyle = '#ffaa00';
+          ctx.beginPath(); ctx.moveTo(12,-2); ctx.lineTo(18,0); ctx.lineTo(12,3); ctx.closePath(); ctx.fill();
+          ctx.restore();
+        }
+
+        function drawHUD() {
+          ctx.shadowBlur = 8; ctx.shadowColor = '#FF6B00';
+          ctx.fillStyle = '#fff';
+          ctx.font = 'bold 32px "JetBrains Mono",monospace';
+          ctx.textAlign = 'center';
+          ctx.fillText(S.score, W/2, 56);
+          ctx.shadowBlur = 0;
+          if (best > 0) {
+            ctx.fillStyle = 'rgba(255,107,0,0.6)';
+            ctx.font = '11px "JetBrains Mono",monospace';
+            ctx.fillText('BEST '+best, W/2, 74);
+          }
+          ctx.textAlign = 'left';
+          // tap hint — only show for first 3 seconds
+          if (S.frame < 180) {
+            ctx.fillStyle = 'rgba(255,255,255,' + (0.7 * (1 - S.frame/180)) + ')';
+            ctx.font = '12px "JetBrains Mono",monospace';
+            ctx.textAlign = 'center';
+            ctx.fillText('click or space to flap', W/2, H-72);
+            ctx.textAlign = 'left';
+          }
+        }
+
+        function loop() {
+          S.frame++;
+
+          if (S.deathTimer > 0) {
+            S.deathTimer--;
+            S.bird.vy += GRAVITY;
+            S.bird.y  += S.bird.vy;
+          }
+
+          // Bob bird gently on start screen
+          if (S.waiting) {
+            S.bird.y = 220 + Math.sin(S.frame * 0.05) * 12;
+          }
+
+          if (S.alive) {
+            S.bird.vy += GRAVITY;
+            S.bird.y  += S.bird.vy;
+            S.pipeTimer++;
+            if (S.pipeTimer > 140) { spawnPipe(); S.pipeTimer = 0; }
+            S.pipes.forEach(function(p) {
+              p.x -= SPD;
+              if (!p.scored && p.x + PW < S.bird.x) {
+                S.score++;
+                p.scored = true;
+                if (S.score > best) best = S.score;
+              }
+            });
+            S.pipes = S.pipes.filter(function(p){ return p.x > -PW-10; });
+
+            var dead = S.bird.y + BR > H-60 || S.bird.y - BR < 0;
+            S.pipes.forEach(function(p){
+              if (S.bird.x+BR > p.x && S.bird.x-BR < p.x+PW) {
+                if (S.bird.y-BR < p.gapY || S.bird.y+BR > p.gapY+GAP) dead = true;
+              }
+            });
+            if (dead) { S.alive = false; S.deathTimer = 50; S.bird.vy = -5; }
+          }
+
+          ctx.clearRect(0,0,W,H);
+          drawBg();
+          S.pipes.forEach(drawPipe);
+          drawBird();
+          drawHUD();
+
+          if (S.waiting) {
+            // Start screen — welcoming, not game over
+            ctx.fillStyle = 'rgba(0,0,0,0.55)';
+            ctx.fillRect(0,0,W,H);
+            ctx.shadowBlur = 24; ctx.shadowColor = '#FF6B00';
+            ctx.fillStyle = '#FF6B00';
+            ctx.font = 'bold 14px "JetBrains Mono",monospace';
+            ctx.textAlign = 'center';
+            ctx.fillText('PROTON# DEMO', W/2, H/2-52);
+            ctx.shadowBlur = 0;
+            ctx.fillStyle = '#fff';
+            ctx.font = 'bold 34px Syne,sans-serif';
+            ctx.fillText('Flappy', W/2, H/2-14);
+            ctx.fillText('Proton#', W/2, H/2+28);
+            // Pulsing prompt
+            var pulse = 0.5 + 0.5*Math.sin(S.frame*0.08);
+            ctx.fillStyle = 'rgba(255,255,255,'+pulse+')';
+            ctx.font = '13px "JetBrains Mono",monospace';
+            ctx.fillText('click or space to play', W/2, H/2+68);
+            ctx.textAlign = 'left';
+          } else if (!S.alive && S.deathTimer <= 0) {
+            ctx.fillStyle = 'rgba(0,0,0,0.6)'; ctx.fillRect(0,0,W,H);
+            ctx.fillStyle = '#ff4455';
+            ctx.font = 'bold 26px Syne,sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('GAME OVER', W/2, H/2-18);
+            ctx.fillStyle = '#fff';
+            ctx.font = 'bold 18px "JetBrains Mono",monospace';
+            ctx.fillText('Score: '+S.score, W/2, H/2+14);
+            if (S.score >= best && S.score > 0) {
+              ctx.fillStyle = '#FF6B00';
+              ctx.font = '13px "JetBrains Mono",monospace';
+              ctx.fillText('NEW BEST!', W/2, H/2+36);
+            }
+            ctx.fillStyle = 'rgba(255,255,255,0.5)';
+            ctx.font = '12px "JetBrains Mono",monospace';
+            ctx.fillText('click or space to retry', W/2, H/2+58);
+            ctx.textAlign = 'left';
+          }
+
+          requestAnimationFrame(loop);
+        }
+
+        loop();
+      }
+
+      // Try on load and when home tab is clicked
+      window.addEventListener('homeVisible', function(){ setTimeout(initGame, 30); });
+      window.addEventListener('load', function(){ setTimeout(initGame, 150); });
+    })();
+
   </script>
 
 </body>
