@@ -37,30 +37,6 @@
       twitch:    null,
     };
 
-    // HOW TO ADD A TEAM MEMBER:
-    // Copy this template and paste into dev[] or community[]
-    // Set any social to null to hide it on their card
-    // {
-    //   username:    "TheirUsername",
-    //   role:        "Their Role Title",
-    //   description: "What they do on the team.",
-    //   about:       "Something about them personally.",
-    //   emoji:       "🔧",
-    //   socials: {
-    //     email:     "their@protonlang.com",
-    //     github:    "https://github.com/theirusername",
-    //     discord:   "theirusername",
-    //     youtube:   "https://youtube.com/@theirchannel",
-    //     twitter:   "https://twitter.com/theirusername",
-    //     roblox:    "https://www.roblox.com/users/THEIRID/profile",
-    //     instagram: null,
-    //     tiktok:    null,
-    //     reddit:    null,
-    //     twitch:    null,
-    //     portfolio: null,  // Link to portfolio, GitHub repo, or code examples
-    //   }
-    // },
-
     const TEAM = {
 
       founder: {
@@ -80,48 +56,24 @@
           tiktok:    null,
           reddit:    null,
           twitch:    null,
-          portfolio: null,  // Link to your portfolio, GitHub repo, or code examples
+          portfolio: null,
         }
       },
 
-      // ── CORE DEVELOPMENT TEAM ──
       dev: [
         { username: null, role: "C# Developer",     description: "Builds and maintains the Proton# Studio editor.",               about: null, emoji: "💻", socials: { email: null, github: null, discord: null, youtube: null, twitter: null, roblox: null, instagram: null, tiktok: null, reddit: null, twitch: null, portfolio: null } },
         { username: null, role: "Python Developer",  description: "Works on the Proton language interpreter and core logic.",      about: null, emoji: "🐍", socials: { email: null, github: null, discord: null, youtube: null, twitter: null, roblox: null, instagram: null, tiktok: null, reddit: null, twitch: null, portfolio: null } },
         { username: null, role: "UI/UX Designer",    description: "Designs the look and feel of Proton# Studio and the website.", about: null, emoji: "🎨", socials: { email: null, github: null, discord: null, youtube: null, twitter: null, roblox: null, instagram: null, tiktok: null, reddit: null, twitch: null, portfolio: null } },
         { username: null, role: "Graphics Designer", description: "Creates logos, banners, and visual assets for the platform.",   about: null, emoji: "✏️", socials: { email: null, github: null, discord: null, youtube: null, twitter: null, roblox: null, instagram: null, tiktok: null, reddit: null, twitch: null, portfolio: null } },
-        // ← Paste new dev team members here
       ],
 
-      // ── COMMUNITY TEAM ──
       community: [
         { username: null, role: "Website Manager", description: "Keeps the Proton# website up to date.", about: null, emoji: "🌐", socials: { email: null, github: null, discord: null, youtube: null, twitter: null, roblox: null, instagram: null, tiktok: null, reddit: null, twitch: null, portfolio: null } },
-        // ← Paste new community team members here
       ],
 
     };
 
-    // ════════════════════════════════════════════════
-    // DEVLOG CONFIG
-    // ════════════════════════════════════════════════
-
-    // ANNOUNCEMENT TEMPLATE (Xynox1 only, delete manually when needed):
-    // {
-    //   title:  "Your Announcement Title",
-    //   date:   "February 26, 2026",
-    //   tag:    "announcement",   // announcement, update, milestone, bugfix
-    //   image:  "media/myimage.png",  // null if no image
-    //   body:   "Write your announcement here."
-    // },
-
     const ANNOUNCEMENTS = [
-      //{
-        //title: "Docs are realsed!",
-        //date: "Febuary 28, 2026",
-        //tag: "milestone",
-        //image: null
-        //body: "We have realsed our docs at protonlanguage.github.io/docs. This is a list of everything that I intended to be done. We will have an community ran wiki soon where you guys can find bypasses and stuff and those wont be fixed (but if like a bug causes the bypass like slow loading speed can give you an advantage, I will fix those."
-     // },
       {
         title: "Applications Are Open!",
         date: "Febuary 27, 2026 to TBD ",
@@ -136,36 +88,17 @@
         image: null,
         body:  "Today we launched the official Proton# website! This is the first big step towards building our platform. The site includes our team page, download page, legal documents, and socials. We are just getting started — stay tuned for more updates as we build Proton# Studio and the Proton language interpreter!"
       },
-      // ← Paste new announcements here (newest first)
     ];
 
-    // DEV DIARY TEMPLATE (any team member, never deleted):
-    // {
-    //   title:  "Your Post Title",
-    //   date:   "February 26, 2026",
-    //   author: "Xynox1",
-    //   image:  "media/myimage.png",  // null if no image
-    //   body:   "Write anything — life updates, what you're working on, etc."
-    // },
+    const DIARIES = [];
 
-    const DIARIES = [   
-    ];
-
-    // ════════════════════════════════════════════════
-    // DOWNLOAD PAGE CONFIG
-    // ════════════════════════════════════════════════
-
-    // PATCH NOTES — shown under the download button
-    // tag options: "new", "fix", "change", "removed"
     const PATCH_NOTES = [
       { tag: "new",    text: "Initial beta release" },
       { tag: "new",    text: "Basic Proton# Studio editor" },
       { tag: "new",    text: "2D game support" },
       { tag: "new",    text: ".pros scripting support" },
-      // ← Add new patch notes here (newest first)
     ];
 
-    // FEATURES TABLE — shown at the bottom of the download page
     const FEATURES = [
       { feature: "Proton# Studio Editor",   status: "✅ Included",     note: "Basic editor for writing .pros scripts" },
       { feature: "2D Game Engine",          status: "✅ Included",     note: "Build and run 2D games" },
@@ -175,7 +108,6 @@
       { feature: "Game Browser",            status: "🚧 Coming Soon",  note: "Browse and play community games" },
       { feature: "VS Code Extension",       status: "🚧 Coming Soon",  note: "Syntax highlighting and autocomplete" },
       { feature: "Mobile Support",          status: "❌ Not Planned",  note: "Windows only for now" },
-      // ← Add or edit features here
     ];
   </script>
   <!-- ════════════════════════════════════════════════ -->
@@ -231,7 +163,7 @@
 
     .logo span { color: var(--orange); }
 
-    nav { display: flex; gap: 8px; }
+    nav { display: flex; gap: 8px; flex-wrap: wrap; }
 
     nav button {
       background: none;
@@ -255,7 +187,6 @@
 
     /* ── PAGES ── */
     .page { display: none; animation: fadeIn 0.3s ease; }
-    .page.active { display: block; }
     .page.active { display: block; }
 
     @keyframes fadeIn {
@@ -381,60 +312,44 @@
     .gp-controls kbd { background: var(--bg-card); border: 1px solid var(--border); border-radius: 4px; padding: 2px 6px; font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; }
 
     /* ── DIVIDER ── */
-    hr {
-      border: none;
-      border-top: 1px solid var(--border);
-      margin: 0 40px;
-    }
+    hr { border: none; border-top: 1px solid var(--border); margin: 0 40px; }
 
     /* ── SECTION ── */
-    section {
-      padding: 80px 40px;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    section h2 {
-      font-size: 2rem;
-      font-weight: 800;
-      margin-bottom: 12px;
-    }
-
+    section { padding: 80px 40px; max-width: 1100px; margin: 0 auto; }
+    section h2 { font-size: 2rem; font-weight: 800; margin-bottom: 12px; }
     section h2 span { color: var(--orange); }
-
-    .section-sub {
-      color: var(--gray-text);
-      margin-bottom: 48px;
-      font-size: 1rem;
-    }
+    .section-sub { color: var(--gray-text); margin-bottom: 48px; font-size: 1rem; }
 
     /* ── FEATURE CARDS ── */
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 20px;
-    }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+    .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 28px; transition: all 0.2s; }
+    .card:hover { border-color: var(--orange); transform: translateY(-4px); }
+    .card-icon { font-size: 2rem; margin-bottom: 16px; }
+    .card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; color: var(--orange); }
+    .card p { color: var(--gray-text); font-size: 0.9rem; line-height: 1.6; }
 
-    .card {
+    /* ── PROJECTS SECTION ── */
+    .projects-section { padding: 60px 40px; max-width: 1100px; margin: 0 auto; }
+    .projects-section h2 { font-size: 2rem; font-weight: 800; margin-bottom: 12px; }
+    .projects-section h2 span { color: var(--orange); }
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 32px; }
+    .project-card {
       background: var(--bg-card);
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 28px;
+      border-radius: 16px;
+      padding: 32px;
       transition: all 0.2s;
+      cursor: pointer;
+      text-decoration: none;
+      display: block;
     }
-
-    .card:hover { border-color: var(--orange); transform: translateY(-4px); }
-
-    .card-icon { font-size: 2rem; margin-bottom: 16px; }
-
-    .card h3 {
-      font-size: 1.1rem;
-      font-weight: 700;
-      margin-bottom: 8px;
-      color: var(--orange);
-    }
-
-    .card p { color: var(--gray-text); font-size: 0.9rem; line-height: 1.6; }
+    .project-card:hover { border-color: var(--orange); transform: translateY(-4px); box-shadow: 0 8px 32px rgba(255,107,0,0.15); }
+    .project-badge { display: inline-block; background: rgba(255,107,0,0.15); border: 1px solid rgba(255,107,0,0.3); color: var(--orange); font-size: 0.7rem; font-weight: 700; padding: 3px 10px; border-radius: 20px; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.05em; font-family: 'JetBrains Mono', monospace; }
+    .project-card h3 { font-size: 1.3rem; font-weight: 800; color: var(--white); margin-bottom: 8px; }
+    .project-card p { color: var(--gray-text); font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px; }
+    .project-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .project-tag { background: rgba(255,255,255,0.06); color: var(--gray-text); font-size: 0.75rem; padding: 4px 10px; border-radius: 20px; }
+    .project-arrow { display: inline-block; margin-top: 16px; color: var(--orange); font-size: 0.85rem; font-weight: 700; }
 
     /* ── BETA BANNER ── */
     .beta-banner {
@@ -447,154 +362,45 @@
       align-items: flex-start;
       gap: 16px;
     }
-
     .beta-banner .icon { font-size: 1.5rem; margin-top: 2px; }
-
     .beta-banner h3 { color: var(--orange); margin-bottom: 6px; font-size: 1rem; }
-
     .beta-banner p { color: var(--gray-text); font-size: 0.9rem; line-height: 1.6; }
 
     /* ── DOWNLOAD PAGE ── */
-    .download-hero {
-      text-align: center;
-      padding: 80px 40px 40px;
-    }
-
+    .download-hero { text-align: center; padding: 80px 40px 40px; }
     .download-hero h1 { font-size: 3rem; font-weight: 800; margin-bottom: 12px; }
     .download-hero h1 span { color: var(--orange); }
     .download-hero p { color: var(--gray-text); font-size: 1.1rem; }
-
-    .download-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 40px;
-      max-width: 600px;
-      margin: 0 auto 40px;
-    }
-
-    .version-badge {
-      display: inline-block;
-      background: rgba(255,107,0,0.15);
-      border: 1px solid rgba(255,107,0,0.4);
-      color: var(--orange);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.8rem;
-      padding: 4px 12px;
-      border-radius: 20px;
-      margin-bottom: 16px;
-    }
-
+    .download-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 40px; max-width: 600px; margin: 0 auto 40px; }
+    .version-badge { display: inline-block; background: rgba(255,107,0,0.15); border: 1px solid rgba(255,107,0,0.4); color: var(--orange); font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; padding: 4px 12px; border-radius: 20px; margin-bottom: 16px; }
     .download-card h2 { font-size: 1.5rem; margin-bottom: 8px; }
     .download-card p { color: var(--gray-text); font-size: 0.9rem; margin-bottom: 24px; }
-
     .checkbox-group { margin-bottom: 24px; display: flex; flex-direction: column; gap: 12px; }
-
-    .checkbox-group label {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      color: var(--gray-text);
-      font-size: 0.9rem;
-      cursor: pointer;
-      line-height: 1.5;
-    }
-
-    .checkbox-group input[type="checkbox"] {
-      width: 18px; height: 18px;
-      accent-color: var(--orange);
-      margin-top: 2px;
-      flex-shrink: 0;
-      cursor: pointer;
-    }
-
+    .checkbox-group label { display: flex; align-items: flex-start; gap: 12px; color: var(--gray-text); font-size: 0.9rem; cursor: pointer; line-height: 1.5; }
+    .checkbox-group input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--orange); margin-top: 2px; flex-shrink: 0; cursor: pointer; }
     .checkbox-group a { color: var(--orange); text-decoration: none; }
     .checkbox-group a:hover { text-decoration: underline; }
-
-    .btn-download {
-      width: 100%;
-      background: var(--orange);
-      color: var(--white);
-      border: none;
-      padding: 16px;
-      border-radius: 8px;
-      font-family: 'Syne', sans-serif;
-      font-size: 1.1rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.2s;
-      opacity: 0.4;
-      pointer-events: none;
-    }
-
-    .btn-download.enabled {
-      opacity: 1;
-      pointer-events: all;
-    }
-
+    .btn-download { width: 100%; background: var(--orange); color: var(--white); border: none; padding: 16px; border-radius: 8px; font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: all 0.2s; opacity: 0.4; pointer-events: none; }
+    .btn-download.enabled { opacity: 1; pointer-events: all; }
     .btn-download.enabled:hover { background: var(--orange-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,107,0,0.3); }
-
-    .patch-notes {
-      max-width: 600px;
-      margin: 0 auto;
-      padding: 0 40px 80px;
-    }
-
+    .patch-notes { max-width: 600px; margin: 0 auto; padding: 0 40px 80px; }
     .patch-notes h3 { font-size: 1.2rem; margin-bottom: 16px; color: var(--orange); }
-
-    .patch-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      padding: 10px 0;
-      border-bottom: 1px solid var(--border);
-      color: var(--gray-text);
-      font-size: 0.9rem;
-    }
-
+    .patch-item { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); color: var(--gray-text); font-size: 0.9rem; }
     .patch-item::before { content: '→'; color: var(--orange); flex-shrink: 0; }
 
     /* ── TEAM PAGE ── */
-    .team-hero {
-      text-align: center;
-      padding: 80px 40px 40px;
-    }
-
+    .team-hero { text-align: center; padding: 80px 40px 40px; }
     .team-hero h1 { font-size: 3rem; font-weight: 800; margin-bottom: 12px; }
     .team-hero h1 span { color: var(--orange); }
     .team-hero p { color: var(--gray-text); }
-
     .team-section { max-width: 1100px; margin: 0 auto; padding: 40px 40px; }
     .team-section h2 { font-size: 1.3rem; font-weight: 700; margin-bottom: 24px; color: var(--orange); letter-spacing: 0.05em; text-transform: uppercase; }
-
-    .team-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 16px;
-      margin-bottom: 48px;
-    }
-
-    .team-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 24px;
-      transition: all 0.2s;
-    }
-
+    .team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; margin-bottom: 48px; }
+    .team-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; transition: all 0.2s; }
     .team-card:hover { border-color: var(--orange); }
     .team-card.founder { border-color: rgba(255,107,0,0.5); }
-
     .team-card .crown { font-size: 1.5rem; margin-bottom: 12px; }
-
-    .team-card h3 {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 1rem;
-      font-weight: 700;
-      margin-bottom: 4px;
-      color: var(--white);
-    }
-
+    .team-card h3 { font-family: 'JetBrains Mono', monospace; font-size: 1rem; font-weight: 700; margin-bottom: 4px; color: var(--white); }
     .team-card .role { color: var(--orange); font-size: 0.8rem; font-weight: 600; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em; }
     .team-card p { color: var(--gray-text); font-size: 0.85rem; line-height: 1.5; }
     .about-divider { border-top: 1px solid var(--border); margin: 16px 0 10px; }
@@ -603,69 +409,29 @@
     .member-socials { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
     .member-social { background: rgba(255,107,0,0.1); border: 1px solid rgba(255,107,0,0.3); color: var(--orange); font-size: 0.75rem; font-weight: 600; padding: 4px 10px; border-radius: 20px; text-decoration: none; transition: all 0.2s; cursor: pointer; }
     .member-social:hover { background: rgba(255,107,0,0.25); border-color: var(--orange); }
-
-    .join-box {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 48px;
-      text-align: center;
-      margin: 0 40px 80px;
-      max-width: 1020px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
+    .join-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 48px; text-align: center; margin: 0 40px 80px; max-width: 1020px; margin-left: auto; margin-right: auto; }
     .join-box h2 { font-size: 1.8rem; margin-bottom: 12px; }
     .join-box h2 span { color: var(--orange); }
     .join-box p { color: var(--gray-text); margin-bottom: 28px; max-width: 500px; margin-left: auto; margin-right: auto; line-height: 1.7; }
     .join-box .buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
 
     /* ── LEGAL PAGE ── */
-    .legal-content {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 60px 40px 80px;
-    }
-
+    .legal-content { max-width: 800px; margin: 0 auto; padding: 60px 40px 80px; }
     .legal-content h1 { font-size: 2.5rem; margin-bottom: 8px; }
     .legal-content h1 span { color: var(--orange); }
     .legal-content .updated { color: var(--gray-text); font-size: 0.85rem; margin-bottom: 48px; font-family: 'JetBrains Mono', monospace; }
-
     .legal-section { margin-bottom: 48px; }
     .legal-section h2 { font-size: 1.4rem; color: var(--orange); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
     .legal-section h3 { font-size: 1.1rem; margin: 24px 0 10px; }
     .legal-section p { color: var(--gray-text); line-height: 1.8; margin-bottom: 12px; font-size: 0.95rem; }
 
     /* ── SOCIALS PAGE ── */
-    .socials-hero {
-      text-align: center;
-      padding: 80px 40px 40px;
-    }
-
+    .socials-hero { text-align: center; padding: 80px 40px 40px; }
     .socials-hero h1 { font-size: 3rem; font-weight: 800; margin-bottom: 12px; }
     .socials-hero h1 span { color: var(--orange); }
     .socials-hero p { color: var(--gray-text); }
-
-    .socials-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 20px;
-      max-width: 1100px;
-      margin: 40px auto 80px;
-      padding: 0 40px;
-    }
-
-    .social-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 32px;
-      text-align: center;
-      transition: all 0.2s;
-      cursor: pointer;
-    }
-
+    .socials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; max-width: 1100px; margin: 40px auto 80px; padding: 0 40px; }
+    .social-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 32px; text-align: center; transition: all 0.2s; cursor: pointer; }
     .social-card:hover { border-color: var(--orange); transform: translateY(-4px); }
     .social-card .s-icon { font-size: 2.5rem; margin-bottom: 16px; }
     .social-card h3 { font-size: 1.1rem; margin-bottom: 8px; }
@@ -689,14 +455,11 @@
     .devlog-hero h1 { font-size: 3rem; font-weight: 800; margin-bottom: 12px; }
     .devlog-hero h1 span { color: var(--orange); }
     .devlog-hero p { color: var(--gray-text); }
-
     .devlog-filters { display: flex; gap: 10px; flex-wrap: wrap; padding: 0 40px 32px; max-width: 1100px; margin: 0 auto; }
     .filter-btn { background: var(--bg-card); border: 1px solid var(--border); color: var(--gray-text); font-family: 'Syne', sans-serif; font-size: 0.85rem; font-weight: 600; padding: 8px 18px; border-radius: 20px; cursor: pointer; transition: all 0.2s; }
     .filter-btn:hover, .filter-btn.active { background: rgba(255,107,0,0.15); border-color: var(--orange); color: var(--orange); }
-
     .devlog-section { max-width: 800px; margin: 0 auto; padding: 40px 40px; }
     .devlog-section-title { font-size: 1.3rem; font-weight: 700; color: var(--orange); margin-bottom: 24px; text-transform: uppercase; letter-spacing: 0.05em; }
-
     .devlog-post { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 28px; margin-bottom: 20px; transition: all 0.2s; }
     .devlog-post:hover { border-color: var(--orange); }
     .devlog-post-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
@@ -715,36 +478,11 @@
     .devlog-empty { color: var(--gray-text); font-size: 0.9rem; font-style: italic; padding: 20px 0; }
 
     /* ── FOOTER ── */
-    footer {
-      background: var(--bg-dark);
-      border-top: 1px solid var(--border);
-      padding: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-
+    footer { background: var(--bg-dark); border-top: 1px solid var(--border); padding: 40px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
     footer .logo { font-size: 1rem; }
-
-    footer p {
-      color: var(--gray-text);
-      font-size: 0.8rem;
-    }
-
-    footer .footer-links { display: flex; gap: 20px; }
-
-    footer .footer-links button {
-      background: none;
-      border: none;
-      color: var(--gray-text);
-      font-family: 'Syne', sans-serif;
-      font-size: 0.8rem;
-      cursor: pointer;
-      transition: color 0.2s;
-    }
-
+    footer p { color: var(--gray-text); font-size: 0.8rem; }
+    footer .footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
+    footer .footer-links button { background: none; border: none; color: var(--gray-text); font-family: 'Syne', sans-serif; font-size: 0.8rem; cursor: pointer; transition: color 0.2s; }
     footer .footer-links button:hover { color: var(--orange); }
 
     /* ── SCROLLBAR ── */
@@ -767,6 +505,7 @@
       <button onclick="showPage('learn')" id="nav-learn">Learn</button>
       <button onclick="showPage('socials')" id="nav-socials">Socials</button>
       <button onclick="showPage('legal')" id="nav-legal">Legal</button>
+      <button onclick="window.location.href='https://protonsharp.com/isotope'" style="background:rgba(255,107,0,0.15);color:var(--orange);border:1px solid rgba(255,107,0,0.4);">🚀 Projects</button>
       <button onclick="window.location.href='https://docs.protonsharp.com'" style="background:var(--orange);color:#fff;border-color:var(--orange);">📖 Docs</button>
     </nav>
   </header>
@@ -907,6 +646,27 @@
 
     <hr/>
 
+    <!-- ══ PROJECTS SECTION ══ -->
+    <div class="projects-section">
+      <h2>Our <span>Projects</span></h2>
+      <p class="section-sub" style="color:var(--gray-text);font-size:1rem;">Beyond Proton# — see what else Velox Technologies is building.</p>
+      <div class="projects-grid">
+        <a class="project-card" href="https://protonsharp.com/isotope" target="_blank">
+          <div class="project-badge">Coming Soon</div>
+          <h3>IsotopeOS</h3>
+          <p>A modular, science-inspired Linux operating system built for everyone — from gamers to enterprises, students to developers. Powered by Velox Technologies.</p>
+          <div class="project-tags">
+            <span class="project-tag">Operating System</span>
+            <span class="project-tag">Linux</span>
+            <span class="project-tag">Velox Technologies</span>
+          </div>
+          <div class="project-arrow">Learn more →</div>
+        </a>
+      </div>
+    </div>
+
+    <hr/>
+
     <div class="beta-banner">
       <div class="icon">⚠️</div>
       <div>
@@ -919,12 +679,10 @@
 
   <!-- ══════════════ DOWNLOAD PAGE ══════════════ -->
   <div class="page" id="page-download">
-
     <div class="download-hero">
       <h1>Download <span>Proton#</span></h1>
       <p>Start creating today. It's completely free.</p>
     </div>
-
     <div style="max-width:600px;margin:0 auto;padding:0 40px 24px;">
       <div class="beta-banner" style="margin:0 0 32px;">
         <div class="icon">⚠️</div>
@@ -934,12 +692,10 @@
         </div>
       </div>
     </div>
-
     <div class="download-card" style="margin:0 auto 32px;">
       <div class="version-badge">v<span id="site-version-badge"></span>-<span id="site-stage-badge"></span></div>
       <h2>Proton# Studio</h2>
       <p>Latest beta release — Windows — Released 2026</p>
-
       <div class="checkbox-group">
         <label>
           <input type="checkbox" id="check1" onchange="updateDownloadBtn()"/>
@@ -950,18 +706,15 @@
           I have read and agree to the <a href="#" onclick="showPage('legal')">Terms of Service</a> and <a href="#" onclick="showPage('legal')">Software License</a>.
         </label>
       </div>
-
       <button class="btn-download" id="downloadBtn" onclick="startDownload()">
         ⬇ Download Proton# v<span id="site-version-dl"></span>-<span id="site-stage-dl"></span>
       </button>
     </div>
-
     <div class="patch-notes">
       <h3>📋 What's new in v<span id="site-version-patch"></span>-<span id="site-stage-patch"></span></h3>
       <div id="patch-notes-container"></div>
       <p style="color:var(--gray-text);font-size:0.8rem;margin-top:16px;">By downloading Proton# you agree to use it responsibly. Proton# is not liable for any damages caused by beta software.</p>
     </div>
-
     <div class="features-section">
       <h3>📊 Features</h3>
       <table class="features-table">
@@ -969,21 +722,15 @@
         <tbody id="features-table-body"></tbody>
       </table>
     </div>
-
   </div>
 
   <!-- ══════════════ TEAM PAGE ══════════════ -->
   <div class="page" id="page-team">
-
     <div class="team-hero">
       <h1>The <span>Team</span></h1>
       <p style="color:var(--gray-text);">The people building Proton# from the ground up.</p>
     </div>
-
-    <div class="team-section" id="team-container">
-      <!-- Team is generated by the config script below -->
-    </div>
-
+    <div class="team-section" id="team-container"></div>
     <div class="join-box">
       <h2>Want to <span>join the team?</span></h2>
       <p>We're always looking for passionate people to help build Proton#. All positions are volunteer based and open to everyone. No experience required but always appreciated! A resume is not required but recommended.</p>
@@ -993,36 +740,24 @@
       </div>
       <p style="color:var(--gray-text);font-size:0.8rem;margin-top:24px;margin-bottom:0;">Proton# is a volunteer passion project. All team members contribute in their own time. We appreciate every single one of them.</p>
     </div>
-
   </div>
 
   <!-- ══════════════ DEVLOG PAGE ══════════════ -->
   <div class="page" id="page-devlog">
-
     <div class="devlog-hero">
       <h1>Dev<span>log</span></h1>
       <p>Updates, announcements, and personal posts from the Proton# team.</p>
     </div>
-
-    <!-- Filter bar -->
-    <div class="devlog-filters" id="devlog-filters">
-      <!-- Populated by script -->
-    </div>
-
-    <!-- Announcements Section -->
+    <div class="devlog-filters" id="devlog-filters"></div>
     <div class="devlog-section">
       <h2 class="devlog-section-title">📢 Official Announcements</h2>
       <div id="announcements-container"></div>
     </div>
-
     <hr style="margin: 0 40px;"/>
-
-    <!-- Dev Diaries Section -->
     <div class="devlog-section">
       <h2 class="devlog-section-title">📖 Dev Diaries</h2>
       <div id="diaries-container"></div>
     </div>
-
   </div>
 
   <!-- ══════════════ LEARN PAGE ══════════════ -->
@@ -1031,10 +766,7 @@
       <h1 style="font-size:3rem; font-weight:800; margin-bottom:12px;">Learn <span style="color:var(--orange);">Proton#</span></h1>
       <p style="color:var(--gray-text);">Everything you need to start building with Proton.</p>
     </div>
-
     <div style="display:flex; gap:24px; max-width:900px; margin:0 auto; padding:0 40px 80px; flex-wrap:wrap;">
-
-      <!-- Docs Card -->
       <div style="flex:1; min-width:280px; background:var(--bg-card); border:1px solid var(--border); border-radius:16px; padding:32px; transition:all 0.2s; cursor:pointer;" onmouseover="this.style.borderColor='var(--orange)'" onmouseout="this.style.borderColor='var(--border)'" onclick="window.location.href='https://docs.protonsharp.com'">
         <div style="font-size:2.5rem; margin-bottom:16px;">📖</div>
         <h2 style="font-size:1.4rem; font-weight:700; margin-bottom:10px;">Official Docs</h2>
@@ -1047,8 +779,6 @@
         </div>
         <button class="btn-primary" onclick="window.location.href='https://docs.protonsharp.com'">Open Docs →</button>
       </div>
-
-      <!-- Wiki Card -->
       <div style="flex:1; min-width:280px; background:var(--bg-card); border:1px solid var(--border); border-radius:16px; padding:32px; transition:all 0.2s; cursor:pointer;" onmouseover="this.style.borderColor='var(--orange)'" onmouseout="this.style.borderColor='var(--border)'" onclick="window.open('https://proton-sharp.fandom.com/wiki/Proton_Sharp_Wiki')">
         <div style="font-size:2.5rem; margin-bottom:16px;">🌐</div>
         <h2 style="font-size:1.4rem; font-weight:700; margin-bottom:10px;">Community Wiki</h2>
@@ -1061,22 +791,16 @@
         </div>
         <button class="btn-primary" onclick="window.open('https://proton-sharp.fandom.com/wiki/Proton_Sharp_Wiki')">Open Wiki →</button>
       </div>
-
     </div>
   </div>
 
   <!-- ══════════════ SOCIALS PAGE ══════════════ -->
   <div class="page" id="page-socials">
-
     <div class="socials-hero">
       <h1>Find us <span>Online</span></h1>
       <p style="color:var(--gray-text);">Join the Proton# community across all platforms.</p>
     </div>
-
-    <div class="socials-grid" id="socials-grid">
-      <!-- Populated by team-config.js -->
-    </div>
-
+    <div class="socials-grid" id="socials-grid"></div>
   </div>
 
   <!-- ══════════════ LEGAL PAGE ══════════════ -->
@@ -1084,49 +808,35 @@
     <div class="legal-content">
       <h1>Legal <span>Documents</span></h1>
       <p class="updated">Last Updated: 2026</p>
-
       <div class="legal-section">
         <h2>1. Beta Terms of Service</h2>
         <p>By downloading, installing, or using Proton# you agree to these terms.</p>
-
         <h3>1.1 Beta Software</h3>
         <p>Proton# is currently in beta. It is unfinished software. Bugs, crashes, data loss, and incomplete features are expected. Use at your own risk.</p>
-
         <h3>1.2 Who Can Use It</h3>
         <p>Proton# is open to everyone. If you are under 13, please get a parent or guardian's permission before using the platform.</p>
-
         <h3>1.3 Your Creations</h3>
         <p>You own everything you create using Proton#. We do not claim ownership over your games or scripts.</p>
-
         <h3>1.4 Acceptable Use</h3>
         <p>You agree not to use Proton# to create or share anything that is illegal, harmful, hateful, or inappropriate.</p>
-
         <h3>1.5 Changes</h3>
         <p>We may update these terms at any time. Continued use of Proton# means you accept any changes.</p>
-
         <h3>1.6 Liability</h3>
         <p>Proton# is provided as-is with no warranties. We are not responsible for any damages caused by using beta software.</p>
       </div>
-
       <div class="legal-section">
         <h2>2. Software License</h2>
-
         <h3>2.1 Free to Use</h3>
         <p>Proton# Studio and the Proton scripting language are free to download and use.</p>
-
         <h3>2.2 You Own Your Games</h3>
         <p>Any game, script, or creation made using Proton# belongs to you, the creator.</p>
-
         <h3>2.3 What You Cannot Do</h3>
         <p>You may not resell, redistribute, or claim ownership of the Proton# software itself. You may not reverse engineer or modify the Proton# Studio application.</p>
-
         <h3>2.4 Open Community</h3>
         <p>You are encouraged to share your games and .pros scripts with the Proton# community.</p>
-
         <h3>2.5 No Warranty</h3>
         <p>This software is provided free of charge with no guarantees of fitness for any particular purpose.</p>
       </div>
-
       <div class="legal-section">
         <h2>3. Privacy Notice</h2>
         <p>This site is hosted on GitHub Pages. Visiting this site may be subject to GitHub's Privacy Policy. Proton# does not collect or store any personal data from visitors to this website.</p>
@@ -1146,11 +856,11 @@
       <button onclick="showPage('learn')">Learn</button>
       <button onclick="showPage('socials')">Socials</button>
       <button onclick="showPage('legal')">Legal</button>
+      <button onclick="window.location.href='https://protonsharp.com/isotope'">Projects</button>
     </div>
   </footer>
 
   <script>
-    // 🔒 MAIN SCRIPT — DO NOT EDIT
     const SOCIAL_META = {
       github:    { label: "GitHub",    emoji: "🐙", desc: "View our source code, report bugs, and follow development." },
       discord:   { label: "Discord",   emoji: "💬", desc: "Join our community server, get help, and chat with the team." },
@@ -1163,47 +873,23 @@
       twitch:    { label: "Twitch",    emoji: "🟣", desc: "Watch live dev streams and community events." },
     };
 
-    // ── BUILD SOCIALS PAGE ──
     function buildSocials() {
       const grid = document.getElementById('socials-grid');
       let html = '';
       let hasAny = false;
-
       for (const [key, url] of Object.entries(SOCIALS)) {
         if (!url) continue;
         hasAny = true;
         const meta = SOCIAL_META[key];
-        html += `
-          <div class="social-card">
-            <div class="s-icon">${meta.emoji}</div>
-            <h3>${meta.label}</h3>
-            <p>${meta.desc}</p>
-            <br/>
-            <button class="btn-primary" style="width:100%" onclick="window.open('${url}')">Visit ${meta.label}</button>
-          </div>`;
+        html += `<div class="social-card"><div class="s-icon">${meta.emoji}</div><h3>${meta.label}</h3><p>${meta.desc}</p><br/><button class="btn-primary" style="width:100%" onclick="window.open('${url}')">Visit ${meta.label}</button></div>`;
       }
-
-      if (!hasAny) {
-        html = `<p style="color:var(--gray-text);text-align:center;width:100%;">No social links added yet. Check back soon!</p>`;
-      }
-
-      // Support contact
+      if (!hasAny) html = `<p style="color:var(--gray-text);text-align:center;width:100%;">No social links added yet. Check back soon!</p>`;
       if (LINKS.support_email) {
-        html += `
-          <div class="social-card">
-            <div class="s-icon">📧</div>
-            <h3>Support</h3>
-            <p>Have a question or need help? Contact our support team directly.</p>
-            <br/>
-            <button class="btn-primary" style="width:100%" onclick="window.location.href='mailto:${LINKS.support_email}'">Contact Support</button>
-            <p style="color:var(--gray-text);font-size:0.75rem;margin-top:10px;">${LINKS.support_email}</p>
-          </div>`;
+        html += `<div class="social-card"><div class="s-icon">📧</div><h3>Support</h3><p>Have a question or need help? Contact our support team directly.</p><br/><button class="btn-primary" style="width:100%" onclick="window.location.href='mailto:${LINKS.support_email}'">Contact Support</button><p style="color:var(--gray-text);font-size:0.75rem;margin-top:10px;">${LINKS.support_email}</p></div>`;
       }
-
       grid.innerHTML = html;
     }
 
-    // ── MEMBER SOCIAL META ──
     const MEMBER_SOCIAL_META = {
       email:     { label: "Email",     emoji: "📧", isLink: true,  prefix: "mailto:" },
       github:    { label: "GitHub",    emoji: "🐙", isLink: true,  prefix: "" },
@@ -1218,13 +904,10 @@
       portfolio: { label: "Portfolio", emoji: "📁", isLink: true,  prefix: "" },
     };
 
-    // ── BUILD TEAM CARD ──
     function buildTeamCard(member, isFounder = false) {
       const name = member.username || "Open Position";
       const about = member.about || "This position is currently open! Apply below to join the team.";
       const cardClass = isFounder ? "team-card founder" : "team-card";
-
-      // Build socials row
       let socialsHtml = '';
       if (member.socials) {
         let socialBtns = '';
@@ -1233,80 +916,42 @@
           const meta = MEMBER_SOCIAL_META[key];
           if (!meta) continue;
           if (!meta.isLink) {
-            // Just show as a tag (e.g. Discord username)
             socialBtns += `<span class="member-social" title="${meta.label}: ${val}">${meta.emoji} ${val}</span>`;
           } else {
             const href = meta.prefix + val;
             socialBtns += `<a class="member-social" href="${href}" target="_blank">${meta.emoji} ${meta.label}</a>`;
           }
         }
-        if (socialBtns) {
-          socialsHtml = `<div class="about-divider"></div><div class="about-label">Connect</div><div class="member-socials">${socialBtns}</div>`;
-        }
+        if (socialBtns) socialsHtml = `<div class="about-divider"></div><div class="about-label">Connect</div><div class="member-socials">${socialBtns}</div>`;
       }
-
-      return `
-        <div class="${cardClass}">
-          <div class="crown">${member.emoji}</div>
-          <h3>${name}</h3>
-          <div class="role">${member.role}</div>
-          <p>${member.description}</p>
-          <div class="about-divider"></div>
-          <div class="about-label">About Me</div>
-          <p class="about-text">${about}</p>
-          ${socialsHtml}
-        </div>`;
+      return `<div class="${cardClass}"><div class="crown">${member.emoji}</div><h3>${name}</h3><div class="role">${member.role}</div><p>${member.description}</p><div class="about-divider"></div><div class="about-label">About Me</div><p class="about-text">${about}</p>${socialsHtml}</div>`;
     }
 
-    // ── BUILD TEAM PAGE ──
     function buildTeam() {
       const container = document.getElementById('team-container');
       let html = '';
-
-      // Founder
       html += `<h2>🔨 Founder & Lead Developer</h2><div class="team-grid">`;
       html += buildTeamCard(TEAM.founder, true);
       html += `</div>`;
-
-      // Dev Team
       html += `<h2>🔧 Core Development Team</h2><div class="team-grid">`;
       TEAM.dev.forEach(m => html += buildTeamCard(m));
       html += `</div>`;
-
-      // Community Team
       html += `<h2>🌍 Community Team</h2><div class="team-grid">`;
       TEAM.community.forEach(m => html += buildTeamCard(m));
       html += `</div>`;
-
-      // Positions Doc
       if (LINKS.positions_doc) {
-        html += `
-          <div style="margin-top:32px;">
-            <a href="${LINKS.positions_doc}" target="_blank" style="display:inline-flex;align-items:center;gap:10px;background:var(--bg-card);border:1px solid var(--border);color:var(--white);text-decoration:none;padding:14px 24px;border-radius:8px;font-family:'Syne',sans-serif;font-weight:600;font-size:0.95rem;transition:all 0.2s;" onmouseover="this.style.borderColor='var(--orange)';this.style.color='var(--orange)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--white)'">
-              📄 View Official Team Positions Document
-            </a>
-            <p style="color:var(--gray-text);font-size:0.8rem;margin-top:10px;">Full formal listing of all team positions, titles, and assignments.</p>
-          </div>`;
+        html += `<div style="margin-top:32px;"><a href="${LINKS.positions_doc}" target="_blank" style="display:inline-flex;align-items:center;gap:10px;background:var(--bg-card);border:1px solid var(--border);color:var(--white);text-decoration:none;padding:14px 24px;border-radius:8px;font-family:'Syne',sans-serif;font-weight:600;font-size:0.95rem;transition:all 0.2s;" onmouseover="this.style.borderColor='var(--orange)';this.style.color='var(--orange)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--white)'">📄 View Official Team Positions Document</a><p style="color:var(--gray-text);font-size:0.8rem;margin-top:10px;">Full formal listing of all team positions, titles, and assignments.</p></div>`;
       }
-
       container.innerHTML = html;
     }
 
-    // ── APPLY BUTTON ──
     function applyNow() {
-      if (LINKS.apply_form && LINKS.apply_form !== "YOUR_GOOGLE_FORM_LINK") {
-        window.open(LINKS.apply_form);
-      } else {
-        alert("Applications are not open yet. Check back soon!");
-      }
+      if (LINKS.apply_form && LINKS.apply_form !== "YOUR_GOOGLE_FORM_LINK") window.open(LINKS.apply_form);
+      else alert("Applications are not open yet. Check back soon!");
     }
 
-    // ── DOWNLOAD ──
-    function startDownload() {
-      window.location.href = LINKS.download;
-    }
+    function startDownload() { window.location.href = LINKS.download; }
 
-    // ── DOWNLOAD CHECKBOXES ──
     function updateDownloadBtn() {
       const c1 = document.getElementById('check1').checked;
       const c2 = document.getElementById('check2').checked;
@@ -1315,31 +960,21 @@
       else btn.classList.remove('enabled');
     }
 
-    // ── PAGE NAVIGATION ──
     function showPage(name) {
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
       document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
       document.getElementById('page-' + name).classList.add('active');
-      document.getElementById('nav-' + name).classList.add('active');
+      const navEl = document.getElementById('nav-' + name);
+      if (navEl) navEl.classList.add('active');
       window.scrollTo({ top: 0, behavior: 'smooth' });
       if (name === 'home') window.dispatchEvent(new Event('homeVisible'));
     }
 
-    // ── BUILD DEVLOG ──
     function buildDevlog(filterAuthor = null) {
       const annContainer = document.getElementById('announcements-container');
       let annHtml = '';
       ANNOUNCEMENTS.forEach(post => {
-        annHtml += `
-          <div class="devlog-post">
-            <div class="devlog-post-header">
-              <span class="devlog-tag tag-${post.tag}">${post.tag}</span>
-            </div>
-            <h3>${post.title}</h3>
-            <div class="devlog-meta">${post.date} — <span>Xynox1</span></div>
-            ${post.image ? `<img class="devlog-image" src="${post.image}" alt="${post.title}"/>` : ''}
-            <div class="devlog-body">${post.body}</div>
-          </div>`;
+        annHtml += `<div class="devlog-post"><div class="devlog-post-header"><span class="devlog-tag tag-${post.tag}">${post.tag}</span></div><h3>${post.title}</h3><div class="devlog-meta">${post.date} — <span>Xynox1</span></div>${post.image ? `<img class="devlog-image" src="${post.image}" alt="${post.title}"/>` : ''}<div class="devlog-body">${post.body}</div></div>`;
       });
       if (!annHtml) annHtml = '<p class="devlog-empty">No announcements yet. Check back soon!</p>';
       annContainer.innerHTML = annHtml;
@@ -1348,16 +983,7 @@
       let diaryHtml = '';
       const filtered = filterAuthor ? DIARIES.filter(p => p.author === filterAuthor) : DIARIES;
       filtered.forEach(post => {
-        diaryHtml += `
-          <div class="devlog-post">
-            <div class="devlog-post-header">
-              <span class="devlog-tag tag-diary">Dev Diary</span>
-            </div>
-            <h3>${post.title}</h3>
-            <div class="devlog-meta">${post.date} — <span onclick="buildDevlog('${post.author}')">${post.author}</span></div>
-            ${post.image ? `<img class="devlog-image" src="${post.image}" alt="${post.title}"/>` : ''}
-            <div class="devlog-body">${post.body}</div>
-          </div>`;
+        diaryHtml += `<div class="devlog-post"><div class="devlog-post-header"><span class="devlog-tag tag-diary">Dev Diary</span></div><h3>${post.title}</h3><div class="devlog-meta">${post.date} — <span onclick="buildDevlog('${post.author}')">${post.author}</span></div>${post.image ? `<img class="devlog-image" src="${post.image}" alt="${post.title}"/>` : ''}<div class="devlog-body">${post.body}</div></div>`;
       });
       if (!diaryHtml) diaryHtml = `<p class="devlog-empty">${filterAuthor ? 'No posts from ' + filterAuthor + ' yet.' : 'No dev diary posts yet. Check back soon!'}</p>`;
       diaryContainer.innerHTML = diaryHtml;
@@ -1365,299 +991,111 @@
       const filters = document.getElementById('devlog-filters');
       const authors = [...new Set(DIARIES.map(p => p.author))];
       let filtersHtml = `<button class="filter-btn ${!filterAuthor ? 'active' : ''}" onclick="buildDevlog()">All Devs</button>`;
-      authors.forEach(a => {
-        filtersHtml += `<button class="filter-btn ${filterAuthor === a ? 'active' : ''}" onclick="buildDevlog('${a}')">${a}</button>`;
-      });
+      authors.forEach(a => { filtersHtml += `<button class="filter-btn ${filterAuthor === a ? 'active' : ''}" onclick="buildDevlog('${a}')">${a}</button>`; });
       filters.innerHTML = filtersHtml;
     }
 
-    // ── INIT ──
-    try {
-      buildTeam();
-    } catch(e) {
-      document.getElementById('team-container').innerHTML = `
-        <div style="background:#ff000022;border:1px solid #ff4444;border-radius:12px;padding:24px;color:#ff8888;font-family:'JetBrains Mono',monospace;font-size:0.85rem;">
-          <strong>⚠️ Config Error in TEAM</strong><br><br>
-          ${e.message}<br><br>
-          Check the TEAM section at the top of this file for a missing comma, quote, or bracket.
-        </div>`;
-    }
-    try {
-      buildSocials();
-    } catch(e) {
-      document.getElementById('socials-grid').innerHTML = `
-        <div style="background:#ff000022;border:1px solid #ff4444;border-radius:12px;padding:24px;color:#ff8888;font-family:'JetBrains Mono',monospace;font-size:0.85rem;">
-          <strong>⚠️ Config Error in SOCIALS</strong><br><br>${e.message}
-        </div>`;
-    }
-    try {
-      buildDevlog();
-    } catch(e) {
-      document.getElementById('announcements-container').innerHTML = `
-        <div style="background:#ff000022;border:1px solid #ff4444;border-radius:12px;padding:24px;color:#ff8888;font-family:'JetBrains Mono',monospace;font-size:0.85rem;">
-          <strong>⚠️ Config Error in DEVLOG</strong><br><br>${e.message}
-        </div>`;
-    }
+    try { buildTeam(); } catch(e) { document.getElementById('team-container').innerHTML = `<div style="background:#ff000022;border:1px solid #ff4444;border-radius:12px;padding:24px;color:#ff8888;font-family:'JetBrains Mono',monospace;font-size:0.85rem;"><strong>⚠️ Config Error in TEAM</strong><br><br>${e.message}</div>`; }
+    try { buildSocials(); } catch(e) { document.getElementById('socials-grid').innerHTML = `<div style="background:#ff000022;border:1px solid #ff4444;border-radius:12px;padding:24px;color:#ff8888;font-family:'JetBrains Mono',monospace;font-size:0.85rem;"><strong>⚠️ Config Error in SOCIALS</strong><br><br>${e.message}</div>`; }
+    try { buildDevlog(); } catch(e) { document.getElementById('announcements-container').innerHTML = `<div style="background:#ff000022;border:1px solid #ff4444;border-radius:12px;padding:24px;color:#ff8888;font-family:'JetBrains Mono',monospace;font-size:0.85rem;"><strong>⚠️ Config Error in DEVLOG</strong><br><br>${e.message}</div>`; }
+
     document.getElementById('footer-copyright').textContent = '© ' + SITE.copyright + ' — ' + SITE.tagline;
     document.getElementById('legal-copyright').textContent = '© ' + SITE.copyright;
 
-    // ── VERSION ──
-    const v = SITE.version;
-    const s = SITE.stage;
+    const v = SITE.version, s = SITE.stage;
     const sCap = s.charAt(0).toUpperCase() + s.slice(1);
     ['site-version-hero','site-version-badge','site-version-dl','site-version-patch'].forEach(id => { const el = document.getElementById(id); if(el) el.textContent = v; });
     ['site-stage-badge','site-stage-dl','site-stage-patch'].forEach(id => { const el = document.getElementById(id); if(el) el.textContent = s; });
     const stageCap = document.getElementById('site-stage-cap'); if(stageCap) stageCap.textContent = sCap;
 
-    // ── PATCH NOTES ──
     const patchContainer = document.getElementById('patch-notes-container');
-    if (patchContainer) {
-      patchContainer.innerHTML = PATCH_NOTES.map(p =>
-        `<div class="patch-item"><span class="patch-tag tag-${p.tag}">${p.tag}</span>${p.text}</div>`
-      ).join('');
-    }
+    if (patchContainer) patchContainer.innerHTML = PATCH_NOTES.map(p => `<div class="patch-item"><span class="patch-tag tag-${p.tag}">${p.tag}</span>${p.text}</div>`).join('');
 
-    // ── FEATURES TABLE ──
     const featuresBody = document.getElementById('features-table-body');
-    if (featuresBody) {
-      featuresBody.innerHTML = FEATURES.map(f =>
-        `<tr><td>${f.feature}</td><td>${f.status}</td><td>${f.note}</td></tr>`
-      ).join('');
-    }
+    if (featuresBody) featuresBody.innerHTML = FEATURES.map(f => `<tr><td>${f.feature}</td><td>${f.status}</td><td>${f.note}</td></tr>`).join('');
 
     // ── FLAPPY BIRD GAME ──
     (function() {
       var gameStarted = false;
-
       function initGame() {
         if (gameStarted) return;
         var canvas = document.getElementById('demo-canvas');
         if (!canvas) return;
-        canvas.width = 320;
-        canvas.height = 480;
+        canvas.width = 320; canvas.height = 480;
         if (canvas.offsetWidth === 0) return;
         gameStarted = true;
-
         var ctx = canvas.getContext('2d');
         var W = 320, H = 480;
         var GRAVITY = 0.38, FLAP = -7.2, GAP = 175, PW = 52, SPD = 2.2, BR = 14;
-
-        function freshState() {
-          return {
-            bird: { x: 80, y: 220, vy: 0 },
-            pipes: [],
-            score: 0,
-            alive: false,   // wait for first click
-            waiting: true,  // show start screen
-            frame: 0,
-            pipeTimer: 0,
-            deathTimer: 0
-          };
-        }
-
-        var S = freshState();
-        var best = 0;
-
+        function freshState() { return { bird: { x: 80, y: 220, vy: 0 }, pipes: [], score: 0, alive: false, waiting: true, frame: 0, pipeTimer: 0, deathTimer: 0 }; }
+        var S = freshState(); var best = 0;
         function flap() {
-          if (S.waiting) {
-            // Start the game on first click
-            S.waiting = false;
-            S.alive = true;
-            S.bird.vy = FLAP;
-            // Spawn first two pipes off-screen
-            S.pipes = [
-              { x: W+120, gapY: 140+Math.floor(Math.random()*140), scored: false },
-              { x: W+340, gapY: 140+Math.floor(Math.random()*140), scored: false }
-            ];
-            return;
-          }
+          if (S.waiting) { S.waiting = false; S.alive = true; S.bird.vy = FLAP; S.pipes = [{ x: W+120, gapY: 140+Math.floor(Math.random()*140), scored: false }, { x: W+340, gapY: 140+Math.floor(Math.random()*140), scored: false }]; return; }
           if (!S.alive && S.deathTimer <= 0) { S = freshState(); return; }
           if (S.alive) S.bird.vy = FLAP;
         }
-
-        function spawnPipe() {
-          // gapY = top of gap. Min 80, max so bottom of gap stays above ground (H-60=420)
-          // gap bottom = gapY+GAP, must be < 400 → gapY < 270
-          var gapY = 100 + Math.floor(Math.random() * 150); // 100–250, always centred and fair
-          S.pipes.push({ x: W+PW, gapY: gapY, scored: false });
-        }
-
+        function spawnPipe() { var gapY = 100 + Math.floor(Math.random() * 150); S.pipes.push({ x: W+PW, gapY: gapY, scored: false }); }
         canvas.addEventListener('click', flap);
         canvas.addEventListener('touchstart', function(e){ e.preventDefault(); flap(); });
-        document.addEventListener('keydown', function(e){
-          if (e.code === 'Space') { e.preventDefault(); flap(); }
-        });
-
+        document.addEventListener('keydown', function(e){ if (e.code === 'Space') { e.preventDefault(); flap(); } });
         function drawBg() {
-          var sky = ctx.createLinearGradient(0,0,0,H);
-          sky.addColorStop(0,'#0a0520');
-          sky.addColorStop(0.7,'#1a0a00');
-          sky.addColorStop(1,'#2a1000');
-          ctx.fillStyle = sky;
-          ctx.fillRect(0,0,W,H);
-          [[40,30],[90,15],[150,45],[200,20],[260,35],[30,80],[120,65],[180,90],[280,55],[60,110],[220,105]].forEach(function(s){
-            ctx.globalAlpha = 0.3 + 0.7*Math.abs(Math.sin(S.frame*0.025+s[0]));
-            ctx.fillStyle = '#fff';
-            ctx.fillRect(s[0],s[1],1.5,1.5);
-          });
-          ctx.globalAlpha = 1;
-          ctx.fillStyle = '#1a0800';
-          ctx.fillRect(0,H-60,W,60);
-          var g = ctx.createLinearGradient(0,H-62,0,H-54);
-          g.addColorStop(0,'#FF6B00'); g.addColorStop(1,'#331400');
-          ctx.fillStyle = g;
-          ctx.fillRect(0,H-62,W,8);
+          var sky = ctx.createLinearGradient(0,0,0,H); sky.addColorStop(0,'#0a0520'); sky.addColorStop(0.7,'#1a0a00'); sky.addColorStop(1,'#2a1000'); ctx.fillStyle = sky; ctx.fillRect(0,0,W,H);
+          [[40,30],[90,15],[150,45],[200,20],[260,35],[30,80],[120,65],[180,90],[280,55],[60,110],[220,105]].forEach(function(s){ ctx.globalAlpha = 0.3 + 0.7*Math.abs(Math.sin(S.frame*0.025+s[0])); ctx.fillStyle = '#fff'; ctx.fillRect(s[0],s[1],1.5,1.5); });
+          ctx.globalAlpha = 1; ctx.fillStyle = '#1a0800'; ctx.fillRect(0,H-60,W,60);
+          var g = ctx.createLinearGradient(0,H-62,0,H-54); g.addColorStop(0,'#FF6B00'); g.addColorStop(1,'#331400'); ctx.fillStyle = g; ctx.fillRect(0,H-62,W,8);
         }
-
         function drawPipe(p) {
-          var grad = ctx.createLinearGradient(p.x,0,p.x+PW,0);
-          grad.addColorStop(0,'#1a0800');
-          grad.addColorStop(0.4,'#cc4400');
-          grad.addColorStop(1,'#331400');
-          // top pipe — ends exactly at p.gapY, nothing drawn below
-          ctx.fillStyle = grad;
-          ctx.fillRect(p.x, 0, PW, p.gapY);
-
-          // bottom pipe — starts exactly at p.gapY+GAP, nothing drawn above
-          ctx.fillStyle = grad;
-          ctx.fillRect(p.x, p.gapY + GAP, PW, H - (p.gapY + GAP));
+          var grad = ctx.createLinearGradient(p.x,0,p.x+PW,0); grad.addColorStop(0,'#1a0800'); grad.addColorStop(0.4,'#cc4400'); grad.addColorStop(1,'#331400');
+          ctx.fillStyle = grad; ctx.fillRect(p.x, 0, PW, p.gapY);
+          ctx.fillStyle = grad; ctx.fillRect(p.x, p.gapY + GAP, PW, H - (p.gapY + GAP));
         }
-
         function drawBird() {
-          ctx.save();
-          ctx.translate(S.bird.x, S.bird.y);
-          ctx.rotate(Math.max(-0.5, Math.min(1.2, S.bird.vy*0.07)));
-          ctx.shadowBlur = 16; ctx.shadowColor = '#FF6B00';
-          ctx.fillStyle = '#FF6B00';
-          ctx.beginPath(); ctx.ellipse(0,0,BR,BR-2,0,0,Math.PI*2); ctx.fill();
-          ctx.fillStyle = '#cc4400';
-          ctx.beginPath(); ctx.ellipse(-4, 4+Math.sin(S.frame*0.25)*3, 8, 5, -0.3, 0, Math.PI*2); ctx.fill();
-          ctx.shadowBlur = 0;
-          ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(6,-4,5,0,Math.PI*2); ctx.fill();
+          ctx.save(); ctx.translate(S.bird.x, S.bird.y); ctx.rotate(Math.max(-0.5, Math.min(1.2, S.bird.vy*0.07)));
+          ctx.shadowBlur = 16; ctx.shadowColor = '#FF6B00'; ctx.fillStyle = '#FF6B00'; ctx.beginPath(); ctx.ellipse(0,0,BR,BR-2,0,0,Math.PI*2); ctx.fill();
+          ctx.fillStyle = '#cc4400'; ctx.beginPath(); ctx.ellipse(-4, 4+Math.sin(S.frame*0.25)*3, 8, 5, -0.3, 0, Math.PI*2); ctx.fill();
+          ctx.shadowBlur = 0; ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(6,-4,5,0,Math.PI*2); ctx.fill();
           ctx.fillStyle = '#1a0800'; ctx.beginPath(); ctx.arc(7,-4,2.5,0,Math.PI*2); ctx.fill();
-          ctx.fillStyle = '#ffaa00';
-          ctx.beginPath(); ctx.moveTo(12,-2); ctx.lineTo(18,0); ctx.lineTo(12,3); ctx.closePath(); ctx.fill();
+          ctx.fillStyle = '#ffaa00'; ctx.beginPath(); ctx.moveTo(12,-2); ctx.lineTo(18,0); ctx.lineTo(12,3); ctx.closePath(); ctx.fill();
           ctx.restore();
         }
-
         function drawHUD() {
-          ctx.shadowBlur = 8; ctx.shadowColor = '#FF6B00';
-          ctx.fillStyle = '#fff';
-          ctx.font = 'bold 32px "JetBrains Mono",monospace';
-          ctx.textAlign = 'center';
-          ctx.fillText(S.score, W/2, 56);
-          ctx.shadowBlur = 0;
-          if (best > 0) {
-            ctx.fillStyle = 'rgba(255,107,0,0.6)';
-            ctx.font = '11px "JetBrains Mono",monospace';
-            ctx.fillText('BEST '+best, W/2, 74);
-          }
+          ctx.shadowBlur = 8; ctx.shadowColor = '#FF6B00'; ctx.fillStyle = '#fff'; ctx.font = 'bold 32px "JetBrains Mono",monospace'; ctx.textAlign = 'center'; ctx.fillText(S.score, W/2, 56); ctx.shadowBlur = 0;
+          if (best > 0) { ctx.fillStyle = 'rgba(255,107,0,0.6)'; ctx.font = '11px "JetBrains Mono",monospace'; ctx.fillText('BEST '+best, W/2, 74); }
           ctx.textAlign = 'left';
-          // tap hint — only show for first 3 seconds
-          if (S.frame < 180) {
-            ctx.fillStyle = 'rgba(255,255,255,' + (0.7 * (1 - S.frame/180)) + ')';
-            ctx.font = '12px "JetBrains Mono",monospace';
-            ctx.textAlign = 'center';
-            ctx.fillText('click or space to flap', W/2, H-72);
-            ctx.textAlign = 'left';
-          }
+          if (S.frame < 180) { ctx.fillStyle = 'rgba(255,255,255,' + (0.7 * (1 - S.frame/180)) + ')'; ctx.font = '12px "JetBrains Mono",monospace'; ctx.textAlign = 'center'; ctx.fillText('click or space to flap', W/2, H-72); ctx.textAlign = 'left'; }
         }
-
         function loop() {
           S.frame++;
-
-          if (S.deathTimer > 0) {
-            S.deathTimer--;
-            S.bird.vy += GRAVITY;
-            S.bird.y  += S.bird.vy;
-          }
-
-          // Bob bird gently on start screen
-          if (S.waiting) {
-            S.bird.y = 220 + Math.sin(S.frame * 0.05) * 12;
-          }
-
+          if (S.deathTimer > 0) { S.deathTimer--; S.bird.vy += GRAVITY; S.bird.y += S.bird.vy; }
+          if (S.waiting) S.bird.y = 220 + Math.sin(S.frame * 0.05) * 12;
           if (S.alive) {
-            S.bird.vy += GRAVITY;
-            S.bird.y  += S.bird.vy;
-            S.pipeTimer++;
+            S.bird.vy += GRAVITY; S.bird.y += S.bird.vy; S.pipeTimer++;
             if (S.pipeTimer > 140) { spawnPipe(); S.pipeTimer = 0; }
-            S.pipes.forEach(function(p) {
-              p.x -= SPD;
-              if (!p.scored && p.x + PW < S.bird.x) {
-                S.score++;
-                p.scored = true;
-                if (S.score > best) best = S.score;
-              }
-            });
+            S.pipes.forEach(function(p) { p.x -= SPD; if (!p.scored && p.x + PW < S.bird.x) { S.score++; p.scored = true; if (S.score > best) best = S.score; } });
             S.pipes = S.pipes.filter(function(p){ return p.x > -PW-10; });
-
             var dead = S.bird.y + BR > H-60 || S.bird.y - BR < 0;
-            S.pipes.forEach(function(p){
-              if (S.bird.x+BR > p.x && S.bird.x-BR < p.x+PW) {
-                if (S.bird.y-BR < p.gapY || S.bird.y+BR > p.gapY+GAP) dead = true;
-              }
-            });
+            S.pipes.forEach(function(p){ if (S.bird.x+BR > p.x && S.bird.x-BR < p.x+PW) { if (S.bird.y-BR < p.gapY || S.bird.y+BR > p.gapY+GAP) dead = true; } });
             if (dead) { S.alive = false; S.deathTimer = 50; S.bird.vy = -5; }
           }
-
-          ctx.clearRect(0,0,W,H);
-          drawBg();
-          S.pipes.forEach(drawPipe);
-          drawBird();
-          drawHUD();
-
+          ctx.clearRect(0,0,W,H); drawBg(); S.pipes.forEach(drawPipe); drawBird(); drawHUD();
           if (S.waiting) {
-            // Start screen — welcoming, not game over
-            ctx.fillStyle = 'rgba(0,0,0,0.55)';
-            ctx.fillRect(0,0,W,H);
-            ctx.shadowBlur = 24; ctx.shadowColor = '#FF6B00';
-            ctx.fillStyle = '#FF6B00';
-            ctx.font = 'bold 14px "JetBrains Mono",monospace';
-            ctx.textAlign = 'center';
-            ctx.fillText('PROTON# DEMO', W/2, H/2-52);
-            ctx.shadowBlur = 0;
-            ctx.fillStyle = '#fff';
-            ctx.font = 'bold 34px Syne,sans-serif';
-            ctx.fillText('Flappy', W/2, H/2-14);
-            ctx.fillText('Proton#', W/2, H/2+28);
-            // Pulsing prompt
-            var pulse = 0.5 + 0.5*Math.sin(S.frame*0.08);
-            ctx.fillStyle = 'rgba(255,255,255,'+pulse+')';
-            ctx.font = '13px "JetBrains Mono",monospace';
-            ctx.fillText('click or space to play', W/2, H/2+68);
-            ctx.textAlign = 'left';
+            ctx.fillStyle = 'rgba(0,0,0,0.55)'; ctx.fillRect(0,0,W,H);
+            ctx.shadowBlur = 24; ctx.shadowColor = '#FF6B00'; ctx.fillStyle = '#FF6B00'; ctx.font = 'bold 14px "JetBrains Mono",monospace'; ctx.textAlign = 'center'; ctx.fillText('PROTON# DEMO', W/2, H/2-52); ctx.shadowBlur = 0;
+            ctx.fillStyle = '#fff'; ctx.font = 'bold 34px Syne,sans-serif'; ctx.fillText('Flappy', W/2, H/2-14); ctx.fillText('Proton#', W/2, H/2+28);
+            var pulse = 0.5 + 0.5*Math.sin(S.frame*0.08); ctx.fillStyle = 'rgba(255,255,255,'+pulse+')'; ctx.font = '13px "JetBrains Mono",monospace'; ctx.fillText('click or space to play', W/2, H/2+68); ctx.textAlign = 'left';
           } else if (!S.alive && S.deathTimer <= 0) {
-            ctx.fillStyle = 'rgba(0,0,0,0.6)'; ctx.fillRect(0,0,W,H);
-            ctx.fillStyle = '#ff4455';
-            ctx.font = 'bold 26px Syne,sans-serif';
-            ctx.textAlign = 'center';
-            ctx.fillText('GAME OVER', W/2, H/2-18);
-            ctx.fillStyle = '#fff';
-            ctx.font = 'bold 18px "JetBrains Mono",monospace';
-            ctx.fillText('Score: '+S.score, W/2, H/2+14);
-            if (S.score >= best && S.score > 0) {
-              ctx.fillStyle = '#FF6B00';
-              ctx.font = '13px "JetBrains Mono",monospace';
-              ctx.fillText('NEW BEST!', W/2, H/2+36);
-            }
-            ctx.fillStyle = 'rgba(255,255,255,0.5)';
-            ctx.font = '12px "JetBrains Mono",monospace';
-            ctx.fillText('click or space to retry', W/2, H/2+58);
-            ctx.textAlign = 'left';
+            ctx.fillStyle = 'rgba(0,0,0,0.6)'; ctx.fillRect(0,0,W,H); ctx.fillStyle = '#ff4455'; ctx.font = 'bold 26px Syne,sans-serif'; ctx.textAlign = 'center'; ctx.fillText('GAME OVER', W/2, H/2-18);
+            ctx.fillStyle = '#fff'; ctx.font = 'bold 18px "JetBrains Mono",monospace'; ctx.fillText('Score: '+S.score, W/2, H/2+14);
+            if (S.score >= best && S.score > 0) { ctx.fillStyle = '#FF6B00'; ctx.font = '13px "JetBrains Mono",monospace'; ctx.fillText('NEW BEST!', W/2, H/2+36); }
+            ctx.fillStyle = 'rgba(255,255,255,0.5)'; ctx.font = '12px "JetBrains Mono",monospace'; ctx.fillText('click or space to retry', W/2, H/2+58); ctx.textAlign = 'left';
           }
-
           requestAnimationFrame(loop);
         }
-
         loop();
       }
-
-      // Try on load and when home tab is clicked
       window.addEventListener('homeVisible', function(){ setTimeout(initGame, 30); });
       window.addEventListener('load', function(){ setTimeout(initGame, 150); });
     })();
-
   </script>
 
 </body>
