@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>IsotopeOS — by Velox Technologies</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --iso-bg: #04080F;
+      --iso-surface: #0A1020;
+      --iso-border: #1A2540;
+      --iso-accent: #378ADD;
+      --iso-accent2: #1D9E75;
+      --iso-text: #E8EEF8;
+      --iso-muted: #6B7A99;
+      --orange: #FF6B00;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--iso-bg);
+      color: var(--iso-text);
+      font-family: 'Space Grotesk', sans-serif;
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 2rem;
+      border-bottom: 0.5px solid var(--iso-border);
+      position: sticky;
+      top: 0;
+      background: var(--iso-bg);
+      z-index: 100;
+    }
+
+    .logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.1rem;
+      letter-spacing: -0.02em;
+      text-decoration: none;
+      color: var(--iso-text);
+    }
+
+    .logo span { color: var(--iso-accent); }
+
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+
+    .nav-links a {
+      color: var(--iso-muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--iso-text); }
+
+    .nav-back {
+      background: rgba(255,107,0,0.1);
+      border: 0.5px solid rgba(255,107,0,0.3);
+      color: var(--orange) !important;
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+      font-size: 0.8rem !important;
+    }
+
+    .nav-back:hover { background: rgba(255,107,0,0.2) !important; color: var(--orange) !important; }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 5rem 2rem 4rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 700px; height: 700px;
+      border-radius: 50%;
+      border: 0.5px solid rgba(55,138,221,0.07);
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%) rotate(45deg);
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      border: 0.5px solid rgba(29,158,117,0.06);
+      pointer-events: none;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(55,138,221,0.1);
+      border: 0.5px solid rgba(55,138,221,0.3);
+      color: var(--iso-accent);
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.35rem 1rem;
+      border-radius: 20px;
+      margin-bottom: 2rem;
+    }
+
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(3rem, 8vw, 5.5rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 .iso { color: var(--iso-accent); }
+
+    .tagline {
+      font-size: 1.1rem;
+      color: var(--iso-muted);
+      max-width: 520px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.7;
+    }
+
+    .cta-row {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+
+    .btn-primary {
+      background: var(--iso-accent);
+      color: #fff;
+      border: none;
+      padding: 0.85rem 2rem;
+      border-radius: 8px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: opacity 0.2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-primary:hover { opacity: 0.85; }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--iso-text);
+      border: 0.5px solid var(--iso-border);
+      padding: 0.85rem 2rem;
+      border-radius: 8px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: border-color 0.2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-secondary:hover { border-color: var(--iso-accent); }
+
+    .velox-tag { font-size: 0.75rem; color: var(--iso-muted); margin-top: 0.75rem; }
+    .velox-tag a { color: var(--iso-accent2); text-decoration: none; }
+    .velox-tag a:hover { text-decoration: underline; }
+
+    /* ── DIVIDER ── */
+    .divider { height: 0.5px; background: var(--iso-border); margin: 0 2rem; }
+
+    /* ── SECTION ── */
+    .section { padding: 4rem 2rem; max-width: 1100px; margin: 0 auto; }
+
+    .section-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--iso-accent2);
+      margin-bottom: 1rem;
+    }
+
+    .section h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 1rem;
+    }
+
+    .section p { color: var(--iso-muted); line-height: 1.8; max-width: 520px; }
+
+    /* ── TIERS ── */
+    .tiers {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 1rem;
+      margin-top: 3rem;
+    }
+
+    .tier {
+      background: var(--iso-surface);
+      border: 0.5px solid var(--iso-border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: border-color 0.2s;
+    }
+
+    .tier:hover { border-color: var(--iso-accent); }
+
+    .tier.featured {
+      border-color: rgba(55,138,221,0.4);
+      background: rgba(55,138,221,0.04);
+    }
+
+    .tier-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .tier-price {
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: var(--iso-accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .tier-price span { font-size: 0.8rem; color: var(--iso-muted); font-weight: 400; }
+    .tier-desc { font-size: 0.8rem; color: var(--iso-muted); line-height: 1.6; }
+
+    /* ── FEATURES ── */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+      margin-top: 3rem;
+    }
+
+    .feature {
+      background: var(--iso-surface);
+      border: 0.5px solid var(--iso-border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: border-color 0.2s;
+    }
+
+    .feature:hover { border-color: var(--iso-accent); }
+
+    .feature-icon {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      background: rgba(55,138,221,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+
+    .feature-icon svg {
+      width: 18px; height: 18px;
+      stroke: var(--iso-accent);
+      fill: none;
+      stroke-width: 1.5;
+    }
+
+    .feature h3 { font-size: 0.95rem; font-weight: 500; margin-bottom: 0.5rem; }
+    .feature p { font-size: 0.82rem; color: var(--iso-muted); line-height: 1.6; }
+
+    /* ── ECOSYSTEM ── */
+    .ecosystem {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .eco-card {
+      background: var(--iso-surface);
+      border: 0.5px solid var(--iso-border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: border-color 0.2s;
+    }
+
+    .eco-card:hover { border-color: var(--iso-accent2); }
+    .eco-card a { text-decoration: none; color: inherit; display: block; }
+
+    .eco-icon { font-size: 1.5rem; margin-bottom: 0.75rem; }
+
+    .eco-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .eco-desc { font-size: 0.8rem; color: var(--iso-muted); line-height: 1.5; }
+
+    .eco-link {
+      display: inline-block;
+      margin-top: 0.75rem;
+      font-size: 0.78rem;
+      color: var(--iso-accent2);
+    }
+
+    /* ── STACK PILLS ── */
+    .stack { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1.5rem; }
+
+    .pill {
+      background: var(--iso-surface);
+      border: 0.5px solid var(--iso-border);
+      border-radius: 20px;
+      padding: 0.4rem 1rem;
+      font-size: 0.8rem;
+      color: var(--iso-muted);
+    }
+
+    .pill.accent {
+      border-color: rgba(55,138,221,0.4);
+      color: var(--iso-accent);
+      background: rgba(55,138,221,0.08);
+    }
+
+    /* ── NOTIFY ── */
+    .notify-row { display: flex; gap: 0.5rem; margin-top: 1.5rem; flex-wrap: wrap; }
+
+    .notify-input {
+      background: var(--iso-surface);
+      border: 0.5px solid var(--iso-border);
+      border-radius: 8px;
+      padding: 0.7rem 1rem;
+      color: var(--iso-text);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.9rem;
+      flex: 1;
+      min-width: 200px;
+      outline: none;
+    }
+
+    .notify-input:focus { border-color: var(--iso-accent); }
+    .notify-input::placeholder { color: var(--iso-muted); }
+
+    .notify-btn {
+      background: var(--iso-accent);
+      color: #fff;
+      border: none;
+      padding: 0.7rem 1.25rem;
+      border-radius: 8px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.9rem;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .notify-btn:hover { opacity: 0.85; }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 2rem;
+      border-top: 0.5px solid var(--iso-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-left { font-size: 0.8rem; color: var(--iso-muted); }
+    .footer-left strong { color: var(--iso-text); }
+    .footer-left a { color: var(--orange); text-decoration: none; }
+    .footer-left a:hover { text-decoration: underline; }
+
+    /* ── ROADMAP ── */
+    .roadmap { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 1rem; }
+
+    .phase {
+      background: var(--iso-surface);
+      border: 0.5px solid var(--iso-border);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .phase-num {
+      background: rgba(55,138,221,0.1);
+      border: 0.5px solid rgba(55,138,221,0.3);
+      color: var(--iso-accent);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.3rem 0.75rem;
+      border-radius: 20px;
+      white-space: nowrap;
+      margin-top: 2px;
+    }
+
+    .phase-content h3 { font-size: 0.95rem; font-weight: 500; margin-bottom: 0.35rem; }
+    .phase-content p { font-size: 0.82rem; color: var(--iso-muted); line-height: 1.6; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="logo" href="https://protonsharp.com"><span>Isotope</span>OS</a>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#editions">Editions</a>
+      <a href="#ecosystem">Ecosystem</a>
+      <a href="#notify">Get Notified</a>
+      <a href="https://protonsharp.com" class="nav-back">← Back to Proton#</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="badge">Coming Soon — by Velox Technologies</div>
+    <h1><span class="iso">Isotope</span>OS</h1>
+    <p class="tagline">A modular, science-inspired Linux operating system built for everyone — gamers, enterprises, students, and developers.</p>
+    <div class="cta-row">
+      <a href="#features" class="btn-primary">Explore Features</a>
+      <a href="#notify" class="btn-secondary">Get Notified</a>
+    </div>
+    <p class="velox-tag">
+      Part of the Velox Technologies ecosystem —
+      <a href="https://protonsharp.com" target="_blank">Proton#</a> · Actinium · IsotopeOS
+    </p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- EDITIONS -->
+  <div class="section" id="editions">
+    <div class="section-label">Editions</div>
+    <h2>One OS. Four editions.</h2>
+    <p>Choose the edition that fits your needs — from free home use to full enterprise and education deployment.</p>
+    <div class="tiers">
+      <div class="tier">
+        <div class="tier-name">IsotopeOS</div>
+        <div class="tier-price">Free <span>forever</span></div>
+        <div class="tier-desc">For home users, hobbyists and gamers. Full OS with community support and basic parental controls.</div>
+      </div>
+      <div class="tier featured">
+        <div class="tier-name">IsotopeOS Pro</div>
+        <div class="tier-price">$5<span>/mo</span></div>
+        <div class="tier-desc">For power users and developers. Early access, Velox Cloud, priority support, and advanced parental controls.</div>
+      </div>
+      <div class="tier">
+        <div class="tier-name">IsotopeOS Business</div>
+        <div class="tier-price">$20<span>/seat/mo</span></div>
+        <div class="tier-desc">For companies. Device management, custom branding, dedicated support, and advanced parental controls.</div>
+      </div>
+      <div class="tier">
+        <div class="tier-name">IsotopeOS EDU</div>
+        <div class="tier-price">Free<span> for schools</span></div>
+        <div class="tier-desc">For education. Full parental controls, teacher dashboards, and a coding curriculum built in.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- FEATURES -->
+  <div class="section" id="features">
+    <div class="section-label">Features</div>
+    <h2>Built different.</h2>
+    <p>IsotopeOS ships with everything you need — your choice at first boot, no bloat, no forced installs.</p>
+    <div class="features">
+      <div class="feature">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <h3>Modular installs</h3>
+        <p>Choose exactly what gets installed at first boot — Gaming, Corporate, Education, or Minimal. Your machine, your rules.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3>Parental controls</h3>
+        <p>Built in across all editions. Basic for home, advanced for Pro and Business, full school-grade controls for EDU.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        </div>
+        <h3>Actinium browser</h3>
+        <p>Velox's own browser ships with every edition — fast, private, and deeply integrated with IsotopeOS.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <h3>Universal app support</h3>
+        <p>.vx native apps, .exe via Wine, .dmg via Darling, .deb and AppImage — run software from any platform.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+        <h3>Gaming ready</h3>
+        <p>Sober for Roblox, Steam, Lutris, and MangoHud pre-configured in the Gaming tier — one click setup.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+        </div>
+        <h3>Python pre-installed</h3>
+        <p>Python ships on every edition out of the box. No setup, no version conflicts — just open a terminal and go.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ECOSYSTEM -->
+  <div class="section" id="ecosystem">
+    <div class="section-label">Velox Ecosystem</div>
+    <h2>Everything connects.</h2>
+    <p>IsotopeOS is part of a broader ecosystem of tools built and maintained by Velox Technologies.</p>
+    <div class="ecosystem">
+      <div class="eco-card">
+        <div class="eco-icon">🖥️</div>
+        <div class="eco-name">IsotopeOS</div>
+        <div class="eco-desc">The OS you're looking at. Modular, science-themed, built for everyone.</div>
+        <span class="eco-link">You are here</span>
+      </div>
+      <div class="eco-card">
+        <a href="https://protonsharp.com" target="_blank">
+          <div class="eco-icon">⚛️</div>
+          <div class="eco-name">Proton#</div>
+          <div class="eco-desc">Velox's own general-purpose programming language. Pre-installable on IsotopeOS.</div>
+          <span class="eco-link">Visit protonsharp.com →</span>
+        </a>
+      </div>
+      <div class="eco-card">
+        <div class="eco-icon">🌐</div>
+        <div class="eco-name">Actinium</div>
+        <div class="eco-desc">Velox's own web browser. Ships with every edition of IsotopeOS by default.</div>
+        <span class="eco-link">Coming soon</span>
+      </div>
+      <div class="eco-card">
+        <div class="eco-icon">☁️</div>
+        <div class="eco-name">Velox Cloud</div>
+        <div class="eco-desc">Cloud storage and sync for Pro, Business, and EDU editions of IsotopeOS.</div>
+        <span class="eco-link">Coming soon</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- TECH STACK -->
+  <div class="section">
+    <div class="section-label">Tech Stack</div>
+    <h2>Solid foundations.</h2>
+    <p>IsotopeOS is built on proven open-source technology — transparent, trustworthy, and community tested.</p>
+    <div class="stack">
+      <div class="pill accent">Ubuntu Server base</div>
+      <div class="pill accent">X11 display server</div>
+      <div class="pill accent">GTK + Python DE</div>
+      <div class="pill">Wine (.exe support)</div>
+      <div class="pill">Darling (.dmg support)</div>
+      <div class="pill">Velox Store</div>
+      <div class="pill">.vx package format</div>
+      <div class="pill">Actinium browser</div>
+      <div class="pill">Python pre-installed</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ROADMAP -->
+  <div class="section">
+    <div class="section-label">Roadmap</div>
+    <h2>Where we're headed.</h2>
+    <p>IsotopeOS is in active development. Here's the plan.</p>
+    <div class="roadmap">
+      <div class="phase">
+        <div class="phase-num">Phase 1</div>
+        <div class="phase-content">
+          <h3>Foundation</h3>
+          <p>Ubuntu Server base, strip bloat, build system setup, bootable ISO.</p>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="phase-num">Phase 2</div>
+        <div class="phase-content">
+          <h3>Desktop Environment</h3>
+          <p>Window manager in C, panel and taskbar in GTK, app launcher and file manager in Python.</p>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="phase-num">Phase 3</div>
+        <div class="phase-content">
+          <h3>First Boot Wizard</h3>
+          <p>App tier selection, language and region, user account setup, driver detection.</p>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="phase-num">Phase 4</div>
+        <div class="phase-content">
+          <h3>Polish & Beta Release</h3>
+          <p>Branding, themes, performance tuning, documentation, and public beta launch.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- NOTIFY -->
+  <div class="section" id="notify">
+    <div class="section-label">Stay in the loop</div>
+    <h2>Be first to know.</h2>
+    <p>IsotopeOS is in development. Drop your email and we'll notify you when the beta drops.</p>
+    <div class="notify-row">
+      <input class="notify-input" type="email" placeholder="your@email.com" id="email-input"/>
+      <button class="notify-btn" onclick="handleNotify()">Notify me</button>
+    </div>
+    <p id="notify-msg" style="font-size:0.8rem;color:var(--iso-accent2);margin-top:0.75rem;display:none;">You're on the list! We'll be in touch.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <footer>
+    <div class="footer-left">
+      <strong>IsotopeOS</strong> by <a href="https://protonsharp.com" target="_blank">Velox Technologies</a> — All rights reserved © 2026
+    </div>
+    <div class="footer-left">
+      <a href="https://protonsharp.com" target="_blank">Proton#</a> · Actinium · IsotopeOS
+    </div>
+  </footer>
+
+  <script>
+    function handleNotify() {
+      const v = document.getElementById('email-input').value;
+      if (v && v.includes('@')) {
+        document.getElementById('notify-msg').style.display = 'block';
+        document.getElementById('email-input').value = '';
+      }
+    }
+  </script>
+
+</body>
+</html>
